@@ -1,0 +1,19 @@
+@{
+    ViewData ["Title"] = "Login Page";
+}
+
+@model NSS.MVC.Models.RazorViewModel
+
+<div>
+    <h1>LogInn</h1>
+    <ul>
+        <li>
+            <label for="EmployeeNumber">Ansatt nummer</label>
+            <input type="text" name="EmployeeNumber" value="@Model.EmployeeNumber"/>
+        </li>
+        <li>
+            <label for="Password">Passord</label>
+            <input type="text" name="Password" value="@Model.Password"/>
+        </li>
+    </ul>
+</div>
