@@ -6,7 +6,7 @@ namespace NSS.MVC.Controllers
     {
         public IActionResult Index ()
         { 
-            return view ();
+            return View();
         }
     }
 }
