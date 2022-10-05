@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {}
+    "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {
+    "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+        "projectUniqueName": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
         "projectName": "NordicDoorSuggestionSystem",
-        "projectPath": "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
-        "packagesPath": "C:\\Users\\marku\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\obj\\",
+        "projectPath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+        "packagesPath": "C:\\Users\\lauri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marku\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lauri\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -63,7 +56,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
