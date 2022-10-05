@@ -13,6 +13,11 @@ namespace NordicDoorSuggestionSystem.Controllers
             _logger = logger;
         }
 
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();
