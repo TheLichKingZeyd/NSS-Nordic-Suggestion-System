@@ -8,11 +8,11 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = NordicDoorSuggestionSystem
 build_property.RootNamespace = NordicDoorSuggestionSystem
-build_property.ProjectDir = C:\Users\DarkNet\Source\Repos\TheLichKingZeyd\NSS-Nordic-Suggestion-System\NordicDoorSuggestionSystem\
+build_property.ProjectDir = C:\Users\DarkNet\source\repos\TheLichKingZeyd\NSS-Nordic-Suggestion-System\NordicDoorSuggestionSystem\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\DarkNet\Source\Repos\TheLichKingZeyd\NSS-Nordic-Suggestion-System\NordicDoorSuggestionSystem
+build_property.MSBuildProjectDirectory = C:\Users\DarkNet\source\repos\TheLichKingZeyd\NSS-Nordic-Suggestion-System\NordicDoorSuggestionSystem
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/DarkNet/source/repos/TheLichKingZeyd/NSS-Nordic-Suggestion-System/NordicDoorSuggestionSystem/Views/Home/Index.cshtml]
