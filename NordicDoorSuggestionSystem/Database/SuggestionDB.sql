@@ -15,6 +15,23 @@ CREATE TABLE IF NOT EXISTS Employee
   Primary key (EmployeeNumber)
   );
 
+CREATE TABLE IF NOT EXISTS Department(
+DepartmentID: INT NOT NULL,
+DepartmentName: VARCHAR(50),
+DepartmentLeader: INT NOT NUll,
+PRIMARY KEY (DeprtmentID),
+FOREIGN KEY (DepartmentLeader) REFERENCES Employee(EmployeeNumber)
+);
+
+CREATE TABLE IF NOT EXISTS Team (
+TeamID: INT NOT NULL,
+TeamName: VARCHAR(50),
+TeamLeader: INT NOT NULL,
+/*TeamSgstnCount: INT DEFAULT 0,*/
+PRIMARY (TeamID),
+FOREIGN KEY (TeamLeader) REFERENCES Employee(EmployeeNumber),
+);
+
   CREATE TABLE IF NOT EXISTS Suggestion (
 
   SgstnID: INT NOT NULL,
@@ -35,6 +52,12 @@ CREATE TABLE IF NOT EXISTS Employee
   FOREIGN KEY (EmployeeNumber) REFERENCES Employee(EmployeeNumber),
   FOREIGN KEY (TeamID) REFERENCES Team(TeamID),
   FOREIGN KEY (ResponsibleEmployee) REFERENCES Employee(EmployeeNumber),
+  );
 
+  CREATE TABLE IF NOT EXISTS SgstnReason (
+    ReasonForDenial: TINYTEXT NOT NULL,
+    SgstnID: INT NOT NULL,
+    PRIMARY (ReasonForDenial,SgstnID),
+    FOREIGN KEY (SgstnID) REFERENCES Suggestion(SgstnID),
   );
 
