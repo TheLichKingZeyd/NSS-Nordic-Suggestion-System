@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Department(
 DepartmentID: INT NOT NULL,
 DepartmentName: VARCHAR(50),
 DepartmentLeader: INT NOT NUll,
-PRIMARY KEY (DeprtmentID),
+PRIMARY KEY (DepartmentID),
 FOREIGN KEY (DepartmentLeader) REFERENCES Employee(EmployeeNumber)
 );
 
