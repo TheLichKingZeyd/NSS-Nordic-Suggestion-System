@@ -28,7 +28,7 @@ TeamID: INT NOT NULL,
 TeamName: VARCHAR(50),
 TeamLeader: INT NOT NULL,
 /*TeamSgstnCount: INT DEFAULT 0,*/
-PRIMARY (TeamID),
+PRIMARY KEY (TeamID),
 FOREIGN KEY (TeamLeader) REFERENCES Employee(EmployeeNumber),
 );
 
