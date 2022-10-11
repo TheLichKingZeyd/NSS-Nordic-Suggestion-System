@@ -10,11 +10,29 @@
         {
             <input type="submit" value="Home" />
         }
-        <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Nytt Forslag</button>
-        <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Mine Forslag</button>
-        <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Mitt Team</button>
-        <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Oversikt</button>
-        <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Administrer</button>
-        <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Søk i Forslag</button>
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Nytt Forslag" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Mine Forslag" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Mitt Team" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Oversikt" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Administrer" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Søk" />
+        }
     </div>
 </body>

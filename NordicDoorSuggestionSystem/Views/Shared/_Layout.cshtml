@@ -36,6 +36,31 @@
         </main>
     </div>
 
+    <div class="container-fluid" style="position:fixed; bottom:0px; left: 0px; right:0px; height: 10%; background-color:white; display:flex; flex-direction:row; justify-content:center;">
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Home" />
+        }
+        <!--
+        @using (Html.BeginForm("Index", "Home"))
+        {
+                <input type="submit" value="Nytt Forslag" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+                <input type="submit" value="Mine Forslag" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+                <input type="submit" value="Mitt Team" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+                    <input type="submit" value="Oversikt" />
+        }
+        -->
+    </div>
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - NordicDoorSuggestionSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
