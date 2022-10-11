@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\marku\\.nuget\\packages\\": {},
+    "C:\\Users\\Markus\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+      "projectUniqueName": "E:\\School\\NordicDoor\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
       "projectName": "NordicDoorSuggestionSystem",
-      "projectPath": "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
-      "packagesPath": "C:\\Users\\marku\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marku\\School\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem\\obj\\",
+      "projectPath": "E:\\School\\NordicDoor\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+      "packagesPath": "C:\\Users\\Markus\\.nuget\\packages\\",
+      "outputPath": "E:\\School\\NordicDoor\\NordicDoorSuggestionSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\marku\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Markus\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
