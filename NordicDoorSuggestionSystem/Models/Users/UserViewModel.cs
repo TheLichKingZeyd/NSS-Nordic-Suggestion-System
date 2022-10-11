@@ -17,5 +17,9 @@ namespace NordicDoorSuggestionSystem.Models.Users
 
         public List<UserEntity> Users { get; set; }
         public bool IsAdmin { get; set; }
+
+        public bool isTeamLead { get; set; }
+
+        public bool isEmployee { get; set; }
     }
 }

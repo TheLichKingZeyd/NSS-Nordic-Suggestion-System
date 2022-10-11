@@ -53,6 +53,14 @@ namespace NordicDoorSuggestionSystem.Controllers
             if (model.IsAdmin)
                 roles.Add("Administrator");
             userRepository.Update(newUser, roles);
+
+             if (model.isTeamLead)
+                roles.Add("Teamleder");
+            userRepository.Update(newUser, roles);
+
+            if (model.isEmployee)
+                roles.Add("Employee");
+            userRepository.Update(newUser, roles);
             
             return RedirectToAction("Index");
         }

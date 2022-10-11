@@ -16,6 +16,19 @@ namespace NordicDoorSuggestionSystem.Repositories
             var existingRoles = userManager.GetRolesAsync(identity).Result;
             return existingRoles.FirstOrDefault(x => x == "Administrator") != null;
         }
+        public bool isTeamLead(string email)
+        {
+            var identity = userManager.Users.FirstOrDefault(x => x.Email == email);
+            var existingRoles = userManager.GetRolesAsync(identity).Result;
+            return existingRoles.FirstOrDefault(x => x == "Teamleder") != null;
+        }
+        public bool isEmployee(string email)
+        {
+            var identity = userManager.Users.FirstOrDefault(x => x.Email == email);
+            var existingRoles = userManager.GetRolesAsync(identity).Result;
+            return existingRoles.FirstOrDefault(x => x == "Ansatt") != null;
+        }
+
 
         protected void SetRoles(string userEmail, List<string> roles)
         {

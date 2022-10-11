@@ -30,8 +30,16 @@
                 <input type="Text" name="Role" value="@Model.Role" />
             </li>
         <li>
-            <label for="Role">Sett som administrator</label>
+            <label for="Role">Sett som Administrator</label>
                 <input asp-for="@Model.IsAdmin"/>
+        </li>
+        <li>
+            <label for="Teamleder">Sett som Teamleder</label>
+                <input asp-for="@Model.isTeamLead"/>
+        </li>
+        <li>
+            <label for="Ansatt">Sett som Ansatt</label>
+                <input asp-for="@Model.isEmployee"/>
         </li>
             <li>
                 <input type="submit" value="Lagre" />
