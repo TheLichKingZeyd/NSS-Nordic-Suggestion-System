@@ -1,22 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "NordicDoor Loginn";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">LogIn</h1>
-    <div>
-        <form>
-            <ul>
-                <li>
-                    <form action="" method="post">
-                        <label for="Ansattnummer">Ansatt nummer</label><br>
-                        <input type="text" id="Ansattnummer" name="Ansattnummer"><br>
-                        <label for="password">Passord</label><br>
-                        <input type="password" id="password" password="password"><br>
-                        <input type="submit" value="Logg inn">
-                    </form>
-                </li>
-            </ul>
-        </form>
-    </div>
-</div>
+@model NordicDoorSuggestionSystem.Models.RazorViewModel
+<h2>Et av de store spørsmålene vi må klare å svare på er, 
+    hvor lang tid tar det å gå til ørsta rådhus?  </h2>
+@{
+    
+    <h1>@Model.Content</h1>
+}
+
+<a asp-controller="Suggestions" asp-action="Index">Link til registreringsskjema</a>
