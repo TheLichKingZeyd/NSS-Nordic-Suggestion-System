@@ -8,11 +8,5 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult RedirectToHome()
-        {
-            return RedirectToAction("Index", "Home");
-        }
     }
 }

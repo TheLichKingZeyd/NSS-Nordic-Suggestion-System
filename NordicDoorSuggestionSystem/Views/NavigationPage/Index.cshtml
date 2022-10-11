@@ -5,13 +5,16 @@
 
 </head>
 <body>
-    <form style="height:90%; text-align:center; align-items:center; display:flex; justify-content:center; flex-direction:column; padding-top: 20px;">
-        <input type="submit" value="Home" onclick="@Url.Action("RedirectToHome","NavigationPage")" />
+    <div style="height:90%; text-align:center; align-items:center; display:flex; justify-content:center; flex-direction:column; padding-top: 20px;">
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Home" />
+        }
         <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Nytt Forslag</button>
         <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Mine Forslag</button>
         <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Mitt Team</button>
         <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Oversikt</button>
         <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Administrer</button>
         <button class="button buttonmenu" style="width:30%; height:40px; margin:5px;">Søk i Forslag</button>
-    </form>
+    </div>
 </body>
