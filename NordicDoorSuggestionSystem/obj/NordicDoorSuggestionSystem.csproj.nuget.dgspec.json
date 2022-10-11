@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {}
+    "C:\\Users\\lauri\\Skole\\MAIN\\NSS-Nordic-Suggestion-System-\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {
+    "C:\\Users\\lauri\\Skole\\MAIN\\NSS-Nordic-Suggestion-System-\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+        "projectUniqueName": "C:\\Users\\lauri\\Skole\\MAIN\\NSS-Nordic-Suggestion-System-\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
         "projectName": "NordicDoorSuggestionSystem",
-        "projectPath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+        "projectPath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS-Nordic-Suggestion-System-\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
         "packagesPath": "C:\\Users\\lauri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\obj\\",
+        "outputPath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS-Nordic-Suggestion-System-\\NordicDoorSuggestionSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lauri\\AppData\\Roaming\\NuGet\\NuGet.Config"

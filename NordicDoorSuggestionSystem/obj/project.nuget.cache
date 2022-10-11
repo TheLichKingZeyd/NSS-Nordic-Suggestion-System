@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ibyrHNZi+ce37xsG8QpfNy2K0qF1vtooQdADqmBewYHukgSQz9XdtVnN0HjQZC7cRc7se52Vedo2+lttzOOz3Q==",
+  "dgSpecHash": "dEdV8Lez8dzba6/VcOYXZqCRDh3c1EbjEhuuDGVLNzwnIRN+v2q36CDT310YV5RL48wxfxeKGi4gU6rBWZPisg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS Main\\NSS-Nordic-Suggestion-System\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
+  "projectFilePath": "C:\\Users\\lauri\\Skole\\MAIN\\NSS-Nordic-Suggestion-System-\\NordicDoorSuggestionSystem\\NordicDoorSuggestionSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lauri\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\lauri\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
