@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Suggestion Page One";
+}
+
+<body>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+    <h1>Skriv inn tittel på forbedring</h1>
+    <input type="text" name="" value="" placeholder="Tittel..." /> <br><br>
+    <h3>Hvem er ansvarlig for <br> å utføre forbedringen</h3> <br>
+    <label for="">Meg</label>
+    <input type="checkbox" name="" value="">
+    <label for="">Andre</label>
+    <input type="checkbox" name="" value=""> <br><br>
+    @using (Html.BeginForm("SuggestionTwo", "SuggestionPage"))
+    {
+        <input type="submit" name="" value="Neste">
+    }
+
+
+
+
+
+</body>
