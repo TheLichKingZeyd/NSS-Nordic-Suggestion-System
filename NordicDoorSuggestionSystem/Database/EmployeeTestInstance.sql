@@ -1,5 +1,5 @@
 ﻿Insert into employee(
-    EmplyeeNumber,
+    EmployeeNumber,
     FirstName,
     LastName,
     Password,
