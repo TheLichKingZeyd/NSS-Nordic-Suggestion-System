@@ -33,17 +33,17 @@
             <label for="Role">Sett som Administrator</label>
                 <input asp-for="@Model.IsAdmin"/>
         </li>
-        <li>
+        <!-- <li>
             <label for="Teamleder">Sett som Teamleder</label>
-                <input asp-for="@Model.isTeamLead"/>
+                <input asp-for=""/>
         </li>
         <li>
             <label for="Ansatt">Sett som Ansatt</label>
-                <input asp-for="@Model.isEmployee"/>
+                <input asp-for=""/>
         </li>
             <li>
                 <input type="submit" value="Lagre" />
-            </li>
+            </li> -->
         </ul>
     </form>
 }
@@ -51,12 +51,14 @@
     <tr>
         <td>Name</td>
         <td>Email</td>
+        <td>Role</td>
     </tr>
     @foreach (var user in Model.Users)
     {
         <tr>
             <td>@user.Name</td>
             <td>@user.Email</td>
+            <td>@user.Role</td>
             <td>
                 <form asp-action="delete" asp-controller="users" method="post">
                     <input type="hidden" name="Email" value="@user.Email" />

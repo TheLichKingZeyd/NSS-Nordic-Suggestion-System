@@ -29,10 +29,10 @@ TeamName: VARCHAR(50),
 TeamLeader: INT NOT NULL,
 /*TeamSgstnCount: INT DEFAULT 0,*/
 PRIMARY KEY (TeamID),
-FOREIGN KEY (TeamLeader) REFERENCES Employee(EmployeeNumber),
+FOREIGN KEY (TeamLeader) REFERENCES Employee(EmployeeNumber)
 );
 
-  CREATE TABLE IF NOT EXISTS Suggestion (
+CREATE TABLE IF NOT EXISTS Suggestion (
 
   SgstnID: INT NOT NULL,
   EmployeeNumber: INT NOT NULL,
@@ -51,13 +51,13 @@ FOREIGN KEY (TeamLeader) REFERENCES Employee(EmployeeNumber),
   PRIMARY KEY (SgstnID),
   FOREIGN KEY (EmployeeNumber) REFERENCES Employee(EmployeeNumber),
   FOREIGN KEY (TeamID) REFERENCES Team(TeamID),
-  FOREIGN KEY (ResponsibleEmployee) REFERENCES Employee(EmployeeNumber),
-  );
+  FOREIGN KEY (ResponsibleEmployee) REFERENCES Employee(EmployeeNumber)
+);
 
-  CREATE TABLE IF NOT EXISTS SgstnReason (
+CREATE TABLE IF NOT EXISTS SgstnReason (
     ReasonForDenial: TINYTEXT NOT NULL,
     SgstnID: INT NOT NULL,
     PRIMARY (ReasonForDenial,SgstnID),
-    FOREIGN KEY (SgstnID) REFERENCES Suggestion(SgstnID),
-  );
+    FOREIGN KEY (SgstnID) REFERENCES Suggestion(SgstnID)
+);
 

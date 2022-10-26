@@ -21,5 +21,9 @@ namespace NordicDoorSuggestionSystem.DataAccess
         }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<SuggestionEntity> Suggestion { get; set;}
+
+        public DbSet<CommentEntity> Comment {get; set;}
     }
+    
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserRepository userRepository;
@@ -32,6 +32,8 @@ namespace NordicDoorSuggestionSystem.Controllers
                     model.Role = currentUser.Role;
                     model.Team = currentUser.Team;
                     model.IsAdmin = userRepository.IsAdmin(currentUser.Email);
+                    // model.IsTeamLead = userRepository.IsTeamLead(currentUser.Email);
+                    // model.IsEmployee = userRepository.IsEmployee(currentUser.Email);
                 }
             }
             return View(model);
@@ -50,19 +52,19 @@ namespace NordicDoorSuggestionSystem.Controllers
                 Team = model.Team,
             };
             var roles = new List<string>();
-            if (model.IsAdmin)
+             if (model.IsAdmin)
                 roles.Add("Administrator");
             userRepository.Update(newUser, roles);
 
-             if (model.isTeamLead)
+            /* if (model.IsTeamLead)
                 roles.Add("Teamleder");
             userRepository.Update(newUser, roles);
 
-            if (model.isEmployee)
+            if (model.IsEmployee)
                 roles.Add("Employee");
-            userRepository.Update(newUser, roles);
+            userRepository.Update(newUser, roles); */
             
-            return RedirectToAction("Index");
+             return RedirectToAction("Index");
         }
 
         [HttpPost]

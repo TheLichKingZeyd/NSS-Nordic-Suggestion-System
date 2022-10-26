@@ -9,5 +9,7 @@ namespace NordicDoorSuggestionSystem.Repositories
         List<UserEntity> GetUsers();
         void Delete(string email);
         bool IsAdmin(string email);
+        // bool IsTeamLead(string email);
+        // bool IsEmployee(string email);
     }
 }

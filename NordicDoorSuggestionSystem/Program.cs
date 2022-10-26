@@ -25,12 +25,14 @@ public class Program
 
         builder.Services.AddDbContext<DataContext>(options =>
         {
+            
             options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
+            
         });
         
         builder.Services.AddScoped<IUserRepository, EFUserRepository>();
         
-
+        
         builder.Services.Configure<IdentityOptions>(options =>
         {
             // Default Lockout settings.
@@ -60,7 +62,12 @@ public class Program
         builder.Services.AddTransient<IEmailSender, AuthMessageSender>();
        
         var app = builder.Build();
-
+        using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+                db.Database.Migrate();
+            }
+            
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
