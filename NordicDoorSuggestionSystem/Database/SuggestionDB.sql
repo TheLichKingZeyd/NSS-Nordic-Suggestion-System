@@ -60,4 +60,3 @@ CREATE TABLE IF NOT EXISTS SgstnReason (
     PRIMARY (ReasonForDenial,SgstnID),
     FOREIGN KEY (SgstnID) REFERENCES Suggestion(SgstnID)
 );
-
