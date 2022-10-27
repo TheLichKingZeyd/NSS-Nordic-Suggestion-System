@@ -1,0 +1,15 @@
+@echo off
+
+:: kills the old docker image if one already exists and then creates a new one with the name NssServer
+docker kill NssServer
+
+docker image build -t NssServer .
+
+:: launchers a container using the image created earlier, and gives it the name NssServer using the port 80 external and 80 internal ps will be changed later
+docker container run --rm -it -d --name NssServer --publish 80:80 webapp
+
+echo.
+echo "Link: http://localhost:80/"
+echo.
+
+pause
