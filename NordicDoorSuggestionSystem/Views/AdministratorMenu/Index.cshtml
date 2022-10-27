@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Administrator Menu";
+}
+<head>
+
+</head>
+<body>
+    <div style="height:90%; text-align:center; align-items:center; display:flex; justify-content:center; flex-direction:column; padding-top: 20px;">
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Home" />
+        }
+        @using (Html.BeginForm("Index", "AdministrateEmployeeAccount"))
+        {
+            <input type="submit" value="Administrer Brukere" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Administrer Teams" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Visning" />
+        }
+    </div>
+</body>

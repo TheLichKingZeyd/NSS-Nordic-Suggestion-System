@@ -1,33 +1,25 @@
-@using NordicDoorSuggestionSystem.Models.Users
-@model UserViewModel
+@using NordicDoorSuggestionSystem.Models.Employee
+@model EmployeeAccountViewModel
 <h3>Rediger registrerte brukere</h3>
-@if(Model.Email!=null)
+@if(Model.EmployeeNumber!=null)
 {
     <form asp-action="save" asp-controller="users" method="post">
         <ul>
             <li>
-                <label for="Name">Navn</label>
-                <input type="text" name="Name" value="@Model.Name" />
+                <label for="FirstName">Fornavn</label>
+                <input type="text" name="FirstName" value="@Model.FirstName" />
             </li>
             <li>
-                <label for="Password">Passord</label>
-                <input type="password" name="Password" value="@Model.Password" />
-            </li>
-            <li>
-                <label for="Email">Email</label>
-                <input type="email" name="Email" value="@Model.Email" />
+                <label for="LastName">Etternavn</label>
+                <input type="text" name="LastName" value="@Model.LastName" />
             </li>
             <li>
                 <label for="EmployeeNumber">Ansattnummer</label>
                 <input type="text" name="EmployeeNumber" value="@Model.EmployeeNumber" />
             </li>
             <li>
-                <label for="Team">Team</label>
-                <input type="text" name="Team" value="@Model.Team" />
-            </li>
-            <li>
-                <label for="Role">Role</label>
-                <input type="Text" name="Role" value="@Model.Role" />
+                <label for="Role">Rolle</label>
+                <input type="text" name="Role" value="@Model.Role" />
             </li>
         <li>
             <label for="Role">Sett som Administrator</label>
@@ -49,25 +41,27 @@
 }
 <table>
     <tr>
-        <td>Name</td>
-        <td>Email</td>
+        <td>FirstName</td>
+        <td>LastName</td>
+        <td>EmployeeNumber</td>
         <td>Role</td>
     </tr>
-    @foreach (var user in Model.Users)
+    @foreach (var employee in Model.Employees)
     {
         <tr>
-            <td>@user.Name</td>
-            <td>@user.Email</td>
-            <td>@user.Role</td>
+            <td>@employee.FirstName</td>
+            <td>@employee.LastName</td>
+            <td>@employee.EmployeeNumber</td>
+            <td>@employee.Role</td>
             <td>
                 <form asp-action="delete" asp-controller="users" method="post">
-                    <input type="hidden" name="Email" value="@user.Email" />
+                    <input type="hidden" name="EmployeeNumber" value="@employee.EmployeeNumber" />
                     <input type="submit" value="Slett" />
                 </form>
             </td>
             <td>
                 <form asp-action="index" asp-controller="users" method="get">
-                    <input type="hidden" name="Email" value="@user.Email" />
+                    <input type="hidden" name="EmployeeNumber" value="@employee.EmployeeNumber" />
                     <input type="submit" value="Endre" />
                 </form>
             </td>

@@ -5,8 +5,8 @@ namespace NordicDoorSuggestionSystem.Models.Account;
 public class LoginViewModel
 {
     [Required]
-    [EmailAddress]
-    public string Email { get; set; }
+    [Display (Name = "Ansatt nummer")]
+    public string EmployeeNumber { get; set; }
 
     [Required]
     [DataType(DataType.Password)]
