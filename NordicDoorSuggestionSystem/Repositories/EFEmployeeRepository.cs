@@ -13,7 +13,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             this.dataContext = dataContext;
         }
 
-        public void Delete(string employeenumber)
+        public void Delete(int employeenumber)
         {
             EmployeeEntity? employee = GetEmployeeByNumber(employeenumber);
             if (employee == null)
@@ -22,9 +22,9 @@ namespace NordicDoorSuggestionSystem.Repositories
             dataContext.SaveChanges();
         }
 
-        private EmployeeEntity? GetEmployeeByNumber(string employeenumber)
+        private EmployeeEntity? GetEmployeeByNumber(int employeenumber)
         {
-            return dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber.ToString() == employeenumber);
+            return dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber == employeenumber);
         }
 
         public List<EmployeeEntity> GetEmployees()
@@ -34,7 +34,7 @@ namespace NordicDoorSuggestionSystem.Repositories
 
         public void Add(EmployeeEntity employee)
         {
-            var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber.ToString());
+            var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber);
             if (existingEmployee != null)
             {
                 throw new Exception("User already exists found");
@@ -44,7 +44,7 @@ namespace NordicDoorSuggestionSystem.Repositories
         }
         public void Update(EmployeeEntity employee, List<string> roles)
         {
-            var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber.ToString());
+            var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber);
             if (existingEmployee == null)
             {
                 throw new Exception("User not found");

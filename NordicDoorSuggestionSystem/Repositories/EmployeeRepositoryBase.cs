@@ -10,9 +10,9 @@ namespace NordicDoorSuggestionSystem.Repositories
             this.employeeManager = employeeManager;
         }
 
-        public bool IsAdmin(string username)
+        public bool IsAdmin(int employeename)
         {
-            var identity = employeeManager.Users.FirstOrDefault(x => x.UserName == username);
+            var identity = employeeManager.Users.FirstOrDefault(x => x.UserName == employeename.ToString());
             var existingRoles = employeeManager.GetRolesAsync(identity).Result;
             return existingRoles.FirstOrDefault(x => x == "Administrator") != null;
         }

@@ -5,6 +5,7 @@ namespace NordicDoorSuggestionSystem.Models.Account;
 public class RegisterViewModel
 {
     [Required]
+    [DataType(DataType.Text)]
     [Display(Name = "EmployeeNumber")]
     public string EmployeeNumber { get; set; }
 

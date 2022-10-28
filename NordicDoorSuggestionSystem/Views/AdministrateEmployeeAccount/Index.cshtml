@@ -3,8 +3,10 @@
 <h3>Rediger registrerte brukere</h3>
 @if(Model.EmployeeNumber!=null)
 {
-    <form asp-action="save" asp-controller="users" method="post">
+    <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
         <ul>
+            
+            
             <li>
                 <label for="FirstName">Fornavn</label>
                 <input type="text" name="FirstName" value="@Model.FirstName" />
@@ -21,21 +23,21 @@
                 <label for="Role">Rolle</label>
                 <input type="text" name="Role" value="@Model.Role" />
             </li>
-        <li>
+        @*<li>
             <label for="Role">Sett som Administrator</label>
                 <input asp-for="@Model.IsAdmin"/>
-        </li>
-        <!-- <li>
+        </li>*@
+        @*<li>
             <label for="Teamleder">Sett som Teamleder</label>
                 <input asp-for=""/>
         </li>
         <li>
             <label for="Ansatt">Sett som Ansatt</label>
                 <input asp-for=""/>
-        </li>
+        </li>*@
             <li>
                 <input type="submit" value="Lagre" />
-            </li> -->
+            </li> 
         </ul>
     </form>
 }
@@ -54,13 +56,14 @@
             <td>@employee.EmployeeNumber</td>
             <td>@employee.Role</td>
             <td>
-                <form asp-action="delete" asp-controller="users" method="post">
+                
+                <form asp-action="delete" asp-controller="AdministrateEmployeeAccount" method="post">
                     <input type="hidden" name="EmployeeNumber" value="@employee.EmployeeNumber" />
                     <input type="submit" value="Slett" />
                 </form>
             </td>
             <td>
-                <form asp-action="index" asp-controller="users" method="get">
+                <form asp-action="index" asp-controller="AdministrateEmployeeAccount" method="get">
                     <input type="hidden" name="EmployeeNumber" value="@employee.EmployeeNumber" />
                     <input type="submit" value="Endre" />
                 </form>

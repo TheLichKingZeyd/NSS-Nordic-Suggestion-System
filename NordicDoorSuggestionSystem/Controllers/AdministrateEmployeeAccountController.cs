@@ -4,6 +4,7 @@ using NordicDoorSuggestionSystem.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NordicDoorSuggestionSystem.Models.Account;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -43,26 +44,26 @@ namespace NordicDoorSuggestionSystem.Controllers
                 EmployeeNumber = model.EmployeeNumber,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                AccountPrivilege = model.AccountPrivilege,
                 SgstnCount = model.SgstnCount,
                 Role = model.Role,
             };
             var roles = new List<string>();
-            if (model.AccountPrivilege == "Administrator")
+            if (model.Role == "Administrator")
             {
                 roles.Add("Administrator");
             }
-            else if (model.AccountPrivilege == "Team Leader")
+            else if (model.Role == "Team Leader")
             {
                 //roles.Add();
             }
                 
-            employeeRepository.Update(newEmployeeAccount, roles);            
+            employeeRepository.Add(newEmployeeAccount);
+            //AccountController.Register(model, "");
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult Delete(string EmployeeNumber)
+        public IActionResult Delete(int EmployeeNumber)
         {
             employeeRepository.Delete(EmployeeNumber);
             return RedirectToAction("Index");
