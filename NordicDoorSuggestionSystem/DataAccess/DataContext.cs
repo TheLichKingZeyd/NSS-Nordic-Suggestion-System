@@ -1,7 +1,8 @@
-using NordicDoorSuggestionSystem.Entities;
+﻿using NordicDoorSuggestionSystem.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using NordicDoorSuggestionSystem.Models;
 
 namespace NordicDoorSuggestionSystem.DataAccess
 {

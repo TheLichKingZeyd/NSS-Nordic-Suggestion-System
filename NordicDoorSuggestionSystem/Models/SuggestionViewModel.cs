@@ -1,16 +1,15 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace NordicDoorSuggestionSystem.Entities
+namespace NordicDoorSuggestionSystem.Models
 {
-    [Table("Suggestions")]
-    public class SuggestionEntity
+    public class SuggestionViewModel
     {
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Context { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime DeadlineDate { get; set; }
         public string? Team { get; set; }
-
     }
 }

@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\NordicDoorSuggestionSystem",
-    "\\NordicDoorSuggestionSystem\\Database",
-    "\\NordicDoorSuggestionSystem\\Views",
-    "\\NordicDoorSuggestionSystem\\Views\\Home"
+    "\\NordicDoorSuggestionSystem"
   ],
-  "SelectedNode": "\\NordicDoorSuggestionSystem\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\NordicDoorSuggestionSystem.sln",
   "PreviewInSolutionExplorer": false
 }
