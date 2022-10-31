@@ -15,15 +15,15 @@ namespace NordicDoorSuggestionSystem.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly IUserRepository userRepository;
+        private readonly IEmployeeRepository employeeRepository;
         private readonly ILogger _logger;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender, ILoggerFactory loggerFactory, IUserRepository userRepository)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender, ILoggerFactory loggerFactory, IEmployeeRepository userRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            this.userRepository = userRepository;
+            this.employeeRepository = userRepository;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
@@ -49,7 +49,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.EmployeeNumber, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
@@ -95,13 +95,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email, EmailConfirmed = true, LockoutEnabled = false,LockoutEnd = null };
+                var user = new IdentityUser { UserName = model.EmployeeNumber, LockoutEnabled = false,LockoutEnd = null };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    userRepository.Add(new UserEntity
+                    employeeRepository.Add(new EmployeeEntity
                     {
-                        Email = model.Email
+                        EmployeeNumber = Int32.Parse(model.EmployeeNumber)
                     });
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link

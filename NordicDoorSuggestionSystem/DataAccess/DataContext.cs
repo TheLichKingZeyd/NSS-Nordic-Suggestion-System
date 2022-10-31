@@ -16,13 +16,12 @@ namespace NordicDoorSuggestionSystem.DataAccess
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserEntity>().HasKey(x => x.Id);
+            modelBuilder.Entity<EmployeeEntity>().HasKey(x => x.EmployeeNumber);
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<EmployeeEntity> Employees { get; set; }
         public DbSet<SuggestionEntity> Suggestion { get; set;}
-
         public DbSet<CommentEntity> Comment {get; set;}
     }
     

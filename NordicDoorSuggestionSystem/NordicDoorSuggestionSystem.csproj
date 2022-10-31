@@ -20,6 +20,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+		<PackageReference Include="Microsoft.VisualStudio.web.CodeGeneration.Design" Version="6.0.10" />
 		<PackageReference Include="MySqlConnector" Version="2.1.13" />
 		<PackageReference Include="MySql.Data" Version="8.0.30" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />

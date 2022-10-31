@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Navigation Page";
+}
+<head>
+
+</head>
+<body>
+    <div style="height:90%; text-align:center; align-items:center; display:flex; justify-content:center; flex-direction:column; padding-top: 20px;">
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Home" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Nytt Forslag" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Mine Forslag" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Mitt Team" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Oversikt" />
+        }
+        @using (Html.BeginForm("Index", "AdministratorMenu"))
+        {
+            <input type="submit" value="Administrer" />
+        }
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            <input type="submit" value="Søk" />
+        }
+    </div>
+</body>

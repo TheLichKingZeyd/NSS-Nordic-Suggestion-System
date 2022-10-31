@@ -2,18 +2,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace NordicDoorSuggestionSystem.Repositories
 {
-    public abstract class UserRepositoryBase
+    public abstract class EmployeeRepositoryBase
     {
-        UserManager<IdentityUser> userManager;
-        public UserRepositoryBase(UserManager<IdentityUser> userManager)
+        UserManager<IdentityUser> employeeManager;
+        public EmployeeRepositoryBase(UserManager<IdentityUser> employeeManager)
         {
-            this.userManager = userManager;
+            this.employeeManager = employeeManager;
         }
 
-        public bool IsAdmin(string email)
+        public bool IsAdmin(int employeename)
         {
-            var identity = userManager.Users.FirstOrDefault(x => x.Email == email);
-            var existingRoles = userManager.GetRolesAsync(identity).Result;
+            var identity = employeeManager.Users.FirstOrDefault(x => x.UserName == employeename.ToString());
+            var existingRoles = employeeManager.GetRolesAsync(identity).Result;
             return existingRoles.FirstOrDefault(x => x == "Administrator") != null;
         }
         /* public bool IsTeamLead(string email)
@@ -32,19 +32,19 @@ namespace NordicDoorSuggestionSystem.Repositories
 
         protected void SetRoles(string userEmail, List<string> roles)
         {
-            var identity = userManager.Users.FirstOrDefault(x => x.Email == userEmail);
-            var existingRoles = userManager.GetRolesAsync(identity).Result;
+            var identity = employeeManager.Users.FirstOrDefault(x => x.Email == userEmail);
+            var existingRoles = employeeManager.GetRolesAsync(identity).Result;
 
             //Remove role access before adding new
             foreach (var existingRole in existingRoles)
             {
-                var result = userManager.RemoveFromRoleAsync(identity, existingRole).Result;
+                var result = employeeManager.RemoveFromRoleAsync(identity, existingRole).Result;
             }
             foreach (var role in roles)
             {
-                if (!userManager.IsInRoleAsync(identity, role).Result)
+                if (!employeeManager.IsInRoleAsync(identity, role).Result)
                 {
-                    var result = userManager.AddToRoleAsync(identity, role).Result;
+                    var result = employeeManager.AddToRoleAsync(identity, role).Result;
                 }
             }
         }

@@ -11,9 +11,9 @@ namespace NordicDoorSuggestionSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUserRepository userRepository;
+        private readonly IEmployeeRepository userRepository;
 
-        public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
+        public HomeController(ILogger<HomeController> logger, IEmployeeRepository userRepository)
         {
             _logger = logger;
             this.userRepository = userRepository;

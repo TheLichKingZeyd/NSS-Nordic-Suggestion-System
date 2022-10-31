@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Suggestion Page Three";
+}
+
+<body>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+    <h1>Beskriv løsning</h1> <br><br>
+    <textarea name="" rows="8" cols="50">Hva skal gjøres...?</textarea> <br><br>
+
+    @using (Html.BeginForm("SuggestionFour", "SuggestionPage"))
+    {
+        <input type="submit" name="" value="Neste">
+    }
+    @using (Html.BeginForm("SuggestionTwo", "SuggestionPage"))
+    {
+        <input type="submit" name="" value="Tilbake">
+    }
+
+
+</body>
+

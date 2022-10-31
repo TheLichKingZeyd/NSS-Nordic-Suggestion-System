@@ -30,7 +30,7 @@ public class Program
             
         });
         
-        builder.Services.AddScoped<IUserRepository, EFUserRepository>();
+        builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
         
         
         builder.Services.Configure<IdentityOptions>(options =>
@@ -42,7 +42,7 @@ public class Program
             options.SignIn.RequireConfirmedPhoneNumber = false;
             options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedAccount = false;
-            options.User.RequireUniqueEmail = true;
+            options.User.RequireUniqueEmail = false;
         });
 
         builder.Services
