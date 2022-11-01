@@ -20,9 +20,16 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: Suggestion
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return View(await _context.Suggestion.ToListAsync());
+            var suggestions = from m in _context.Suggestion
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                suggestions = suggestions.Where(s => s.Title!.Contains(searchString));
+            }
+              return View(await suggestions.ToListAsync());
         }
 
         // GET: Suggestion/Details/5
