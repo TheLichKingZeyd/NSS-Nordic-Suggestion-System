@@ -54,7 +54,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Context,DeadlineDate,Team")] SuggestionEntity suggestionEntity)
+        public async Task<IActionResult> Create([Bind("Id,Title,Reason, Solution, Goal ,DeadlineDate,Team")] SuggestionEntity suggestionEntity)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Context,DeadlineDate,Team")] SuggestionEntity suggestionEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title, Reason, Solution, Goal ,DeadlineDate,Team")] SuggestionEntity suggestionEntity)
         {
             if (id != suggestionEntity.Id)
             {

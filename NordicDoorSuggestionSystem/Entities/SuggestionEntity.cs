@@ -8,7 +8,9 @@ namespace NordicDoorSuggestionSystem.Entities
     {
         public int Id { get; set; }
         public string? Title { get; set; }
-        public string? Context { get; set; }
+        public string? Reason {get; set;}
+        public string? Solution {get; set;}
+        public string? Goal {get; set;}
         public DateTime DeadlineDate { get; set; }
         public string? Team { get; set; }
 
