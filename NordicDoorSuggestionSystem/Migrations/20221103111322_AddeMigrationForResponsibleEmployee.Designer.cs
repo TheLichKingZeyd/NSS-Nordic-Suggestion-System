@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NordicDoorSuggestionSystem.DataAccess;
 
@@ -10,9 +11,10 @@ using NordicDoorSuggestionSystem.DataAccess;
 namespace bacit_dotnet.MVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221103111322_AddeMigrationForResponsibleEmployee")]
+    partial class AddeMigrationForResponsibleEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -358,8 +360,8 @@ namespace bacit_dotnet.MVC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateOnly?>("Deadline")
+                        .HasColumnType("date");
 
                     b.Property<int>("EmployeeEntityEmployeeNumber")
                         .HasColumnType("int");

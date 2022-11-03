@@ -11,9 +11,9 @@ namespace NordicDoorSuggestionSystem.Entities
         public EmployeeEntity EmployeeEntity { get; set; }
         public int? TeamID { get; set; }
         public TeamEntity TeamEntity { get; set; }
-        public int? ResposibleEmployeeNumber { get; set; }
+        public int? ResponsibleEmployeeNumber { get; set; }
         public DateTime? SubmissionTime { get; set; }
-        public DateOnly? Deadline { get; set; }
+        public DateTime Deadline { get; set; }
         public string? Title { get; set; }
         public string? ProbDescr { get; set; }
         public string? Solution { get; set; }
