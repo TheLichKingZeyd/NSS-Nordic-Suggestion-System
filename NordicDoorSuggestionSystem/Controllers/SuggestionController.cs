@@ -41,7 +41,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
 
             var suggestionEntity = await _context.Suggestion
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.SgstnID == id);
             if (suggestionEntity == null)
             {
                 return NotFound();
@@ -95,7 +95,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title, Reason, Solution, Goal ,DeadlineDate,Team")] SuggestionEntity suggestionEntity)
         {
-            if (id != suggestionEntity.Id)
+            if (id != suggestionEntity.SgstnID)
             {
                 return NotFound();
             }
@@ -109,7 +109,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SuggestionEntityExists(suggestionEntity.Id))
+                    if (!SuggestionEntityExists(suggestionEntity.SgstnID))
                     {
                         return NotFound();
                     }
@@ -132,7 +132,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
 
             var suggestionEntity = await _context.Suggestion
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.SgstnID == id);
             if (suggestionEntity == null)
             {
                 return NotFound();
@@ -162,7 +162,7 @@ namespace NordicDoorSuggestionSystem.Controllers
 
         private bool SuggestionEntityExists(int id)
         {
-          return _context.Suggestion.Any(e => e.Id == id);
+          return _context.Suggestion.Any(e => e.SgstnID == id);
         }
     }
 }
