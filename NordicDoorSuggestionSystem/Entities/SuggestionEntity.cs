@@ -3,16 +3,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NordicDoorSuggestionSystem.Entities
 {
-    [Table("Suggestions")]
+    [Table("Suggestion")]
     public class SuggestionEntity
     {
-        public int Id { get; set; }
+        public int SgstnID { get; set; }
+        public int EmployeeNumber { get; set; }
+        public EmployeeEntity EmployeeEntity { get; set; }
+        public int? TeamID { get; set; }
+        public TeamEntity TeamEntity { get; set; }
+        //public string? EmployeeNumber { get; set; }
+        //public EmployeeEntity employeeEntity { get; set; }
+        public DateTime? SubmissionTime { get; set; }
+        public DateOnly? Deadline { get; set; }
+        //public Dateonly? Deadline { get; set; }
         public string? Title { get; set; }
-        public string? Reason {get; set;}
-        public string? Solution {get; set;}
-        public string? Goal {get; set;}
-        public DateTime DeadlineDate { get; set; }
-        public string? Team { get; set; }
+        public string? ProbDescr { get; set; }
+        public string? Solution { get; set; }
+        public string? Goal { get; set; }
+        public bool HasMediaAttachments { get; set; }
+        public short? Progress { get; set; }
+        public bool HasReasoning { get; set; }
 
     }
 }
