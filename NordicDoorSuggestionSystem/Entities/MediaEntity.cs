@@ -10,7 +10,7 @@ namespace NordicDoorSuggestionSystem.Entities
         public DateTime? UploadTime { get; set; }
         public int EmployeeNumber { get; set; }
         public EmployeeEntity EmployeeEntity { get; set; }
-        public FileStream UploadedFile { get; set; } 
+        public byte[] UploadedFile { get; set; } 
         public string? SgstnID { get; set; }
         public SuggestionEntity SuggestionEntity { get; set; }
 

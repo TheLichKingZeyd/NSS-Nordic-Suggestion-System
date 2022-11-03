@@ -44,7 +44,6 @@ namespace NordicDoorSuggestionSystem.Controllers
                 EmployeeNumber = model.EmployeeNumber,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                SgstnCount = model.SgstnCount,
                 Role = model.Role,
             };
             var roles = new List<string>();
