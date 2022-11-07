@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace bacit_dotnet.MVC.Migrations
+namespace NordicDoorSuggestionSystem.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -68,27 +68,34 @@ namespace bacit_dotnet.MVC.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Department",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    DepartmentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    DepartmentName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmployeeNumber = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Team = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Role = table.Column<string>(type: "longtext", nullable: true)
+                    DepartmentLeader = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Department", x => x.DepartmentID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SuggestionReason",
+                columns: table => new
+                {
+                    ReasonID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ReasonForDenial = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SuggestionReason", x => x.ReasonID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -219,6 +226,166 @@ namespace bacit_dotnet.MVC.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Team",
+                columns: table => new
+                {
+                    TeamID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TeamName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TeamLeader = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TeamSgstnCount = table.Column<ushort>(type: "smallint unsigned", nullable: true),
+                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Team", x => x.TeamID);
+                    table.ForeignKey(
+                        name: "FK_Team_Department_DepartmentID",
+                        column: x => x.DepartmentID,
+                        principalTable: "Department",
+                        principalColumn: "DepartmentID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Role = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AccountState = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    ProfilePicture = table.Column<byte[]>(type: "longblob", nullable: true),
+                    SgstnCount = table.Column<ushort>(type: "smallint unsigned", nullable: true),
+                    TeamID = table.Column<int>(type: "int", nullable: false),
+                    EmployeeNumber1 = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.EmployeeNumber);
+                    table.ForeignKey(
+                        name: "FK_Employee_Employee_EmployeeNumber1",
+                        column: x => x.EmployeeNumber1,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeNumber");
+                    table.ForeignKey(
+                        name: "FK_Employee_Team_TeamID",
+                        column: x => x.TeamID,
+                        principalTable: "Team",
+                        principalColumn: "TeamID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Suggestion",
+                columns: table => new
+                {
+                    SuggestionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ResponsibleEmployee = table.Column<int>(type: "int", nullable: true),
+                    UploadTime = table.Column<DateTime>(type: "timestamp(6)", rowVersion: true, nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
+                    Title = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Problem = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Solution = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Goal = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Progress = table.Column<short>(type: "smallint", nullable: true),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: false),
+                    TeamID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Suggestion", x => x.SuggestionID);
+                    table.ForeignKey(
+                        name: "FK_Suggestion_Employee_EmployeeNumber",
+                        column: x => x.EmployeeNumber,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Suggestion_Team_TeamID",
+                        column: x => x.TeamID,
+                        principalTable: "Team",
+                        principalColumn: "TeamID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Comment",
+                columns: table => new
+                {
+                    CommentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Content = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CommentTime = table.Column<DateTime>(type: "timestamp(6)", rowVersion: true, nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
+                    SuggestionID = table.Column<int>(type: "int", nullable: false),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comment", x => x.CommentID);
+                    table.ForeignKey(
+                        name: "FK_Comment_Employee_EmployeeNumber",
+                        column: x => x.EmployeeNumber,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comment_Suggestion_SuggestionID",
+                        column: x => x.SuggestionID,
+                        principalTable: "Suggestion",
+                        principalColumn: "SuggestionID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Media",
+                columns: table => new
+                {
+                    MediaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UploadTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    UploadedFile = table.Column<byte[]>(type: "longblob", nullable: true),
+                    SuggestionID = table.Column<int>(type: "int", nullable: false),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Media", x => x.MediaID);
+                    table.ForeignKey(
+                        name: "FK_Media_Employee_EmployeeNumber",
+                        column: x => x.EmployeeNumber,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeNumber",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Media_Suggestion_SuggestionID",
+                        column: x => x.SuggestionID,
+                        principalTable: "Suggestion",
+                        principalColumn: "SuggestionID",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -255,6 +422,51 @@ namespace bacit_dotnet.MVC.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_EmployeeNumber",
+                table: "Comment",
+                column: "EmployeeNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comment_SuggestionID",
+                table: "Comment",
+                column: "SuggestionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employee_EmployeeNumber1",
+                table: "Employee",
+                column: "EmployeeNumber1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employee_TeamID",
+                table: "Employee",
+                column: "TeamID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Media_EmployeeNumber",
+                table: "Media",
+                column: "EmployeeNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Media_SuggestionID",
+                table: "Media",
+                column: "SuggestionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suggestion_EmployeeNumber",
+                table: "Suggestion",
+                column: "EmployeeNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suggestion_TeamID",
+                table: "Suggestion",
+                column: "TeamID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Team_DepartmentID",
+                table: "Team",
+                column: "DepartmentID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -275,13 +487,31 @@ namespace bacit_dotnet.MVC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "Media");
+
+            migrationBuilder.DropTable(
+                name: "SuggestionReason");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Suggestion");
+
+            migrationBuilder.DropTable(
+                name: "Employee");
+
+            migrationBuilder.DropTable(
+                name: "Team");
+
+            migrationBuilder.DropTable(
+                name: "Department");
         }
     }
 }

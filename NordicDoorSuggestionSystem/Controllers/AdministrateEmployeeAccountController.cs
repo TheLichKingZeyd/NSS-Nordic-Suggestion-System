@@ -1,5 +1,5 @@
 using NordicDoorSuggestionSystem.Entities;
-using NordicDoorSuggestionSystem.Models.Employee;
+using NordicDoorSuggestionSystem.Models.Employees;
 using NordicDoorSuggestionSystem.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -21,10 +21,10 @@ namespace NordicDoorSuggestionSystem.Controllers
         public IActionResult Index(string? employeenumber)
         {
             var model = new EmployeeAccountViewModel();
-            model.Employees = employeeRepository.GetEmployees();
+            model.Employee = employeeRepository.GetEmployees();
             if (employeenumber != null)
             {
-                var currentUser = model.Employees.FirstOrDefault(x => x.EmployeeNumber.ToString() == employeenumber);
+                var currentUser = model.Employee.FirstOrDefault(x => x.EmployeeNumber.ToString() == employeenumber);
                 if (currentUser != null)
                 {
                     model.EmployeeNumber = currentUser.EmployeeNumber;
@@ -39,7 +39,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         public IActionResult Save(EmployeeAccountViewModel model)
         {
-            EmployeeEntity newEmployeeAccount = new EmployeeEntity
+            Employee newEmployeeAccount = new Employee
             {
                 EmployeeNumber = model.EmployeeNumber,
                 FirstName = model.FirstName,

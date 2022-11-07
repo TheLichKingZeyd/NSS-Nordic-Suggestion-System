@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NordicDoorSuggestionSystem.Entities
 {
     [Table("Team")]
-    public class TeamEntity
+    public class Team
     {
         public int TeamID { get; set; }
         [MaxLength(50)]
@@ -12,10 +12,12 @@ namespace NordicDoorSuggestionSystem.Entities
         [MaxLength(50)]
         public string? TeamLeader { get; set; }
         public ushort? TeamSgstnCount { get; set; }
-        // maybe use a normal int if a unsigned short proves too small? not sure how many suggestions a team would have at most
-        public int? DepartmentID { get; set; }
+        
 
-        public DepartmentEntity DepartmentEntity { get; set; }
+        
+        public Department Department { get; set; }
+        [ForeignKey("Department")]
+        public int DepartmentID { get; set; }
 
     }
 }

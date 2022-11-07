@@ -1,4 +1,4 @@
-@using NordicDoorSuggestionSystem.Models.Employee
+@using NordicDoorSuggestionSystem.Models.Employees
 @model EmployeeAccountViewModel
 <h3>Rediger registrerte brukere</h3>
 @if(Model.EmployeeNumber!=null)
@@ -48,7 +48,7 @@
         <td>EmployeeNumber</td>
         <td>Role</td>
     </tr>
-    @foreach (var employee in Model.Employees)
+    @foreach (var employee in Model.Employee)
     {
         <tr>
             <td>@employee.FirstName</td>

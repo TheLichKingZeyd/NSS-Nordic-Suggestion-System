@@ -15,24 +15,24 @@ namespace NordicDoorSuggestionSystem.Repositories
 
         public void Delete(int employeenumber)
         {
-            EmployeeEntity? employee = GetEmployeeByNumber(employeenumber);
+            Employee? employee = GetEmployeeByNumber(employeenumber);
             if (employee == null)
                 return;
             dataContext.Employees.Remove(employee);
             dataContext.SaveChanges();
         }
 
-        private EmployeeEntity? GetEmployeeByNumber(int employeenumber)
+        private Employee? GetEmployeeByNumber(int employeenumber)
         {
             return dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber == employeenumber);
         }
 
-        public List<EmployeeEntity> GetEmployees()
+        public List<Employee> GetEmployees()
         {
             return dataContext.Employees.ToList();
         }
 
-        public void Add(EmployeeEntity employee)
+        public void Add(Employee employee)
         {
             var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber);
             if (existingEmployee != null)
@@ -42,7 +42,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             dataContext.Employees.Add(employee);
             dataContext.SaveChanges();
         }
-        public void Update(EmployeeEntity employee, List<string> roles)
+        public void Update(Employee employee, List<string> roles)
         {
             var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber);
             if (existingEmployee == null)

@@ -12,6 +12,19 @@
             "database": "webappdatabase",
             "username": "root",
             "password": "root"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "database": "NSSDB",
+            "username": "root",
+            "password": "root",
+            "name": "TEST"
         }
     ]
 }

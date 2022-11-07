@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NordicDoorSuggestionSystem.Entities
 {
     [Table("Employee")]
-    public class EmployeeEntity
+    public class Employee
     {
         public int EmployeeNumber { get; set; }
         [MaxLength(50)]
@@ -13,10 +13,17 @@ namespace NordicDoorSuggestionSystem.Entities
         public string? LastName { get; set; }
         [MaxLength(15)]
         public string? Role { get; set; }
-        public bool AccountState { get; set; }
-        public byte[] ProfilePicture { get; set; }
-        public int? TeamID { get; set; }
-        public TeamEntity TeamEntity { get; set; }
+        public bool? AccountState { get; set; }
+        public byte[]? ProfilePicture { get; set; }
         public ushort? SgstnCount { get; set; }
+        // public ICollection<Employee> Employees {get; set;}
+
+        public Team Team { get; set; }
+        [ForeignKey("Team")]
+        public int TeamID { get; set; }
+        
+        
+
+        
     }
 }

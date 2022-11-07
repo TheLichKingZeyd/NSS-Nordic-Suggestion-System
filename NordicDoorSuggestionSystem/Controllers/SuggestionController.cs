@@ -33,15 +33,15 @@ namespace NordicDoorSuggestionSystem.Controllers
         } 
 
         // GET: Suggestion/Details/5
-        public async Task<IActionResult> Details(int? SgstnID)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (SgstnID == null || _context.Suggestion == null)
+            if (id == null || _context.Suggestion == null)
             {
                 return NotFound();
             }
 
             var suggestionEntity = await _context.Suggestion
-                .FirstOrDefaultAsync(m => m.SgstnID == SgstnID);
+                .FirstOrDefaultAsync(m => m.SuggestionID == id);
             if (suggestionEntity == null)
             {
                 return NotFound();
@@ -60,8 +60,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SgstnID,Title,ProbDescr, Solution, Goal ,ResponsibleEmployeeNumber, Deadline,TeamID")] SuggestionEntity suggestionEntity)
+        // [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id, Title,Problem, Solution, Goal, ResponsibleEmployeeNumber, Deadline,TeamID")] Suggestion suggestionEntity)
         {
             if (ModelState.IsValid)
             {
@@ -73,14 +73,14 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: Suggestion/Edit/5
-        public async Task<IActionResult> Edit(int? SgstnID)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (SgstnID == null || _context.Suggestion == null)
+            if (id == null || _context.Suggestion == null)
             {
                 return NotFound();
             }
 
-            var suggestionEntity = await _context.Suggestion.FindAsync(SgstnID);
+            var suggestionEntity = await _context.Suggestion.FindAsync(id);
             if (suggestionEntity == null)
             {
                 return NotFound();
@@ -93,9 +93,9 @@ namespace NordicDoorSuggestionSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int SgstnID, [Bind("SgstnID,Title,ProbDescr, Solution, Goal ,ResponsibleEmployeeNumber, Deadline,TeamID")] SuggestionEntity suggestionEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ProbDescr, Solution, Goal, ResponsibleEmployeeNumber, Deadline,TeamID")] Suggestion suggestionEntity)
         {
-            if (SgstnID != suggestionEntity.SgstnID)
+            if (id != suggestionEntity.SuggestionID)
             {
                 return NotFound();
             }
@@ -109,7 +109,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SuggestionEntityExists(suggestionEntity.SgstnID))
+                    if (!SuggestionEntityExists(suggestionEntity.SuggestionID))
                     {
                         return NotFound();
                     }
@@ -124,15 +124,15 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: Suggestion/Delete/5
-        public async Task<IActionResult> Delete(int? SgstnID)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (SgstnID == null || _context.Suggestion == null)
+            if (id == null || _context.Suggestion == null)
             {
                 return NotFound();
             }
 
             var suggestionEntity = await _context.Suggestion
-                .FirstOrDefaultAsync(m => m.SgstnID == SgstnID);
+                .FirstOrDefaultAsync(m => m.SuggestionID == id);
             if (suggestionEntity == null)
             {
                 return NotFound();
@@ -144,13 +144,13 @@ namespace NordicDoorSuggestionSystem.Controllers
         // POST: Suggestion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int SgstnID)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Suggestion == null)
             {
                 return Problem("Entity set 'DataContext.Suggestion'  is null.");
             }
-            var suggestionEntity = await _context.Suggestion.FindAsync(SgstnID);
+            var suggestionEntity = await _context.Suggestion.FindAsync(id);
             if (suggestionEntity != null)
             {
                 _context.Suggestion.Remove(suggestionEntity);
@@ -160,9 +160,9 @@ namespace NordicDoorSuggestionSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SuggestionEntityExists(int SgstnID)
+        private bool SuggestionEntityExists(int id)
         {
-          return _context.Suggestion.Any(e => e.SgstnID == SgstnID);
+          return _context.Suggestion.Any(e => e.SuggestionID == id);
         }
     }
 }

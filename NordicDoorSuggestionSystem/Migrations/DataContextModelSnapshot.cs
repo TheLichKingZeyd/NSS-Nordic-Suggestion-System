@@ -7,7 +7,7 @@ using NordicDoorSuggestionSystem.DataAccess;
 
 #nullable disable
 
-namespace bacit_dotnet.MVC.Migrations
+namespace NordicDoorSuggestionSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -211,40 +211,36 @@ namespace bacit_dotnet.MVC.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.CommentEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Comment", b =>
                 {
                     b.Property<int>("CommentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CommentTime")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("CommentTime")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp(6)");
 
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("EmployeeEntityEmployeeNumber")
+                    b.Property<int>("EmployeeNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("EmployeeNumber")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("SgstnID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SuggestionEntitySgstnID")
+                    b.Property<int>("SuggestionID")
                         .HasColumnType("int");
 
                     b.HasKey("CommentID");
 
-                    b.HasIndex("EmployeeEntityEmployeeNumber");
+                    b.HasIndex("EmployeeNumber");
 
-                    b.HasIndex("SuggestionEntitySgstnID");
+                    b.HasIndex("SuggestionID");
 
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.DepartmentEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Department", b =>
                 {
                     b.Property<int>("DepartmentID")
                         .ValueGeneratedOnAdd()
@@ -263,13 +259,13 @@ namespace bacit_dotnet.MVC.Migrations
                     b.ToTable("Department");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.EmployeeEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Employee", b =>
                 {
                     b.Property<int>("EmployeeNumber")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("AccountState")
+                    b.Property<bool?>("AccountState")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
@@ -281,7 +277,6 @@ namespace bacit_dotnet.MVC.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("longblob");
 
                     b.Property<string>("Role")
@@ -291,54 +286,91 @@ namespace bacit_dotnet.MVC.Migrations
                     b.Property<ushort?>("SgstnCount")
                         .HasColumnType("smallint unsigned");
 
-                    b.Property<int>("TeamEntityTeamID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TeamID")
+                    b.Property<int>("TeamID")
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeNumber");
 
-                    b.HasIndex("TeamEntityTeamID");
+                    b.HasIndex("TeamID");
 
                     b.ToTable("Employee");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.MediaEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Media", b =>
                 {
                     b.Property<int>("MediaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeEntityEmployeeNumber")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("SgstnID")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("SuggestionEntitySgstnID")
+                    b.Property<int>("SuggestionID")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UploadTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<byte[]>("UploadedFile")
-                        .IsRequired()
                         .HasColumnType("longblob");
 
                     b.HasKey("MediaID");
 
-                    b.HasIndex("EmployeeEntityEmployeeNumber");
+                    b.HasIndex("EmployeeNumber");
 
-                    b.HasIndex("SuggestionEntitySgstnID");
+                    b.HasIndex("SuggestionID");
 
                     b.ToTable("Media");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.SgstnReasonEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Suggestion", b =>
+                {
+                    b.Property<int>("SuggestionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Goal")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Problem")
+                        .HasColumnType("longtext");
+
+                    b.Property<short?>("Progress")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("ResponsibleEmployee")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Solution")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TeamID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UploadTime")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp(6)");
+
+                    b.HasKey("SuggestionID");
+
+                    b.HasIndex("EmployeeNumber");
+
+                    b.HasIndex("TeamID");
+
+                    b.ToTable("Suggestion");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.SuggestionReason", b =>
                 {
                     b.Property<int>("ReasonID")
                         .ValueGeneratedOnAdd()
@@ -349,76 +381,16 @@ namespace bacit_dotnet.MVC.Migrations
 
                     b.HasKey("ReasonID");
 
-                    b.ToTable("SgstnReason");
+                    b.ToTable("SuggestionReason");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.SuggestionEntity", b =>
-                {
-                    b.Property<int>("SgstnID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("EmployeeEntityEmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Goal")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("HasMediaAttachments")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("HasReasoning")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("ProbDescr")
-                        .HasColumnType("longtext");
-
-                    b.Property<short?>("Progress")
-                        .HasColumnType("smallint");
-
-                    b.Property<int?>("ResponsibleEmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Solution")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("SubmissionTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("TeamEntityTeamID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TeamID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("SgstnID");
-
-                    b.HasIndex("EmployeeEntityEmployeeNumber");
-
-                    b.HasIndex("TeamEntityTeamID");
-
-                    b.ToTable("Suggestion");
-                });
-
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.TeamEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Team", b =>
                 {
                     b.Property<int>("TeamID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentEntityDepartmentID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DepartmentID")
+                    b.Property<int>("DepartmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("TeamLeader")
@@ -434,7 +406,7 @@ namespace bacit_dotnet.MVC.Migrations
 
                     b.HasKey("TeamID");
 
-                    b.HasIndex("DepartmentEntityDepartmentID");
+                    b.HasIndex("DepartmentID");
 
                     b.ToTable("Team");
                 });
@@ -490,83 +462,83 @@ namespace bacit_dotnet.MVC.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.CommentEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Comment", b =>
                 {
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.EmployeeEntity", "EmployeeEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeEntityEmployeeNumber")
+                        .HasForeignKey("EmployeeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.SuggestionEntity", "SuggestionEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Suggestion", "Suggestion")
                         .WithMany()
-                        .HasForeignKey("SuggestionEntitySgstnID")
+                        .HasForeignKey("SuggestionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EmployeeEntity");
+                    b.Navigation("Employee");
 
-                    b.Navigation("SuggestionEntity");
+                    b.Navigation("Suggestion");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.EmployeeEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Employee", b =>
                 {
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.TeamEntity", "TeamEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamEntityTeamID")
+                        .HasForeignKey("TeamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("TeamEntity");
+                    b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.MediaEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Media", b =>
                 {
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.EmployeeEntity", "EmployeeEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeEntityEmployeeNumber")
+                        .HasForeignKey("EmployeeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.SuggestionEntity", "SuggestionEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Suggestion", "Suggestion")
                         .WithMany()
-                        .HasForeignKey("SuggestionEntitySgstnID")
+                        .HasForeignKey("SuggestionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EmployeeEntity");
+                    b.Navigation("Employee");
 
-                    b.Navigation("SuggestionEntity");
+                    b.Navigation("Suggestion");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.SuggestionEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Suggestion", b =>
                 {
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.EmployeeEntity", "EmployeeEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeEntityEmployeeNumber")
+                        .HasForeignKey("EmployeeNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.TeamEntity", "TeamEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamEntityTeamID")
+                        .HasForeignKey("TeamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EmployeeEntity");
+                    b.Navigation("Employee");
 
-                    b.Navigation("TeamEntity");
+                    b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.TeamEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Team", b =>
                 {
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.DepartmentEntity", "DepartmentEntity")
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartmentEntityDepartmentID")
+                        .HasForeignKey("DepartmentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DepartmentEntity");
+                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }
