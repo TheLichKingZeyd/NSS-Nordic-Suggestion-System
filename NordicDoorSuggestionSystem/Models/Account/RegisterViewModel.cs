@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace NordicDoorSuggestionSystem.Models.Account;
@@ -19,4 +20,7 @@ public class RegisterViewModel
     [Display(Name = "Confirm password")]
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword { get; set; }
+
+    public IEnumerable<SelectListItem>? RoleList { get; set; }
+    public string? RoleSelected { get; set; }
 }
