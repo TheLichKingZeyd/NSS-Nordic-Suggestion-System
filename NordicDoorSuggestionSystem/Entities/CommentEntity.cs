@@ -4,16 +4,20 @@ using System.ComponentModel.DataAnnotations;
 namespace NordicDoorSuggestionSystem.Entities
 {
     [Table("Comment")]
-    public class CommentEntity
+    public class Comment
     {
         public int CommentID { get; set; }
-        public string? CommentTime { get; set; }
-        public int? SgstnID { get; set; }
-        public SuggestionEntity SuggestionEntity { get; set; }
-        public string? EmployeeNumber { get; set; }
-        public EmployeeEntity EmployeeEntity { get; set; }
         public string? Content { get; set; }
-        // needs to limit the string size to that of an sql tiny text
+        [Timestamp]
+        public byte[]? CommentTime { get; set; }
+        
+        public Suggestion Suggestion { get; set; }
+        [ForeignKey("Suggestion")]
+        public int SuggestionID { get; set; }
+        public Employee Employee { get; set; }
+        [ForeignKey("Employee")]
+        public int EmployeeNumber { get; set; }
+        
 
     }
 }

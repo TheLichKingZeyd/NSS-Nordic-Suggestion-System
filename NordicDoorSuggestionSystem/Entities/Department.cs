@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NordicDoorSuggestionSystem.Entities
 {
     [Table("Department")]
-    public class DepartmentEntity
+    public class Department
     {
         public int DepartmentID { get; set; }
         [MaxLength(50)]

@@ -99,7 +99,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    employeeRepository.Add(new EmployeeEntity
+                    employeeRepository.Add(new Employee
                     {
                         EmployeeNumber = Int32.Parse(model.EmployeeNumber)
                     });

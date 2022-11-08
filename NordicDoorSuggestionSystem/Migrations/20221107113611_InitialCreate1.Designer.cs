@@ -8,17 +8,17 @@ using NordicDoorSuggestionSystem.DataAccess;
 
 #nullable disable
 
-namespace bacit_dotnet.MVC.Migrations
+namespace NordicDoorSuggestionSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221025205304_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221107113611_InitialCreate1")]
+    partial class InitialCreate1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -213,34 +213,204 @@ namespace bacit_dotnet.MVC.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.UserEntity", b =>
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Comment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CommentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
+                    b.Property<DateTime>("CommentTime")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp(6)");
+
+                    b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EmployeeNumber")
-                        .HasColumnType("longtext");
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                    b.Property<int>("SuggestionID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("longtext");
+                    b.HasKey("CommentID");
+
+                    b.HasIndex("EmployeeNumber");
+
+                    b.HasIndex("SuggestionID");
+
+                    b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Department", b =>
+                {
+                    b.Property<int>("DepartmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentLeader")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("DepartmentID");
+
+                    b.ToTable("Department");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Employee", b =>
+                {
+                    b.Property<int>("EmployeeNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("AccountState")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("longblob");
 
                     b.Property<string>("Role")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<ushort?>("SgstnCount")
+                        .HasColumnType("smallint unsigned");
+
+                    b.Property<int>("TeamID")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeNumber");
+
+                    b.HasIndex("TeamID");
+
+                    b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Media", b =>
+                {
+                    b.Property<int>("MediaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuggestionID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UploadTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte[]>("UploadedFile")
+                        .HasColumnType("longblob");
+
+                    b.HasKey("MediaID");
+
+                    b.HasIndex("EmployeeNumber");
+
+                    b.HasIndex("SuggestionID");
+
+                    b.ToTable("Media");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Suggestion", b =>
+                {
+                    b.Property<int>("SuggestionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Deadline")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Goal")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Team")
+                    b.Property<string>("Problem")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.Property<short?>("Progress")
+                        .HasColumnType("smallint");
 
-                    b.ToTable("Users");
+                    b.Property<int?>("ResponsibleEmployee")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Solution")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TeamID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UploadTime")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp(6)");
+
+                    b.HasKey("SuggestionID");
+
+                    b.HasIndex("EmployeeNumber");
+
+                    b.HasIndex("TeamID");
+
+                    b.ToTable("Suggestion");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.SuggestionReason", b =>
+                {
+                    b.Property<int>("ReasonID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReasonForDenial")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ReasonID");
+
+                    b.ToTable("SuggestionReason");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Team", b =>
+                {
+                    b.Property<int>("TeamID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("DepartmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TeamLeader")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("TeamName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<ushort?>("TeamSgstnCount")
+                        .HasColumnType("smallint unsigned");
+
+                    b.HasKey("TeamID");
+
+                    b.HasIndex("DepartmentID");
+
+                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -292,6 +462,85 @@ namespace bacit_dotnet.MVC.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Comment", b =>
+                {
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Suggestion", "Suggestion")
+                        .WithMany()
+                        .HasForeignKey("SuggestionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Suggestion");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Employee", b =>
+                {
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Media", b =>
+                {
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Suggestion", "Suggestion")
+                        .WithMany()
+                        .HasForeignKey("SuggestionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Suggestion");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Suggestion", b =>
+                {
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Team", b =>
+                {
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }

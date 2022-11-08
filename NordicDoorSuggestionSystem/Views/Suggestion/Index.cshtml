@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.SuggestionEntity>
+﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,13 +24,16 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProbDescr)
+                @Html.DisplayNameFor(model => model.Problem)
             </th>
              <th>
                 @Html.DisplayNameFor(model => model.Solution)
             </th>
              <th>
                 @Html.DisplayNameFor(model => model.Goal)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.ResponsibleEmployee)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Deadline)
@@ -48,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProbDescr)
+                @Html.DisplayFor(modelItem => item.Problem)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Solution)
@@ -57,15 +60,18 @@
                 @Html.DisplayFor(modelItem => item.Goal)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ResponsibleEmployee)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Deadline)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TeamID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.SgstnID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SgstnID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SgstnID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SuggestionID">Delete</a>
             </td>
         </tr>
 }

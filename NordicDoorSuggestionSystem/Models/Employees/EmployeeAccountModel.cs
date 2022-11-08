@@ -1,7 +1,7 @@
 using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Repositories;
 
-namespace NordicDoorSuggestionSystem.Models.Employee
+namespace NordicDoorSuggestionSystem.Models.Employees
 {
     public class EmployeeAccountViewModel
     {
@@ -14,7 +14,7 @@ namespace NordicDoorSuggestionSystem.Models.Employee
         public string Role { get; set; }
         public List<string> AvailableRoles { get; set; }
         public string ValididationErrorMessage { get; set; }
-        public List<EmployeeEntity> Employees { get; set; }
+        public List<Employee> Employee { get; set; }
         public Boolean IsAdmin { get; set; }
     }
 }

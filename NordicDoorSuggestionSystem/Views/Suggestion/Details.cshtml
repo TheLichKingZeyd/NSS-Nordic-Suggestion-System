@@ -1,4 +1,4 @@
-﻿@model NordicDoorSuggestionSystem.Entities.SuggestionEntity
+﻿@model NordicDoorSuggestionSystem.Entities.Suggestion
 
 @{
     ViewData["Title"] = "Details";
@@ -17,10 +17,10 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProbDescr)
+            @Html.DisplayNameFor(model => model.Problem)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProbDescr)
+            @Html.DisplayFor(model => model.Problem)
         </dd>
          <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Solution)
@@ -33,6 +33,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Goal)
+        </dd>
+         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ResponsibleEmployee)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ResponsibleEmployee)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Deadline)
@@ -49,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.SgstnID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.SuggestionID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
