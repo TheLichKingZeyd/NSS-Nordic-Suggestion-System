@@ -31,7 +31,8 @@ public class Program
         });
         
         builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
-        
+        builder.Services.AddScoped<ISuggestionRepository, SuggestionRepository>();
+
         
         builder.Services.Configure<IdentityOptions>(options =>
         {
