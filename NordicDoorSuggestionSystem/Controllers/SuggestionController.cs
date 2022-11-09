@@ -27,7 +27,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             _suggestionRepository = suggestionRepository;
         }
 
-        // GET: Suggestion
+        // GET: Suggestion/Henter  ut Suggestions fra databasen i en liste + legger til søkefunksjon
+        // The function is called Index and has the parameter (searchString)
+        // First it makes a variabel with a list of the Suggestions
+        // Then checks if the string(with the listed items) is Null or Empty. 
+        // Then it calls the QuerySuggestions() from the SR, with the parameter (searchString).
+        
+
         public async Task<IActionResult> Index(string searchString)
         {
             var suggestions = new List<Suggestion>();    
@@ -41,7 +47,9 @@ namespace NordicDoorSuggestionSystem.Controllers
         } 
 
         // GET: Suggestion/Details/Henter detaljer på et Forbedringsforslag
-        // 
+        // The function first checks if the ID = Null in the database. 
+        // Then gets the id of the selected suggestion and show the fields of the selected Suggestion.
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
