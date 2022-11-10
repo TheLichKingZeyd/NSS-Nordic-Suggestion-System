@@ -1,5 +1,4 @@
 using NordicDoorSuggestionSystem.Entities;
-using NordicDoorSuggestionSystem.Repositories;
 
 namespace NordicDoorSuggestionSystem.Models.Employees
 {

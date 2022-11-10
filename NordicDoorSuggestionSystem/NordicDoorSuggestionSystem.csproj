@@ -12,6 +12,7 @@
 	<ItemGroup>
 		<Folder Include="Migrations\" />
 		<Folder Include="Models\Employees\" />
+		<Folder Include="Repositories\" />
 	</ItemGroup>
 
 	<ItemGroup>

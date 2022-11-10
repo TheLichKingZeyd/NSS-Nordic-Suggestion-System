@@ -8,8 +8,5 @@ namespace NordicDoorSuggestionSystem.Repositories
         void Add(Employee employee);
         List<Employee> GetEmployees();
         void Delete(int employeenumber);
-        bool IsAdmin(int employeename);
-        // bool IsTeamLead(string email);
-        // bool IsEmployee(string email);
     }
 }

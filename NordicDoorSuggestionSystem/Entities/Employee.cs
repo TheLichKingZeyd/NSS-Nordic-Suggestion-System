@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace NordicDoorSuggestionSystem.Entities
 {
     [Table("Employee")]
-    public class Employee : IdentityUser
+    public class Employee
     {
         public int EmployeeNumber { get; set; }
         public string? FirstName { get; set; }
@@ -16,7 +15,6 @@ namespace NordicDoorSuggestionSystem.Entities
         public bool? AccountState { get; set; }
         public byte[]? ProfilePicture { get; set; }
         public ushort? SgstnCount { get; set; }
-        // public ICollection<Employee> Employees {get; set;}
 
         public Team Team { get; set; }
         [ForeignKey("Team")]

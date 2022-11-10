@@ -1,5 +1,4 @@
 using NordicDoorSuggestionSystem.DataAccess;
-using NordicDoorSuggestionSystem.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,11 +25,12 @@ public class Program
         builder.Services.AddDbContext<DataContext>(options =>
         {
             
-            options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
+            options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"),
+                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
             
         });
         
-        builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
+        //builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
         
         
         builder.Services.Configure<IdentityOptions>(options =>
@@ -46,8 +46,8 @@ public class Program
         });
 
         builder.Services
-            .AddIdentityCore<Employee>()
-            .AddRoles<Role>()
+            .AddIdentityCore<User>()
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<DataContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();
