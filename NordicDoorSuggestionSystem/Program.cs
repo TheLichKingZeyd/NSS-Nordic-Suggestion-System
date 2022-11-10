@@ -46,8 +46,8 @@ public class Program
         });
 
         builder.Services
-            .AddIdentityCore<IdentityUser>()
-            .AddRoles<IdentityRole>()
+            .AddIdentityCore<Employee>()
+            .AddRoles<Role>()
             .AddEntityFrameworkStores<DataContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();

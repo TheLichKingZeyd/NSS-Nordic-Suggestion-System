@@ -1,18 +1,19 @@
 using Microsoft.AspNetCore.Identity;
+using NordicDoorSuggestionSystem.Entities;
 
 namespace NordicDoorSuggestionSystem.Repositories
 {
     public abstract class EmployeeRepositoryBase
     {
-        UserManager<IdentityUser> employeeManager;
-        public EmployeeRepositoryBase(UserManager<IdentityUser> employeeManager)
+        UserManager<Employee> employeeManager;
+        public EmployeeRepositoryBase(UserManager<Employee> employeeManager)
         {
             this.employeeManager = employeeManager;
         }
 
-        public bool IsAdmin(int employeename)
+        public bool IsAdmin(int employeeNumber)
         {
-            var identity = employeeManager.Users.FirstOrDefault(x => x.UserName == employeename.ToString());
+            var identity = employeeManager.Users.FirstOrDefault(x => x.UserName == employeeNumber.ToString());
             var existingRoles = employeeManager.GetRolesAsync(identity).Result;
             return existingRoles.FirstOrDefault(x => x == "Administrator") != null;
         }

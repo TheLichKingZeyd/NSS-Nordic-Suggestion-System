@@ -8,7 +8,7 @@ namespace NordicDoorSuggestionSystem.Repositories
     {
         private readonly DataContext dataContext;
 
-        public EFEmployeeRepository(DataContext dataContext, UserManager<IdentityUser> employeeManager) : base(employeeManager)
+        public EFEmployeeRepository(DataContext dataContext, UserManager<Employee> employeeManager) : base(employeeManager)
         {
             this.dataContext = dataContext;
         }

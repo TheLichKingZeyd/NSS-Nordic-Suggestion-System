@@ -18,13 +18,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             this.employeeRepository = employeeRepository;
         }
         [HttpGet]
-        public IActionResult Index(string? employeenumber)
+        public IActionResult Index(int? employeeNumber)
         {
             var model = new EmployeeAccountViewModel();
             model.Employee = employeeRepository.GetEmployees();
-            if (employeenumber != null)
+            if (employeeNumber != null)
             {
-                var currentUser = model.Employee.FirstOrDefault(x => x.EmployeeNumber.ToString() == employeenumber);
+                var currentUser = model.Employee.FirstOrDefault(x => x.EmployeeNumber == employeeNumber);
                 if (currentUser != null)
                 {
                     model.EmployeeNumber = currentUser.EmployeeNumber;

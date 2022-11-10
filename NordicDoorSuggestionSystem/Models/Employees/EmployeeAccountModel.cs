@@ -8,7 +8,6 @@ namespace NordicDoorSuggestionSystem.Models.Employees
         public int EmployeeNumber { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string AccountPrivilege { get; set; }
         public string? AccountState { get; set; }
         public string? SgstnCount { get; set; }
         public string Role { get; set; }

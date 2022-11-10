@@ -12,21 +12,21 @@ namespace NordicDoorSuggestionSystem.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<Employee> _employeeManager;
+        private readonly SignInManager<Employee> _signInManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly IEmployeeRepository employeeRepository;
         private readonly ILogger _logger;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            RoleManager<IdentityRole> roleManager,
+        public AccountController(UserManager<Employee> employeeManager,
+            SignInManager<Employee> signInManager,
+            RoleManager<Role> roleManager,
             IEmailSender emailSender,
             ILoggerFactory loggerFactory,
             IEmployeeRepository userRepository)
         {
-            _userManager = userManager;
+            _employeeManager = employeeManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _emailSender = emailSender;
@@ -90,9 +90,9 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             if (!await _roleManager.RoleExistsAsync("Administrator"))
             {
-                await _roleManager.CreateAsync(new IdentityRole("Administrator"));
-                await _roleManager.CreateAsync(new IdentityRole("Team Leder"));
-                await _roleManager.CreateAsync(new IdentityRole("Standard Bruker"));
+                await _roleManager.CreateAsync(new Role("Administrator"));
+                await _roleManager.CreateAsync(new Role("Team Leder"));
+                await _roleManager.CreateAsync(new Role("Standard Bruker"));
             }
             List<SelectListItem> listItems = new List<SelectListItem>();
             listItems.Add(new SelectListItem()
@@ -126,23 +126,28 @@ namespace NordicDoorSuggestionSystem.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = registerViewModel.EmployeeNumber, LockoutEnabled = false,LockoutEnd = null };
-                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+                var employee = new Employee { UserName = registerViewModel.EmployeeNumber.ToString(),
+                    EmployeeNumber = registerViewModel.EmployeeNumber,
+                    FirstName = registerViewModel.FirstName,
+                    LastName = registerViewModel.LastName,
+                    LockoutEnabled = false,
+                    LockoutEnd = null };
+                var result = await _employeeManager.CreateAsync(employee, registerViewModel.Password);
                 if (result.Succeeded)
                 {
                     if(registerViewModel.RoleSelected != null && registerViewModel.RoleSelected.Length < 0)
                     {
                         if (registerViewModel.RoleSelected == "Standard Bruker")
                         {
-                            await _userManager.AddToRoleAsync(user, "Standard Bruker");
+                            await _employeeManager.AddToRoleAsync(employee, "Standard Bruker");
                         }
                         else if (registerViewModel.RoleSelected == "Team Leder")
                         {
-                            await _userManager.AddToRoleAsync(user, "Team Leder");
+                            await _employeeManager.AddToRoleAsync(employee, "Team Leder");
                         }
                         else if (registerViewModel.RoleSelected == "Administrator")
                         {
-                            await _userManager.AddToRoleAsync(user, "Administrator");
+                            await _employeeManager.AddToRoleAsync(employee, "Administrator");
                         }
                     }
 
@@ -257,14 +262,14 @@ namespace NordicDoorSuggestionSystem.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
+                var employee = new Employee { UserName = model.Email, Email = model.Email };
+                var result = await _employeeManager.CreateAsync(employee);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
+                    result = await _employeeManager.AddLoginAsync(employee, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _signInManager.SignInAsync(employee, isPersistent: false);
                         _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
 
                         // Update any authentication tokens as well
@@ -289,12 +294,12 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 return View("Error");
             }
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
+            var employee = await _employeeManager.FindByIdAsync(userId);
+            if (employee == null)
             {
                 return View("Error");
             }
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await _employeeManager.ConfirmEmailAsync(employee, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -316,8 +321,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                var user = await _employeeManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _employeeManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -365,13 +370,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 return View(model);
             }
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
+            var employee = await _employeeManager.FindByEmailAsync(model.Email);
+            if (employee == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
             }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var result = await _employeeManager.ResetPasswordAsync(employee, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
@@ -395,12 +400,12 @@ namespace NordicDoorSuggestionSystem.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string? returnUrl = null, bool rememberMe = false)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
-            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
+            var userFactors = await _employeeManager.GetValidTwoFactorProvidersAsync(employee);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -417,8 +422,8 @@ namespace NordicDoorSuggestionSystem.Controllers
                 return View();
             }
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -429,7 +434,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
 
             // Generate the token and send it
-            var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
+            var code = await _employeeManager.GenerateTwoFactorTokenAsync(employee, model.SelectedProvider);
             if (string.IsNullOrWhiteSpace(code))
             {
                 return View("Error");
@@ -438,7 +443,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             var message = "Your security code is: " + code;
             if (model.SelectedProvider == "Email")
             {
-                await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
+                await _emailSender.SendEmailAsync(await _employeeManager.GetEmailAsync(employee), "Security Code", message);
             }
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
@@ -451,8 +456,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string? returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -498,8 +503,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         public async Task<IActionResult> VerifyAuthenticatorCode(bool rememberMe, string? returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -545,8 +550,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         public async Task<IActionResult> UseRecoveryCode(string? returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -586,9 +591,9 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
         }
 
-        private Task<IdentityUser> GetCurrentUserAsync()
+        private Task<Employee> GetCurrentUserAsync()
         {
-            return _userManager.GetUserAsync(HttpContext.User);
+            return _employeeManager.GetUserAsync(HttpContext.User);
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

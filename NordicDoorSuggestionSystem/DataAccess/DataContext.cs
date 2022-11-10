@@ -6,7 +6,7 @@ using NordicDoorSuggestionSystem.Models;
 
 namespace NordicDoorSuggestionSystem.DataAccess
 {
-    public class DataContext : IdentityDbContext<IdentityUser>
+    public class DataContext : IdentityDbContext<Employee>
     {
         public DataContext()
         {
