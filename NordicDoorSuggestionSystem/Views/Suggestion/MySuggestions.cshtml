@@ -1,7 +1,79 @@
-﻿@model NordicDoorSuggestionSystem.Models.MySuggestionsViewModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
+
 @{
+    ViewData["Title"] = "MySuggestions";
 }
 
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Suggestion" asp-action="MySuggestions">
+    <p>
+        Title: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Problem)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Solution)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Goal)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.ResponsibleEmployee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deadline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Problem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Solution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Goal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResponsibleEmployee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deadline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SuggestionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
