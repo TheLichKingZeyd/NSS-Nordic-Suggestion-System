@@ -2,52 +2,83 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NordicDoorSuggestionSystem.DataAccess;
 using NordicDoorSuggestionSystem.Entities;
+using NordicDoorSuggestionSystem.Models;
+using Microsoft.AspNetCore.Identity;
+using NordicDoorSuggestionSystem.Repositories;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
+    //[Authorize]
     public class SuggestionController : Controller
     {
-        private readonly DataContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public SuggestionController(DataContext context)
+        private readonly ISuggestionRepository _suggestionRepository;
+
+        public SuggestionController(UserManager<IdentityUser> userManager, ISuggestionRepository suggestionRepository)
         {
-            _context = context;
+            _userManager = userManager;
+            _suggestionRepository = suggestionRepository;
         }
 
-        // GET: Suggestion
-        public async Task<IActionResult> Index(string searchString)
-        {
-            var suggestions = from m in _context.Suggestion
-                         select m;
+        // GET: Suggestion/Henter  ut Suggestions fra databasen i en liste + legger til søkefunksjon
+        // The function is called Index and has the parameter (searchString)
+        // First it makes a variabel with a list of the Suggestions
+        // Then checks if the string(with the listed items) is Null or Empty. 
+        // Then it calls the QuerySuggestions() from the SR, with the parameter (searchString).
+        
 
-            if (!String.IsNullOrEmpty(searchString))
+        public async Task<IActionResult> Index(string title)
+        {
+            var suggestions = new List<Suggestion>();    
+            if (!String.IsNullOrEmpty(title))
             {
-                suggestions = suggestions.Where(s => s.Title!.Contains(searchString));
+                suggestions = await _suggestionRepository.QueryTitle(title);
+            } else {
+                suggestions = await _suggestionRepository.GetSuggestions();
             }
-              return View(await suggestions.ToListAsync());
+           /* if (!String.IsNullOrEmpty(problem))
+            {
+                suggestions = await _suggestionRepository.QueryProblem(problem);
+            }*/
+              return View(suggestions);
+        } 
+        
+        // GET: MySuggestions/Henter brukerens suggestions. 
+        // This function gets the suggestion view and shows the users suggestions. 
+        // Will test when it is possible to LogIn
+
+        public async Task<IActionResult> MySuggestions()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var suggestions = new List<Suggestion>(); 
+              return View(suggestions);
         } 
 
-        // GET: Suggestion/Details/5
+        // GET: Suggestion/Details/Henter detaljer på et Forbedringsforslag
+        // The function first checks if the ID = Null in the database. 
+        // Then gets the id of the selected suggestion and show the fields of the selected Suggestion.
+
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Suggestion == null)
+            if (id == null || await _suggestionRepository.GetSuggestions() == null)
+            {
+                return NotFound();
+            }
+            
+            var suggestion = await _suggestionRepository.GetSuggestion(id);
+            if (suggestion == null)
             {
                 return NotFound();
             }
 
-            var suggestionEntity = await _context.Suggestion
-                .FirstOrDefaultAsync(m => m.SuggestionID == id);
-            if (suggestionEntity == null)
-            {
-                return NotFound();
-            }
-
-            return View(suggestionEntity);
+            return View(suggestion);
         }
 
         // GET: Suggestion/Create
@@ -56,36 +87,63 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View();
         }
 
-        // POST: Suggestion/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Suggestion/Create/Lage et nytt Forbedringsforslag
+        // The function creates a new Suggestion. 
+        // The function maps the Suggestion.cs to the SuggestionViewModel and calls the Add() function from SuggestionRepository.
+        // Then it calls the SaveChanges() from SR and returns to the index view. 
         [HttpPost]
-        // [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, Title,Problem, Solution, Goal, ResponsibleEmployeeNumber, Deadline,TeamID")] Suggestion suggestionEntity)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Title,ResponsibleEmployee, Problem, Solution, Goal, Deadline, Progress, EmployeeNumber, TeamID")] SuggestionViewModel suggestionViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(suggestionEntity);
-                await _context.SaveChangesAsync();
+               // var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                var newSuggestion = new Suggestion {
+                    Title = suggestionViewModel.Title,
+                    ResponsibleEmployee = suggestionViewModel.ResponsibleEmployee,
+                    Problem = suggestionViewModel.Problem,
+                    Solution = suggestionViewModel.Solution,
+                    Goal = suggestionViewModel.Goal,
+                    Deadline = suggestionViewModel.Deadline,
+                    Progress = suggestionViewModel.Progress,
+                    // EmployeeNumber = user.Id,
+                    EmployeeNumber = suggestionViewModel.EmployeeNumber,
+                    TeamID = suggestionViewModel.TeamID
+                };
+                
+                await _suggestionRepository.Add(newSuggestion);
+                await _suggestionRepository.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(suggestionEntity);
+            return View(suggestionViewModel);
         }
 
         // GET: Suggestion/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Suggestion == null)
+            if (id == null || await _suggestionRepository.GetSuggestions() == null)
             {
                 return NotFound();
             }
 
-            var suggestionEntity = await _context.Suggestion.FindAsync(id);
-            if (suggestionEntity == null)
+            var suggestion = await _suggestionRepository.GetSuggestion(id);
+            if (suggestion == null)
             {
                 return NotFound();
             }
-            return View(suggestionEntity);
+
+            var editSuggestionViewModel = new EditSuggestionViewModel {
+                Title = suggestion.Title,
+                ResponsibleEmployee = suggestion.ResponsibleEmployee,
+                Problem = suggestion.Problem,
+                Solution = suggestion.Solution,
+                Goal = suggestion.Goal,
+                Deadline = suggestion.Deadline,
+                TeamID = suggestion.TeamID
+            };
+
+            return View(editSuggestionViewModel);
         }
 
         // POST: Suggestion/Edit/5
@@ -93,9 +151,10 @@ namespace NordicDoorSuggestionSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ProbDescr, Solution, Goal, ResponsibleEmployeeNumber, Deadline,TeamID")] Suggestion suggestionEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Title, ResponsibleEmployee, Problem, Solution, Goal, Deadline, TeamID")] EditSuggestionViewModel editSuggestionViewModel)
         {
-            if (id != suggestionEntity.SuggestionID)
+            var suggestion = await _suggestionRepository.GetSuggestion(id);
+            if ( suggestion == null)
             {
                 return NotFound();
             }
@@ -104,65 +163,80 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 try
                 {
-                    _context.Update(suggestionEntity);
-                    await _context.SaveChangesAsync();
+                    suggestion.Title = editSuggestionViewModel.Title;
+                    suggestion.ResponsibleEmployee = editSuggestionViewModel.ResponsibleEmployee;
+                    suggestion.Problem = editSuggestionViewModel.Problem;
+                    suggestion.Solution = editSuggestionViewModel.Solution;
+                    suggestion.Goal = editSuggestionViewModel.Goal;
+                    suggestion.Deadline = editSuggestionViewModel.Deadline;
+                    suggestion.TeamID = editSuggestionViewModel.TeamID;
+                    
+                    await _suggestionRepository.Update(suggestion);
+                    await _suggestionRepository.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SuggestionEntityExists(suggestionEntity.SuggestionID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(suggestionEntity);
+            return View(suggestion);
         }
 
-        // GET: Suggestion/Delete/5
+        // GET: Suggestion/Henter ut et Forslag fra databasen som skal slettes.
+        // This function called Delete with the parameter (int? id)
+        // First checks if id = null. If null, return NotFound()
+        // Then it calls the GetSuggestion() from SR
+        // 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Suggestion == null)
+            if (id == null || await _suggestionRepository.GetSuggestions() == null)
             {
                 return NotFound();
             }
 
-            var suggestionEntity = await _context.Suggestion
-                .FirstOrDefaultAsync(m => m.SuggestionID == id);
-            if (suggestionEntity == null)
+            var suggestion = await _suggestionRepository.GetSuggestion(id);
+            if (suggestion == null)
             {
                 return NotFound();
             }
 
-            return View(suggestionEntity);
+            return View(suggestion);
         }
 
-        // POST: Suggestion/Delete/5
+        // POST: Suggestion/Delete/Sletter et Forslag fra databasen
+        // This function is based on the function Delete(int? id). 
+        // It first calls the GetSuggestions() from SR, and checks if Suggestions exists in the database. 
+        // Then it calls the GetSuggestion with the parameter (id). 
+        // and then the function Delete from the SR with the parameter (suggestion).
+        // Then update the database with the SaveChanges() from SR.
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Suggestion == null)
+            if (await _suggestionRepository.GetSuggestions() == null)
             {
                 return Problem("Entity set 'DataContext.Suggestion'  is null.");
             }
-            var suggestionEntity = await _context.Suggestion.FindAsync(id);
-            if (suggestionEntity != null)
+            var suggestion = await _suggestionRepository.GetSuggestion(id);
+            if (suggestion != null)
             {
-                _context.Suggestion.Remove(suggestionEntity);
+                await _suggestionRepository.Delete(suggestion);
+                await _suggestionRepository.SaveChanges();
+
             }
             
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SuggestionEntityExists(int id)
         {
-          return _context.Suggestion.Any(e => e.SuggestionID == id);
+          var suggestion = _suggestionRepository.GetSuggestion(id);
+          
+          if(suggestion == null) return false;
+          return true;
         }
+        
     }
 }

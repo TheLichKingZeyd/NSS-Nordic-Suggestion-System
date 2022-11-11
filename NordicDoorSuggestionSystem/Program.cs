@@ -33,7 +33,7 @@ public class Program
         
         builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
         builder.Services.AddScoped<ITeamRepository, TeamRepository>();
-
+        builder.Services.AddScoped<ISuggestionRepository, SuggestionRepository>();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {
@@ -86,6 +86,7 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+        
         app.MapControllers();
 
 
