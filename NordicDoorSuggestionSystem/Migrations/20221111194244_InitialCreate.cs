@@ -331,8 +331,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CommentTime = table.Column<DateTime>(type: "timestamp(6)", rowVersion: true, nullable: true)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
+                    CommentTime = table.Column<DateTime>(type: "datetime(6)", rowVersion: true, nullable: true),
                     SuggestionID = table.Column<int>(type: "int", nullable: true),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: true)
                 },
