@@ -7,9 +7,9 @@ namespace NordicDoorSuggestionSystem.Entities
     public class Employee
     {
         public int EmployeeNumber { get; set; }
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
         [MaxLength(50)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
         [MaxLength(15)]
         public string? Role { get; set; }
         public bool? AccountState { get; set; }
@@ -18,7 +18,7 @@ namespace NordicDoorSuggestionSystem.Entities
 
         public Team Team { get; set; }
         [ForeignKey("Team")]
-        public int TeamID { get; set; }
+        public int? TeamID { get; set; }
         
         
 

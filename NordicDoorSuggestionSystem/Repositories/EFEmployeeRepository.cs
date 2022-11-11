@@ -8,7 +8,7 @@ namespace NordicDoorSuggestionSystem.Repositories
     {
         private readonly DataContext dataContext;
 
-        public EFEmployeeRepository(DataContext dataContext, UserManager<IdentityUser> employeeManager) : base(employeeManager)
+        public EFEmployeeRepository(DataContext dataContext, UserManager<User> employeeManager) : base(employeeManager)
         {
             this.dataContext = dataContext;
         }
@@ -52,8 +52,6 @@ namespace NordicDoorSuggestionSystem.Repositories
             existingEmployee.EmployeeNumber = employee.EmployeeNumber;
             existingEmployee.FirstName = employee.FirstName;
             existingEmployee.LastName = employee.LastName;
-            existingEmployee.Role = employee.Role;
-
             dataContext.SaveChanges();
         }
     }

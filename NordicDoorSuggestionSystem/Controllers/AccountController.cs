@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 using NordicDoorSuggestionSystem.Models.Account;
 using NordicDoorSuggestionSystem.Entities;
+using NordicDoorSuggestionSystem.Repositories;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -14,17 +15,21 @@ namespace NordicDoorSuggestionSystem.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmployeeRepository employeeRepository;
+        private readonly ITeamRepository teamRepository;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(UserManager<User> userManager,
             SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager,
+            IEmployeeRepository userRepository,
             IEmailSender emailSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.employeeRepository = userRepository;
             _roleManager = roleManager;
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -148,23 +153,15 @@ namespace NordicDoorSuggestionSystem.Controllers
                     }
 
 
-                    // IKKE SLETT
-                    //employeeRepository.Add(new Employee
-                    //{
-                    //    EmployeeNumber = Int32.Parse(model.EmployeeNumber)
-                    //});
+                    var employee = new Employee {
+                        EmployeeNumber = registerViewModel.EmployeeNumber,
+                        FirstName = registerViewModel.FirstName,
+                        LastName = registerViewModel.LastName,
+                        Role = registerViewModel.RoleSelected,                      
+                    };                    
 
+                    employeeRepository.Add(employee);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    
-                    
-                    //await _signInManager.SignInAsync(user, isPersistent: false);
-                                        
                     _logger.LogInformation(3, "User created a new account with password.");
 
 

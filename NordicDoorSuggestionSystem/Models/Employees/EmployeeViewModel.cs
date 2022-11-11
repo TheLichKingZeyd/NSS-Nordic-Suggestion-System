@@ -2,7 +2,7 @@ using NordicDoorSuggestionSystem.Entities;
 
 namespace NordicDoorSuggestionSystem.Models.Employees
 {
-    public class EmployeeAccountViewModel
+    public class EmployeeViewModel
     {
         public int EmployeeNumber { get; set; }
         public string? FirstName { get; set; }

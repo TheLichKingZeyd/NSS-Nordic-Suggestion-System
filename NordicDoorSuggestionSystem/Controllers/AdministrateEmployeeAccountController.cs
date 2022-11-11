@@ -1,10 +1,7 @@
 using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Models.Employees;
 using NordicDoorSuggestionSystem.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NordicDoorSuggestionSystem.Models.Account;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -20,7 +17,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpGet]
         public IActionResult Index(int? employeeNumber)
         {
-            var model = new EmployeeAccountViewModel();
+            var model = new EmployeeViewModel();
             model.Employee = employeeRepository.GetEmployees();
             if (employeeNumber != null)
             {
@@ -37,7 +34,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(EmployeeAccountViewModel model)
+        public IActionResult Save(EmployeeViewModel model)
         {
             Employee newEmployeeAccount = new Employee
             {
@@ -45,6 +42,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Role = model.Role,
+                SgstnCount = 0
             };
             var roles = new List<string>();
             if (model.Role == "Administrator")

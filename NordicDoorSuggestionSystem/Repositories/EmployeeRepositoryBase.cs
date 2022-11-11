@@ -5,8 +5,8 @@ namespace NordicDoorSuggestionSystem.Repositories
 {
     public abstract class EmployeeRepositoryBase
     {
-        UserManager<IdentityUser> employeeManager;
-        public EmployeeRepositoryBase(UserManager<IdentityUser> employeeManager)
+        UserManager<User> employeeManager;
+        public EmployeeRepositoryBase(UserManager<User> employeeManager)
         {
             this.employeeManager = employeeManager;
         }

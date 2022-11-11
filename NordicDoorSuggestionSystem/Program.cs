@@ -8,6 +8,7 @@ using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using NordicDoorSuggestionSystem.Entities;
+using NordicDoorSuggestionSystem.Repositories;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Hosting;
 
@@ -30,9 +31,10 @@ public class Program
             
         });
         
-        //builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
-        
-        
+        builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
+        builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+
+
         builder.Services.Configure<IdentityOptions>(options =>
         {
             // Default Lockout settings.
