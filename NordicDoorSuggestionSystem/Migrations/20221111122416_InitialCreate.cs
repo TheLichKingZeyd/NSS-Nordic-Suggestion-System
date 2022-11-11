@@ -242,7 +242,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                     TeamLeader = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TeamSgstnCount = table.Column<ushort>(type: "smallint unsigned", nullable: true),
-                    DepartmentID = table.Column<int>(type: "int", nullable: false)
+                    DepartmentID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -251,8 +251,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         name: "FK_Team_Department_DepartmentID",
                         column: x => x.DepartmentID,
                         principalTable: "Department",
-                        principalColumn: "DepartmentID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DepartmentID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -334,8 +333,8 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CommentTime = table.Column<DateTime>(type: "timestamp(6)", rowVersion: true, nullable: true)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
-                    SuggestionID = table.Column<int>(type: "int", nullable: false),
-                    EmployeeNumber = table.Column<int>(type: "int", nullable: false)
+                    SuggestionID = table.Column<int>(type: "int", nullable: true),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -344,14 +343,12 @@ namespace NordicDoorSuggestionSystem.Migrations
                         name: "FK_Comment_Employee_EmployeeNumber",
                         column: x => x.EmployeeNumber,
                         principalTable: "Employee",
-                        principalColumn: "EmployeeNumber",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EmployeeNumber");
                     table.ForeignKey(
                         name: "FK_Comment_Suggestion_SuggestionID",
                         column: x => x.SuggestionID,
                         principalTable: "Suggestion",
-                        principalColumn: "SuggestionID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "SuggestionID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

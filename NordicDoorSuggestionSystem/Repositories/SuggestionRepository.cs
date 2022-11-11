@@ -9,12 +9,14 @@ namespace NordicDoorSuggestionSystem.Repositories
     {
         // private readonly UserManager<IdentityUser> _userManager;
         private readonly DataContext _context;
+        private readonly UserManager<User> _userManager;
 
 
 
-        public SuggestionRepository(DataContext dataContext)
+        public SuggestionRepository(DataContext dataContext, UserManager<User>userManager)
         {
             this._context = dataContext;
+            this._userManager = userManager;
         }
 
         public async Task Add(Suggestion suggestion)
@@ -61,10 +63,10 @@ namespace NordicDoorSuggestionSystem.Repositories
         // This is a task that returns a list with the user's suggestions.
         // Will test when login is possible. 
 
-        /* public async Task<List<Suggestion>> MySuggestions()
+        /*public async Task<List<Suggestion>> MySuggestions()
         {
-            
-            return await _context.Suggestion.Where(s => s.UserID == userID).ToListAsync();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            return await _context.Suggestion.Where(s => s.EmployeeNumber == ).ToListAsync();
         } */
 
         public async Task Update(Suggestion suggestion) 

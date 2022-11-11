@@ -161,10 +161,10 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("EmployeeNumber")
+                    b.Property<int?>("EmployeeNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuggestionID")
+                    b.Property<int?>("SuggestionID")
                         .HasColumnType("int");
 
                     b.HasKey("CommentID");
@@ -331,7 +331,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("TeamLeader")
@@ -482,15 +482,11 @@ namespace NordicDoorSuggestionSystem.Migrations
                 {
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeNumber");
 
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Suggestion", "Suggestion")
                         .WithMany()
-                        .HasForeignKey("SuggestionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuggestionID");
 
                     b.Navigation("Employee");
 
@@ -548,9 +544,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                 {
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentID");
 
                     b.Navigation("Department");
                 });

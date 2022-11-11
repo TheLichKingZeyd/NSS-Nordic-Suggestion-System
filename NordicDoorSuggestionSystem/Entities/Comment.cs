@@ -11,12 +11,12 @@ namespace NordicDoorSuggestionSystem.Entities
         [Timestamp]
         public byte[]? CommentTime { get; set; }
         
-        public Suggestion Suggestion { get; set; }
+        public Suggestion? Suggestion { get; set; }
         [ForeignKey("Suggestion")]
-        public int SuggestionID { get; set; }
-        public Employee Employee { get; set; }
+        public int? SuggestionID { get; set; }
+        public Employee? Employee { get; set; }
         [ForeignKey("Employee")]
-        public int EmployeeNumber { get; set; }
+        public int? EmployeeNumber { get; set; }
         
 
     }

@@ -97,7 +97,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-               // var user = await _userManager.GetUserAsync(HttpContext.User);
+               var user = await _userManager.GetUserAsync(HttpContext.User);
+               
 
                 var newSuggestion = new Suggestion {
                     Title = suggestionViewModel.Title,
@@ -107,8 +108,8 @@ namespace NordicDoorSuggestionSystem.Controllers
                     Goal = suggestionViewModel.Goal,
                     Deadline = suggestionViewModel.Deadline,
                     Progress = suggestionViewModel.Progress,
-                    // EmployeeNumber = user.Id,
-                    EmployeeNumber = suggestionViewModel.EmployeeNumber,
+                    EmployeeNumber = int.Parse(user.Id),
+                    // EmployeeNumber = suggestionViewModel.EmployeeNumber,
                     TeamID = suggestionViewModel.TeamID
                 };
                 
