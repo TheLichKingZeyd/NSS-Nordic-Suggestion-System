@@ -9,7 +9,7 @@ namespace NordicDoorSuggestionSystem.Entities
         public int CommentID { get; set; }
         public string? Content { get; set; }
         [Timestamp]
-        public byte[]? CommentTime { get; set; }
+        public DateTime? CommentTime { get; set; }
         
         public Suggestion? Suggestion { get; set; }
         [ForeignKey("Suggestion")]
@@ -17,7 +17,6 @@ namespace NordicDoorSuggestionSystem.Entities
         public Employee? Employee { get; set; }
         [ForeignKey("Employee")]
         public int? EmployeeNumber { get; set; }
-        
 
     }
 }
