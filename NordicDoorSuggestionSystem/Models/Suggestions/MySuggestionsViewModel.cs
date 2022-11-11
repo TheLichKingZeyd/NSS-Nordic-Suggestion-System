@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace NordicDoorSuggestionSystem.Models
 {
     public class MySuggestionsViewModel

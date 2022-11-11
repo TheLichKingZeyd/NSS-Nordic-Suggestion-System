@@ -34,15 +34,30 @@ namespace NordicDoorSuggestionSystem.Controllers
         // Then it calls the QuerySuggestions() from the SR, with the parameter (searchString).
         
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string title)
         {
             var suggestions = new List<Suggestion>();    
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(title))
             {
-                suggestions = await _suggestionRepository.QuerySuggestions(searchString);
-            }else{
+                suggestions = await _suggestionRepository.QueryTitle(title);
+            } else {
                 suggestions = await _suggestionRepository.GetSuggestions();
             }
+           /* if (!String.IsNullOrEmpty(problem))
+            {
+                suggestions = await _suggestionRepository.QueryProblem(problem);
+            }*/
+              return View(suggestions);
+        } 
+        
+        // GET: MySuggestions/Henter brukerens suggestions. 
+        // This function gets the suggestion view and shows the users suggestions. 
+        // Will test when it is possible to LogIn
+
+        public async Task<IActionResult> MySuggestions()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var suggestions = new List<Suggestion>(); 
               return View(suggestions);
         } 
 
@@ -222,5 +237,6 @@ namespace NordicDoorSuggestionSystem.Controllers
           if(suggestion == null) return false;
           return true;
         }
+        
     }
 }
