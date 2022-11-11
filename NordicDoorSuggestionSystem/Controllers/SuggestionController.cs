@@ -20,11 +20,13 @@ namespace NordicDoorSuggestionSystem.Controllers
         private readonly UserManager<IdentityUser> _userManager;
 
         private readonly ISuggestionRepository _suggestionRepository;
+        public DataContext _context {get; set;}
 
-        public SuggestionController(UserManager<IdentityUser> userManager, ISuggestionRepository suggestionRepository)
+        public SuggestionController(UserManager<IdentityUser> userManager, ISuggestionRepository suggestionRepository, DataContext context)
         {
             _userManager = userManager;
             _suggestionRepository = suggestionRepository;
+            _context = context;
         }
 
         // GET: Suggestion/Henter  ut Suggestions fra databasen i en liste + legger til søkefunksjon
@@ -58,12 +60,25 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
             
             var suggestion = await _suggestionRepository.GetSuggestion(id);
+            SuggestionDetailViewModel vm = new SuggestionDetailViewModel();
             if (suggestion == null)
             {
                 return NotFound();
             }
 
-            return View(suggestion);
+            vm.SuggestionID = suggestion.SuggestionID;
+            vm.Title = suggestion.Title;
+            vm.ResponsibleEmployee = suggestion.ResponsibleEmployee;
+            vm.Problem = suggestion.Problem;
+            vm.Solution = suggestion.Solution;
+            vm.Goal = suggestion.Goal;
+            vm.Deadline = suggestion.Deadline;
+            vm.TeamID = suggestion.TeamID;
+
+            var Comments = _context.Comment.Where(d => d.SuggestionID.Equals(suggestion.SuggestionID)).ToList();
+            vm.CommentsList = Comments;
+
+            return View(vm);
         }
 
         // GET: Suggestion/Create
@@ -222,5 +237,48 @@ namespace NordicDoorSuggestionSystem.Controllers
           if(suggestion == null) return false;
           return true;
         }
+
+        public Task<List<Comment>> GetComments() => _context.Comment.ToListAsync();
+
+        public async Task<IActionResult> AddComment(int? id)
+        {
+            if (id == null || await _suggestionRepository.GetSuggestions() == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _suggestionRepository.GetSuggestion(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            var addSuggestionComment = new AddSuggestionComment {
+                SuggestionID = comment.SuggestionID
+            };
+
+            return View(addSuggestionComment);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddComment([Bind("CommentID, EmployeeNumber,SuggestionID, Content, CommentTime")] Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                var newComment = new Comment {
+                    CommentID = comment.CommentID,
+                    EmployeeNumber = comment.EmployeeNumber,
+                    SuggestionID = comment.SuggestionID,
+                    Content = comment.Content,
+                    CommentTime = DateTime.Now,
+                };
+                
+                _context.Add(newComment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
     }
 }
+
