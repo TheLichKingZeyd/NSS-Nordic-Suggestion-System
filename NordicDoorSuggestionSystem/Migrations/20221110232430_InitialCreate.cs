@@ -38,6 +38,11 @@ namespace NordicDoorSuggestionSystem.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -257,32 +262,25 @@ namespace NordicDoorSuggestionSystem.Migrations
                 {
                     EmployeeNumber = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                    FirstName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                    LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Role = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AccountState = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     ProfilePicture = table.Column<byte[]>(type: "longblob", nullable: true),
                     SgstnCount = table.Column<ushort>(type: "smallint unsigned", nullable: true),
-                    TeamID = table.Column<int>(type: "int", nullable: false),
-                    EmployeeNumber1 = table.Column<int>(type: "int", nullable: true)
+                    TeamID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employee", x => x.EmployeeNumber);
                     table.ForeignKey(
-                        name: "FK_Employee_Employee_EmployeeNumber1",
-                        column: x => x.EmployeeNumber1,
-                        principalTable: "Employee",
-                        principalColumn: "EmployeeNumber");
-                    table.ForeignKey(
                         name: "FK_Employee_Team_TeamID",
                         column: x => x.TeamID,
                         principalTable: "Team",
-                        principalColumn: "TeamID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TeamID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -432,11 +430,6 @@ namespace NordicDoorSuggestionSystem.Migrations
                 name: "IX_Comment_SuggestionID",
                 table: "Comment",
                 column: "SuggestionID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employee_EmployeeNumber1",
-                table: "Employee",
-                column: "EmployeeNumber1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employee_TeamID",

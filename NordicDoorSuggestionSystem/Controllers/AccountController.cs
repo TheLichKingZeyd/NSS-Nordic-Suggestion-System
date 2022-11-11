@@ -12,25 +12,33 @@ namespace NordicDoorSuggestionSystem.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmployeeRepository employeeRepository;
+        private readonly ITeamRepository teamRepository;
+        private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailSender emailSender, ILoggerFactory loggerFactory, IEmployeeRepository userRepository)
+        public AccountController(UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            IEmployeeRepository userRepository,
+            IEmailSender emailSender,
+            ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
             this.employeeRepository = userRepository;
+            _roleManager = roleManager;
+            _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -41,7 +49,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             
@@ -79,10 +87,34 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public async Task<IActionResult> Register(string? returnUrl = null)
         {
+            if (!await _roleManager.RoleExistsAsync("Administrator"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Administrator"));
+                await _roleManager.CreateAsync(new IdentityRole("Team Leder"));
+                await _roleManager.CreateAsync(new IdentityRole("Standard Bruker"));
+            }
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem()
+            {
+                Value = "Standard Bruker",
+                Text = "Standard Bruker"
+            });
+            listItems.Add(new SelectListItem()
+            {
+                Value = "Team Leder",
+                Text = "Team Leder"
+            });
+            listItems.Add(new SelectListItem()
+            {
+                Value = "Administrator",
+                Text = "Administrator"
+            });
+            RegisterViewModel registerViewModel = new RegisterViewModel();
+            registerViewModel.RoleList = listItems;
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(registerViewModel);
         }
 
         //
@@ -90,28 +122,46 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.EmployeeNumber, LockoutEnabled = false,LockoutEnd = null };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var user = new User { UserName = registerViewModel.EmployeeNumber.ToString(),
+                    EmployeeNumber = registerViewModel.EmployeeNumber,
+                    FirstName = registerViewModel.FirstName,
+                    LastName = registerViewModel.LastName,
+                    LockoutEnabled = false,
+                    LockoutEnd = null };
+                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
                 if (result.Succeeded)
                 {
-                    employeeRepository.Add(new Employee
+                    if(registerViewModel.RoleSelected != null && registerViewModel.RoleSelected.Length < 0)
                     {
-                        EmployeeNumber = Int32.Parse(model.EmployeeNumber)
-                    });
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                        if (registerViewModel.RoleSelected == "Standard Bruker")
+                        {
+                            await _userManager.AddToRoleAsync(user, "Standard Bruker");
+                        }
+                        else if (registerViewModel.RoleSelected == "Team Leder")
+                        {
+                            await _userManager.AddToRoleAsync(user, "Team Leder");
+                        }
+                        else if (registerViewModel.RoleSelected == "Administrator")
+                        {
+                            await _userManager.AddToRoleAsync(user, "Administrator");
+                        }
+                    }
 
-                    
+
+                    var employee = new Employee {
+                        EmployeeNumber = registerViewModel.EmployeeNumber,
+                        FirstName = registerViewModel.FirstName,
+                        LastName = registerViewModel.LastName,
+                        Role = registerViewModel.RoleSelected,                      
+                    };                    
+
+                    employeeRepository.Add(employee);
+
                     _logger.LogInformation(3, "User created a new account with password.");
 
 
@@ -121,7 +171,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(registerViewModel);
         }
 
    
@@ -137,7 +187,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult ExternalLogin(string provider, string returnUrl = null)
+        public IActionResult ExternalLogin(string provider, string? returnUrl = null)
         {
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
@@ -149,7 +199,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/ExternalLoginCallback
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
         {
             if (remoteError != null)
             {
@@ -195,7 +245,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
+        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string? returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -205,7 +255,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -297,7 +347,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/ResetPassword
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ResetPassword(string code = null)
+        public IActionResult ResetPassword(string? code = null)
         {
             return code == null ? View("Error") : View();
         }
@@ -341,14 +391,14 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/SendCode
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
+        public async Task<ActionResult> SendCode(string? returnUrl = null, bool rememberMe = false)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
-            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
+            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(employee);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -396,11 +446,11 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/VerifyCode
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
+        public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string? returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -443,11 +493,11 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/VerifyAuthenticatorCode
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> VerifyAuthenticatorCode(bool rememberMe, string returnUrl = null)
+        public async Task<IActionResult> VerifyAuthenticatorCode(bool rememberMe, string? returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -490,11 +540,11 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /Account/UseRecoveryCode
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> UseRecoveryCode(string returnUrl = null)
+        public async Task<IActionResult> UseRecoveryCode(string? returnUrl = null)
         {
             // Require that the user has already logged in via username/password or external login
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            if (user == null)
+            var employee = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            if (employee == null)
             {
                 return View("Error");
             }
@@ -534,7 +584,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             }
         }
 
-        private Task<IdentityUser> GetCurrentUserAsync()
+        private Task<User> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }

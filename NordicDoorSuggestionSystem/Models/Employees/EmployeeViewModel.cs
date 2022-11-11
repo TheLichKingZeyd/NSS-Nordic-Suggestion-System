@@ -1,14 +1,12 @@
 using NordicDoorSuggestionSystem.Entities;
-using NordicDoorSuggestionSystem.Repositories;
 
 namespace NordicDoorSuggestionSystem.Models.Employees
 {
-    public class EmployeeAccountViewModel
+    public class EmployeeViewModel
     {
         public int EmployeeNumber { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string AccountPrivilege { get; set; }
         public string? AccountState { get; set; }
         public string? SgstnCount { get; set; }
         public string Role { get; set; }
