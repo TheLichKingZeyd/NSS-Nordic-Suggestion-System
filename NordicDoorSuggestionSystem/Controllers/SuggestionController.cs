@@ -17,11 +17,11 @@ namespace NordicDoorSuggestionSystem.Controllers
     //[Authorize]
     public class SuggestionController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
         private readonly ISuggestionRepository _suggestionRepository;
 
-        public SuggestionController(UserManager<IdentityUser> userManager, ISuggestionRepository suggestionRepository)
+        public SuggestionController(UserManager<User> userManager, ISuggestionRepository suggestionRepository)
         {
             _userManager = userManager;
             _suggestionRepository = suggestionRepository;

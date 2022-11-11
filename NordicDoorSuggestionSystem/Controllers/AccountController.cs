@@ -157,7 +157,8 @@ namespace NordicDoorSuggestionSystem.Controllers
                         EmployeeNumber = registerViewModel.EmployeeNumber,
                         FirstName = registerViewModel.FirstName,
                         LastName = registerViewModel.LastName,
-                        Role = registerViewModel.RoleSelected,                      
+                        Role = registerViewModel.RoleSelected,
+                        SuggestionCount = 0
                     };                    
 
                     employeeRepository.Add(employee);

@@ -42,7 +42,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Role = model.Role,
-                SgstnCount = 0
+                SuggestionCount = 0
             };
             var roles = new List<string>();
             if (model.Role == "Administrator")
