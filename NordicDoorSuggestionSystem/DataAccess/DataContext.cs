@@ -1,12 +1,10 @@
 ﻿using NordicDoorSuggestionSystem.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using NordicDoorSuggestionSystem.Models;
 
 namespace NordicDoorSuggestionSystem.DataAccess
 {
-    public class DataContext : IdentityDbContext<IdentityUser>
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext()
         {
@@ -15,6 +13,7 @@ namespace NordicDoorSuggestionSystem.DataAccess
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>().HasKey(x => x.EmployeeNumber);
@@ -27,19 +26,13 @@ namespace NordicDoorSuggestionSystem.DataAccess
             base.OnModelCreating(modelBuilder);
         }
 
-
-
         public DbSet<Suggestion> Suggestion { get; set; }
-
         public DbSet<Comment> Comment { get; set; }
-
         public DbSet<Department> Departments { get; set; }
-
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<SuggestionReason> SgstnReason { get; set; }
         public DbSet<Team> Team { get; set; }
 
     }
-
 }

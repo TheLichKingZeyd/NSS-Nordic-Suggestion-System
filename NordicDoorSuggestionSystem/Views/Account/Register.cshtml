@@ -18,6 +18,20 @@
         </div>
     </div>
     <div class="form-group">
+        <label asp-for="FirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
         <label asp-for="Password" class="col-md-2 control-label"></label>
         <div class="col-md-10">
             <input asp-for="Password" class="form-control" />
@@ -29,6 +43,14 @@
         <div class="col-md-10">
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form group">
+        <label asp-for="RoleSelected" class="col-md-2"></label>
+        <div class="col-md-10">
+            <select asp-for="RoleSelected" asp-items="@Model.RoleList" class="form-control">
+                <option disabled selected>- Konto Type -</option>
+            </select>
         </div>
     </div>
     <div class="form-group">

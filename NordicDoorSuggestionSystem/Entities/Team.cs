@@ -13,11 +13,9 @@ namespace NordicDoorSuggestionSystem.Entities
         public string? TeamLeader { get; set; }
         public ushort? TeamSgstnCount { get; set; }
         
-
-        
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
         [ForeignKey("Department")]
-        public int DepartmentID { get; set; }
+        public int? DepartmentID { get; set; }
 
     }
 }
