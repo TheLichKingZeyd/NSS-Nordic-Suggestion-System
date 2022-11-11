@@ -20,7 +20,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         private readonly UserManager<User> _userManager;
 
         private readonly ISuggestionRepository _suggestionRepository;
-        public DataContext _context;
+        private readonly DataContext _context;
 
 
         public SuggestionController(UserManager<User> userManager, ISuggestionRepository suggestionRepository, DataContext context)
