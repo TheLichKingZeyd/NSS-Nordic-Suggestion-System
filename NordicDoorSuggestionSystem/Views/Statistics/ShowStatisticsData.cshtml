@@ -1,0 +1,221 @@
+@{
+    Layout ="~/Views/Shared/_Layout.cshtml";
+    
+    
+    <style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        padding: 10px;
+    }
+    .grid-container2 {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    .grid-item {
+        padding: 20px;
+        font-size: 20px;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+    }
+</style>
+}
+
+<div class="grid-container">
+  <div class="grid-item">
+  	<div class="grid-container2">
+  		<div class="grid-item">
+            <select id="ChartType" class="form-control">
+                <option>bar</option>
+                <option>line</option>
+                <option>pie</option>
+                <option>doughnut</option>
+                <option>polarArea</option>
+            </select>
+        </div>
+  		<div class="grid-item">
+            <input id="ID" value="Show Graph" type="button">
+        </div>
+	</div>
+  </div>
+  <div class="grid-item">
+  	<div class="grid-container2">
+  		<div class="grid-item">
+            <select id="ChartTypeDept" class="form-control">
+                <option>bar</option>
+                <option>line</option>
+                <option>pie</option>
+                <option>doughnut</option>
+                <option>polarArea</option>
+            </select>
+        </div>
+  		<div class="grid-item">
+            <input id="ID2" value="Show Graph" type="button">
+        </div>
+	</div>
+  </div>
+  <div class="grid-item">
+    <div id="ChartView">
+    <canvas id="myChart" style="max-width:300px;max-height:300px;"></canvas>
+</div>
+  </div>  
+  <div class="grid-item">
+    <div id="ChartViewDept">
+    <canvas id="myChartDept" style="max-width:300px;max-height:300px;"></canvas>
+</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript">
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetStatisticsData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data){
+                    var _data=data;
+                    var _chartLabels=_data[0];
+                    var _chartData=_data[1];
+
+                    var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                    new Chart("myChart",
+                    {
+                    type:'bar',
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                            }]
+                        }
+                    });
+                }
+            });
+    
+    $(function () {
+        $("#ID").click(function (){
+
+            var chartType=$("#ChartType").val();
+            
+            var chartView=document.getElementById('ChartView');
+
+            chartView.innerHTML='&nbsp;';
+
+            $('#ChartView').append('<canvas id="myChart" style="max-width:300px;max-height:300px;"></canvas>');
+
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetStatisticsData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccessResult,
+                error: OnError
+            });
+
+            function OnSuccessResult (data){
+                var _data=data;
+                var _chartLabels=_data[0];
+                var _chartData=_data[1];
+
+                var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                new Chart("myChart",
+                {
+                    type:chartType,
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                        }]
+                    }
+                });
+            }
+
+            function OnError (err){
+
+            }
+
+        });
+    });
+</script>
+<script type="text/javascript">
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetDepartmentData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data){
+                    var _data=data;
+                    var _chartLabels=_data[0];
+                    var _chartData=_data[1];
+
+                    var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                    new Chart("myChartDept",
+                    {
+                    type:'doughnut',
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                            }]
+                        }
+                    });
+                }
+            });
+    
+    $(function () {
+        $("#ID2").click(function (){
+
+            var chartType=$("#ChartTypeDept").val();
+            
+            var chartView=document.getElementById('ChartViewDept');
+
+            chartView.innerHTML='&nbsp;';
+
+            $('#ChartViewDept').append('<canvas id="myChartDept" style="max-width:300px;max-height:300px;"></canvas>');
+
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetDepartmentData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccessResult,
+                error: OnError
+            });
+
+            function OnSuccessResult (data){
+                var _data=data;
+                var _chartLabels=_data[0];
+                var _chartData=_data[1];
+
+                var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                new Chart("myChartDept",
+                {
+                    type:chartType,
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                        }]
+                    }
+                });
+            }
+
+            function OnError (err){
+
+            }
+
+        });
+    });
+</script>

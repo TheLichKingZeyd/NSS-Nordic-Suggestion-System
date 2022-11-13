@@ -14,7 +14,7 @@ namespace NordicDoorSuggestionSystem.Entities
         public string? Role { get; set; }
         public bool? AccountState { get; set; }
         public byte[]? ProfilePicture { get; set; }
-        public ushort? SuggestionCount { get; set; }
+        public int? SuggestionCount { get; set; }
 
         public Team? Team { get; set; }
         [ForeignKey("Team")]

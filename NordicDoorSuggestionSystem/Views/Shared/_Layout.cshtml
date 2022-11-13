@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="ShowStatisticsData">Statistics</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -32,6 +35,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
             @RenderBody()
         </main>
     </div>
