@@ -294,7 +294,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 
                 _context.Add(newComment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Suggestion", new {id = comment.SuggestionID});
             }
             return View();
         }
