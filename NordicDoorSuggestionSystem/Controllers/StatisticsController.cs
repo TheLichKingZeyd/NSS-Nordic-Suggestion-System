@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using NordicDoorSuggestionSystem.DataAccess;
 using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Models;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -20,7 +22,14 @@ namespace NordicDoorSuggestionSystem.Controllers
 
         public IActionResult ShowStatisticsData()
         {
-            return View();
+            StatisticsViewModel vm = new StatisticsViewModel();
+            var employeeCounts = _context.Employees.OrderByDescending(x => x.SuggestionCount).ToList();
+            vm.EmployeeList = employeeCounts;
+            
+            var teamCounts = _context.Team.OrderByDescending(x => x.TeamSgstnCount).ToList();
+            vm.BestTeamList = teamCounts;
+
+            return View(vm);
         }
 
         [HttpPost]
