@@ -24,7 +24,7 @@ namespace NordicDoorSuggestionSystem.Controllers
 
 
         public SuggestionController(UserManager<User> userManager, ISuggestionRepository suggestionRepository, DataContext context)
-        
+
 
         {
             _userManager = userManager;
@@ -35,13 +35,13 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: Suggestion/Henter  ut Suggestions fra databasen i en liste + legger til søkefunksjon
         // The function is called Index and has the parameter (searchString)
         // First it makes a variabel with a list of the Suggestions
-        // Then checks if the string(with the listed items) is Null or Empty. 
+        // Then checks if the string(with the listed items) is Null or Empty.
         // Then it calls the QuerySuggestions() from the SR, with the parameter (searchString).
-        
+
 
         public async Task<IActionResult> Index(string title)
         {
-            var suggestions = new List<Suggestion>();    
+            var suggestions = new List<Suggestion>();
             if (!String.IsNullOrEmpty(title))
             {
                 suggestions = await _suggestionRepository.QueryTitle(title);
@@ -53,21 +53,21 @@ namespace NordicDoorSuggestionSystem.Controllers
                 suggestions = await _suggestionRepository.QueryProblem(problem);
             }*/
               return View(suggestions);
-        } 
-        
-        // GET: MySuggestions/Henter brukerens suggestions. 
-        // This function gets the suggestion view and shows the users suggestions. 
+        }
+
+        // GET: MySuggestions/Henter brukerens suggestions.
+        // This function gets the suggestion view and shows the users suggestions.
         // Will test when it is possible to LogIn
 
         public async Task<IActionResult> MySuggestions()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var suggestions = new List<Suggestion>(); 
+            var suggestions = new List<Suggestion>();
               return View(suggestions);
-        } 
+        }
 
         // GET: Suggestion/Details/Henter detaljer på et Forbedringsforslag
-        // The function first checks if the ID = Null in the database. 
+        // The function first checks if the ID = Null in the database.
         // Then gets the id of the selected suggestion and show the fields of the selected Suggestion.
 
         public async Task<IActionResult> Details(int? id)
@@ -76,7 +76,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 return NotFound();
             }
-            
+
             var suggestion = await _suggestionRepository.GetSuggestion(id);
             SuggestionDetailViewModel vm = new SuggestionDetailViewModel();
             if (suggestion == null)
@@ -106,9 +106,9 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // POST: Suggestion/Create/Lage et nytt Forbedringsforslag
-        // The function creates a new Suggestion. 
+        // The function creates a new Suggestion.
         // The function maps the Suggestion.cs to the SuggestionViewModel and calls the Add() function from SuggestionRepository.
-        // Then it calls the SaveChanges() from SR and returns to the index view. 
+        // Then it calls the SaveChanges() from SR and returns to the index view.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,ResponsibleEmployee, Problem, Solution, Goal, Deadline, Progress, EmployeeNumber, TeamID")] SuggestionViewModel suggestionViewModel)
@@ -116,7 +116,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             if (ModelState.IsValid)
             {
                var user = await _userManager.GetUserAsync(HttpContext.User);
-               
+
 
                 var newSuggestion = new Suggestion {
                     Title = suggestionViewModel.Title,
@@ -130,7 +130,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                     EmployeeNumber = suggestionViewModel.EmployeeNumber,
                     TeamID = suggestionViewModel.TeamID
                 };
-                
+
                 await _suggestionRepository.Add(newSuggestion);
                 await _suggestionRepository.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -189,7 +189,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                     suggestion.Goal = editSuggestionViewModel.Goal;
                     suggestion.Deadline = editSuggestionViewModel.Deadline;
                     suggestion.TeamID = editSuggestionViewModel.TeamID;
-                    
+
                     await _suggestionRepository.Update(suggestion);
                     await _suggestionRepository.SaveChanges();
                 }
@@ -206,7 +206,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // This function called Delete with the parameter (int? id)
         // First checks if id = null. If null, return NotFound()
         // Then it calls the GetSuggestion() from SR
-        // 
+        //
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -224,9 +224,9 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // POST: Suggestion/Delete/Sletter et Forslag fra databasen
-        // This function is based on the function Delete(int? id). 
-        // It first calls the GetSuggestions() from SR, and checks if Suggestions exists in the database. 
-        // Then it calls the GetSuggestion with the parameter (id). 
+        // This function is based on the function Delete(int? id).
+        // It first calls the GetSuggestions() from SR, and checks if Suggestions exists in the database.
+        // Then it calls the GetSuggestion with the parameter (id).
         // and then the function Delete from the SR with the parameter (suggestion).
         // Then update the database with the SaveChanges() from SR.
 
@@ -245,14 +245,14 @@ namespace NordicDoorSuggestionSystem.Controllers
                 await _suggestionRepository.SaveChanges();
 
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool SuggestionEntityExists(int id)
         {
           var suggestion = _suggestionRepository.GetSuggestion(id);
-          
+
           if(suggestion == null) return false;
           return true;
         }
@@ -277,7 +277,7 @@ namespace NordicDoorSuggestionSystem.Controllers
 
             return View(addSuggestionComment);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddComment([Bind("CommentID, EmployeeNumber,SuggestionID, Content, CommentTime")] Comment comment)
@@ -291,13 +291,25 @@ namespace NordicDoorSuggestionSystem.Controllers
                     Content = comment.Content,
                     CommentTime = DateTime.Now,
                 };
-                
+
                 _context.Add(newComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "Suggestion", new {id = comment.SuggestionID});
             }
             return View();
         }
+
+        public IActionResult TeamSuggestions()
+        {
+            return View();
+        }
+
+        public IActionResult Feed()
+        {
+            return View();
+        }
     }
+
 }
+
 

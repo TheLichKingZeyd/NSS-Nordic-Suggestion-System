@@ -4,19 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace NordicDoorSuggestionSystem.Controllers
 {
-    public class AccountPagesController : Controller
+    public class SubmitPage : Controller
     {
+        // GET: /<controller>/
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult MyTeam()
         {
             return View();
         }
     }
 }
+
