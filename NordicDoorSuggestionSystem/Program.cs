@@ -76,9 +76,9 @@ public class Program
 
         builder.Services.AddTransient<IEmailSender, AuthMessageSender>();
 
-        builder.Services.AddRazorPages()
-            .AddRazorRuntimeCompilation();
-       
+        builder.Services.AddRazorPages();
+            //.AddRazorRuntimeCompilation();
+
         var app = builder.Build();
         using (var scope = app.Services.CreateScope())
             {

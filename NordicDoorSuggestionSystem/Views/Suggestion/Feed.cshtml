@@ -2,14 +2,13 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.Title = "Mitt Team";
-    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "Feed § NSS";
+    Layout = "~/Views/Shared/_BaseNoFooterLayout.cshtml";
 
 }
 
-
 <div class="cardContainer">
-    <div id="notificationBox" class="notificationBox" >
+    <div id="notificationBox" class="notificationBox" style="margin-top:60vh;">
         <div class="notificationTitle">
             <h1>Notifikasjoner</h1>
         </div>
@@ -34,19 +33,14 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-    //get the modal and opacity view id
+<script type="text/javascript">//get the modal and opacity view id
 
     var notifiModal = document.getElementById("notificationBox");
-    var statModal = document.getElementById("statisticBox");
     var childHeader = document.getElementById("childHeader");
     var childFooter = document.getElementById("childFooter");
     //get the button id
-    var statBtn = document.getElementById("statisticBtn");
     var notiBtn = document.getElementById("notificationBtn");
     var closeNotifiBtn = document.getElementById("closeNotifiBtn");
-    var closeStatBtn = document.getElementById("closeStatBtn");
 
     //function for notifications view
     notiBtn.onclick = function () {
@@ -59,18 +53,4 @@
         notifiModal.style.display = "none";
         childHeader.style.opacity = "100%";
         childFooter.style.opacity = "100%";
-    }
-
-    statBtn.onclick = function () {
-        statModal.style.display = "flex";
-        childHeader.style.opacity = "50%";
-        childFooter.style.opacity = "50%";
-    }
-
-    closeStatBtn.onclick = function () {
-        statModal.style.display = "none";
-        childHeader.style.opacity = "100%";
-        childFooter.style.opacity = "100%";
-    }
-    </script>
-
+    }</script>

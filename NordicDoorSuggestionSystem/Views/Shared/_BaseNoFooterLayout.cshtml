@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="childHeader" class="childHeader">
+        <nav>
+            <ul>
+                <li>
+                    <button onclick="location.href='@Url.Action("Index","NavigationPage")'"><i class="fa fa-home" style="cursor: pointer; font-size: 40px;"></i></button>
+                </li>
+                <li>
+                    <h1>NSS</h1>
+                </li>
+                <li>
+                    <button id="notificationBtn" class="fa fa-bell" style="cursor: pointer; font-size: 40px;"></button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>
+
