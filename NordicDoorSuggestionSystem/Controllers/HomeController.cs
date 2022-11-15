@@ -1,6 +1,5 @@
 ﻿using NordicDoorSuggestionSystem.DataAccess;
 using NordicDoorSuggestionSystem.Models;
-using NordicDoorSuggestionSystem.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -11,12 +10,10 @@ namespace NordicDoorSuggestionSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IEmployeeRepository userRepository;
 
-        public HomeController(ILogger<HomeController> logger, IEmployeeRepository userRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.userRepository = userRepository;
         }
 
         [HttpGet]

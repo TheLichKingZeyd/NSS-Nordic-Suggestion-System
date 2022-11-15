@@ -1,12 +1,11 @@
-﻿@model NordicDoorSuggestionSystem.Entities.Suggestion
-
+﻿@model NordicDoorSuggestionSystem.Models.SuggestionViewModel
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
-<h4>SuggestionEntity</h4>
+<h4>Send inn et forslag!</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,12 +33,11 @@
                 <span asp-validation-for="Goal" class="text-danger"></span>
             </div>
            
-             <div class="form-group">
+            <div class="form-group">
                 <label asp-for="ResponsibleEmployee" class="control-label"></label>
                 <input asp-for="ResponsibleEmployee" class="form-control" />
                 <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Deadline" class="control-label"></label>
                 <input asp-for="Deadline" class="form-control" />
@@ -49,6 +47,11 @@
                 <label asp-for="TeamID" class="control-label"></label>
                 <input asp-for="TeamID" class="form-control" />
                 <span asp-validation-for="TeamID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Progress" class="control-label"></label>
+                <input asp-for="Progress" class="form-control" />
+                <span asp-validation-for="Progress" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

@@ -1,5 +1,4 @@
 using NordicDoorSuggestionSystem.DataAccess;
-using NordicDoorSuggestionSystem.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,7 @@ using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using NordicDoorSuggestionSystem.Entities;
+using NordicDoorSuggestionSystem.Repositories;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Hosting;
 
@@ -26,13 +26,15 @@ public class Program
         builder.Services.AddDbContext<DataContext>(options =>
         {
             
-            options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
+            options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"),
+                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
             
         });
         
         builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
-        
-        
+        builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+        builder.Services.AddScoped<ISuggestionRepository, SuggestionRepository>();
+
         builder.Services.Configure<IdentityOptions>(options =>
         {
             // Default Lockout settings.
@@ -46,7 +48,7 @@ public class Program
         });
 
         builder.Services
-            .AddIdentityCore<IdentityUser>()
+            .AddIdentityCore<User>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<DataContext>()
             .AddSignInManager()
@@ -60,6 +62,9 @@ public class Program
         }).AddIdentityCookies(o => { });
 
         builder.Services.AddTransient<IEmailSender, AuthMessageSender>();
+
+        builder.Services.AddRazorPages()
+            .AddRazorRuntimeCompilation();
        
         var app = builder.Build();
         using (var scope = app.Services.CreateScope())
@@ -84,6 +89,7 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+        
         app.MapControllers();
 
 

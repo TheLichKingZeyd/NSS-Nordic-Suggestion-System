@@ -7,23 +7,17 @@ namespace NordicDoorSuggestionSystem.Entities
     public class Employee
     {
         public int EmployeeNumber { get; set; }
+        public string FirstName { get; set; }
         [MaxLength(50)]
-        public string? FirstName { get; set; }
-        [MaxLength(50)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
         [MaxLength(15)]
         public string? Role { get; set; }
         public bool? AccountState { get; set; }
         public byte[]? ProfilePicture { get; set; }
-        public ushort? SuggestionCount { get; set; }
-        // public ICollection<Employee> Employees {get; set;}
+        public int? SuggestionCount { get; set; }
 
-        public Team Team { get; set; }
+        public Team? Team { get; set; }
         [ForeignKey("Team")]
-        public int TeamID { get; set; }
-        
-        
-
-        
+        public int? TeamID { get; set; }
     }
 }

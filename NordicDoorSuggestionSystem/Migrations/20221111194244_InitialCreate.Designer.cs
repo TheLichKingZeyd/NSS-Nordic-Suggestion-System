@@ -11,7 +11,7 @@ using NordicDoorSuggestionSystem.DataAccess;
 namespace NordicDoorSuggestionSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221107112911_InitialCreate")]
+    [Migration("20221111194244_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,70 +68,6 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -219,18 +155,18 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CommentTime")
+                    b.Property<DateTime?>("CommentTime")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp(6)");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("EmployeeNumber")
+                    b.Property<int?>("EmployeeNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuggestionID")
+                    b.Property<int?>("SuggestionID")
                         .HasColumnType("int");
 
                     b.HasKey("CommentID");
@@ -270,14 +206,12 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.Property<bool?>("AccountState")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("EmployeeNumber1")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
@@ -288,15 +222,13 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("varchar(15)");
 
-                    b.Property<ushort?>("SgstnCount")
+                    b.Property<ushort?>("SuggestionCount")
                         .HasColumnType("smallint unsigned");
 
-                    b.Property<int>("TeamID")
+                    b.Property<int?>("TeamID")
                         .HasColumnType("int");
 
                     b.HasKey("EmployeeNumber");
-
-                    b.HasIndex("EmployeeNumber1");
 
                     b.HasIndex("TeamID");
 
@@ -343,10 +275,12 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Goal")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Problem")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<short?>("Progress")
                         .HasColumnType("smallint");
@@ -355,13 +289,15 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Solution")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<int>("TeamID")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("UploadTime")
                         .IsConcurrencyToken()
@@ -397,7 +333,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("TeamLeader")
@@ -418,6 +354,81 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.ToTable("Team");
                 });
 
+            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("EmployeeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -429,7 +440,7 @@ namespace NordicDoorSuggestionSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -438,7 +449,7 @@ namespace NordicDoorSuggestionSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,7 +464,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -462,7 +473,7 @@ namespace NordicDoorSuggestionSystem.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("NordicDoorSuggestionSystem.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -473,15 +484,11 @@ namespace NordicDoorSuggestionSystem.Migrations
                 {
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeNumber");
 
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Suggestion", "Suggestion")
                         .WithMany()
-                        .HasForeignKey("SuggestionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuggestionID");
 
                     b.Navigation("Employee");
 
@@ -490,15 +497,9 @@ namespace NordicDoorSuggestionSystem.Migrations
 
             modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Employee", b =>
                 {
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.Employee", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("EmployeeNumber1");
-
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeamID");
 
                     b.Navigation("Team");
                 });
@@ -545,16 +546,9 @@ namespace NordicDoorSuggestionSystem.Migrations
                 {
                     b.HasOne("NordicDoorSuggestionSystem.Entities.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentID");
 
                     b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Employee", b =>
-                {
-                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

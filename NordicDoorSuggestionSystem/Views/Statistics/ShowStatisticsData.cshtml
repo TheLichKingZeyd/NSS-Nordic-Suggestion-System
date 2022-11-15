@@ -1,0 +1,319 @@
+@model NordicDoorSuggestionSystem.Models.StatisticsViewModel
+@{
+    Layout ="~/Views/Shared/_StatLayout.cshtml";
+    
+    
+    <style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        padding: 10px;
+    }
+    .grid-container2 {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+    .grid-item {
+        padding: 20px;
+        font-size: 20px;
+        text-align: center;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+    }
+    .grid-item2 {
+        font-size: 20px;
+        text-align: center;
+    }
+    .grid-item3 {
+        padding: 20px;
+        font-size: 20px;
+        text-align: center;
+    }
+    body{
+        background-color: #8EC5FC;
+        background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+    }
+    
+</style>
+}
+
+<div class="grid-container">
+  <div class="grid-item" style="background-color: #4158D0;background-image: linear-gradient(225deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">
+  	<div class="grid-container2">
+  		<div class="grid-item2">
+            <select id="ChartType" class="form-control">
+                <option>bar</option>
+                <option>line</option>
+                <option>pie</option>
+                <option>doughnut</option>
+                <option>polarArea</option>
+            </select>
+        </div>
+  		<div class="grid-item2">
+            <input id="ID" value="Vis Graf" type="button">
+        </div>
+	</div>
+  </div>
+  <div class="grid-item" style="background-color: #4158D0;background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">
+  	<div class="grid-container2">
+  		<div class="grid-item2">
+            <select id="ChartTypeDept" class="form-control">
+                <option>bar</option>
+                <option>line</option>
+                <option>pie</option>
+                <option>doughnut</option>
+                <option>polarArea</option>
+            </select>
+        </div>
+  		<div class="grid-item2">
+            <input id="ID2" value="Vis Graf" type="button">
+        </div>
+	</div>
+  </div>
+  <div class="grid-item">
+    <div id="ChartView">
+    <canvas id="myChart" style="width:300px;height:300px;margin: 0 auto;"></canvas>
+</div>
+  </div>  
+  <div class="grid-item">
+    <div id="ChartViewDept">
+    <canvas id="myChartDept" style="width:300px;height:300px;margin: 0 auto;"></canvas>
+    </div>
+  </div>
+  <div class="grid-item" style="background-color: #4158D0;background-image: linear-gradient(225deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">FLEST FORSLAG &#127942;</div>
+
+  <div class="grid-item" style="background-color: #4158D0;background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">LEADERBOARD &#128293;</div>
+  <div class="grid-item">
+  	<div class="grid-container">
+  		<div class="grid-item3">Beste Avdeling</div>
+  		<div class="grid-item3"><b>81 </b>Department 3</div>
+	</div>
+    <div class="grid-container">
+  		<div class="grid-item3">Beste Team</div>
+  		<div class="grid-item3">
+            @for (int c = 0; c < 1; c++)
+                {
+                <div class="row">
+                    <div>
+                        <i><b>@Model.BestTeamList[c].TeamSgstnCount</b></i>
+                        <i>@Model.BestTeamList[c].TeamName</i>
+                    </div>
+                </div>
+                }
+        </div>
+	</div>
+    <div class="grid-container">
+  		<div class="grid-item3">Beste Ansatt</div>
+  		<div class="grid-item3">
+            @for (int c = 0; c < 1; c++)
+                {
+                <div class="row">
+                    <div>
+                        <i><b>@Model.EmployeeList[c].SuggestionCount</b></i>
+                        <i>@Model.EmployeeList[c].FirstName</i>
+                        <i>@Model.EmployeeList[c].LastName</i>
+                    </div>
+                </div>
+                }
+        </div>
+	</div>
+  </div>  
+  <div class="grid-item">
+    @for (int i = 0; i < Model.EmployeeList.Count; i++)
+    {
+        if (i == 0){
+        <div class="row">
+            <div>
+            <i>&#129351;</i>
+            <i><b>@Model.EmployeeList[i].SuggestionCount</b></i>
+            <i>@Model.EmployeeList[i].FirstName</i>
+            <i>@Model.EmployeeList[i].LastName</i>
+            </div>
+        </div>
+        }
+        if (i == 1){
+        <div class="row">
+            <div>
+            <i>&#129352;</i>
+            <i><b>@Model.EmployeeList[i].SuggestionCount</b></i>
+            <i>@Model.EmployeeList[i].FirstName</i>
+            <i>@Model.EmployeeList[i].LastName</i>
+            </div>
+        </div>
+        }
+        if (i == 2){
+        <div class="row">
+            <div>
+            <i>&#129353;</i>
+            <i><b>@Model.EmployeeList[i].SuggestionCount</b></i>
+            <i>@Model.EmployeeList[i].FirstName</i>
+            <i>@Model.EmployeeList[i].LastName</i>
+            </div>
+        </div>
+        }
+        if (i > 2){
+            <div class="row">
+            <div>
+            <i><b>@Model.EmployeeList[i].SuggestionCount</b></i>
+            <i>@Model.EmployeeList[i].FirstName</i>
+            <i>@Model.EmployeeList[i].LastName</i>
+            </div>
+        </div>
+        }
+    }
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript">
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetStatisticsData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data){
+                    var _data=data;
+                    var _chartLabels=_data[0];
+                    var _chartData=_data[1];
+
+                    var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                    new Chart("myChart",
+                    {
+                    type:'bar',
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                            }]
+                        }
+                    });
+                }
+            });
+    
+    $(function () {
+        $("#ID").click(function (){
+
+            var chartType=$("#ChartType").val();
+            
+            var chartView=document.getElementById('ChartView');
+
+            chartView.innerHTML='';
+
+            $('#ChartView').append('<canvas id="myChart" style="width:300px;height:300px;margin: 0 auto;"></canvas>');
+
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetStatisticsData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccessResult,
+                error: OnError
+            });
+
+            function OnSuccessResult (data){
+                var _data=data;
+                var _chartLabels=_data[0];
+                var _chartData=_data[1];
+
+                var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                new Chart("myChart",
+                {
+                    type:chartType,
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                        }]
+                    }
+                });
+            }
+
+            function OnError (err){
+
+            }
+
+        });
+    });
+</script>
+<script type="text/javascript">
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetDepartmentData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data){
+                    var _data=data;
+                    var _chartLabels=_data[0];
+                    var _chartData=_data[1];
+
+                    var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                    new Chart("myChartDept",
+                    {
+                    type:'doughnut',
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                            }]
+                        }
+                    });
+                }
+            });
+    
+    $(function () {
+        $("#ID2").click(function (){
+
+            var chartType=$("#ChartTypeDept").val();
+            
+            var chartViewDept=document.getElementById('ChartViewDept');
+
+            chartViewDept.innerHTML='';
+
+            $('#ChartViewDept').append('<canvas id="myChartDept" style="width:300px;height:300px;margin: 0 auto;"></canvas>');
+
+            $.ajax({
+                type: "POST",
+                url: "/Statistics/GetDepartmentData",
+                data: "",
+                contextType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccessResult,
+                error: OnError
+            });
+
+            function OnSuccessResult (data){
+                var _data=data;
+                var _chartLabels=_data[0];
+                var _chartData=_data[1];
+
+                var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
+
+                new Chart("myChartDept",
+                {
+                    type:chartType,
+                    data: {
+                        labels: _chartLabels,
+                        datasets : [{
+                            backgroundColor: barColor,
+                            data:_chartData
+                        }]
+                    }
+                });
+            }
+
+            function OnError (err){
+
+            }
+
+        });
+    });
+</script>
