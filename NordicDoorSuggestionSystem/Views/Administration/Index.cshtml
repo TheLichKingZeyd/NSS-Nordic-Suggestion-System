@@ -8,12 +8,9 @@
     <div style="height:90%; text-align:center; align-items:center; display:flex; justify-content:center; flex-direction:column; padding-top: 20px;">
         @using (Html.BeginForm("Index", "Home"))
         {
-            <input type="submit" value="Home" />
+            <input type="submit" value="Hjem"/>
         }
-        @using (Html.BeginForm("Index", "AdministrateEmployeeAccount"))
-        {
-            <input type="submit" value="Administrer Brukere" />
-        }
+        <a asp-action="Users" asp-controller="Administration" style="width:auto">Administrer Brukere</a>
         @using (Html.BeginForm("Index", "Home"))
         {
             <input type="submit" value="Administrer Teams" />

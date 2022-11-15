@@ -11,6 +11,7 @@
 
 	<ItemGroup>
 		<Folder Include="Migrations\" />
+		<Folder Include="Views\AdministrateEmployees\" />
 	</ItemGroup>
 
 	<ItemGroup>

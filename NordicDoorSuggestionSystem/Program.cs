@@ -45,6 +45,12 @@ public class Program
             options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequiredUniqueChars = 1;
+            options.Password.RequireNonAlphanumeric = false;            
         });
 
         builder.Services

@@ -1,0 +1,51 @@
+@using NordicDoorSuggestionSystem.Entities
+@model IEnumerable<User>
+@{
+    ViewBag.Title = "All Users";
+}
+@{
+    ViewData["Title"] = "Brukere";
+}
+
+<h1>@ViewData["Title"].</h1>
+
+<a asp-action="Register" asp-controller="Account" class="btn bnt-primary mb-3" style="width:auto">Lag Ny Bruker</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeNumber.ToString())
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName + ", " + model.FirstName)
+            </th>
+        </tr>
+    </thead>
+</table>
+@if(Model.Any())
+{
+    <table class="table">
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => user.EmployeeNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => user.LastName + ", " + user.FirstName)
+                    </th>
+                    <td>
+                        <a asp-action="ModifyUser" asp-route-id="@user.Id">Edit</a> |
+                        <a asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} else {
+    <h2>Systemet har ingen brukere</h2>
+}
+
