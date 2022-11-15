@@ -24,11 +24,9 @@ public class Program
         // builder.Services.AddTransient<ISqlConnector, SqlConnector>();
 
         builder.Services.AddDbContext<DataContext>(options =>
-        {
-            
+        {            
             options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"),
-                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
-            
+                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));   
         });
         
         builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
@@ -38,13 +36,19 @@ public class Program
         builder.Services.Configure<IdentityOptions>(options =>
         {
             // Default Lockout settings.
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.AllowedForNewUsers = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
             options.SignIn.RequireConfirmedEmail = false;
             options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequireDigit = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequiredUniqueChars = 1;
+            options.Password.RequireNonAlphanumeric = false;            
         });
 
         builder.Services
@@ -53,7 +57,16 @@ public class Program
             .AddEntityFrameworkStores<DataContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();
-  
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
+            options.AddPolicy("TeamLeder", policy => policy.RequireRole("Administrator"));
+            options.AddPolicy("StandardBruker", policy => policy.RequireRole("Administrator"));
+            options.AddPolicy("All", policy => policy.RequireRole("Administrator,Team Leder,Standard Bruker"));
+            options.AddPolicy("Administrator/TeamLeder", policy => policy.RequireRole("Administrator,Team Leder"));
+        });
+
         builder.Services.AddAuthentication(o =>
         {
             o.DefaultScheme = IdentityConstants.ApplicationScheme;

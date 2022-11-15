@@ -62,8 +62,9 @@ namespace NordicDoorSuggestionSystem.Controllers
         public async Task<IActionResult> MySuggestions()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var suggestions = new List<Suggestion>();
-              return View(suggestions);
+
+            var suggestions = await _suggestionRepository.QueryEmployee(user.EmployeeNumber);  
+            return View(suggestions);
         }
 
         // GET: Suggestion/Details/Henter detaljer på et Forbedringsforslag
@@ -113,11 +114,10 @@ namespace NordicDoorSuggestionSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,ResponsibleEmployee, Problem, Solution, Goal, Deadline, Progress, EmployeeNumber, TeamID")] SuggestionViewModel suggestionViewModel)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
             if (ModelState.IsValid)
             {
-               var user = await _userManager.GetUserAsync(HttpContext.User);
-
-
                 var newSuggestion = new Suggestion {
                     Title = suggestionViewModel.Title,
                     ResponsibleEmployee = suggestionViewModel.ResponsibleEmployee,
@@ -126,8 +126,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                     Goal = suggestionViewModel.Goal,
                     Deadline = suggestionViewModel.Deadline,
                     Progress = suggestionViewModel.Progress,
-                    //EmployeeNumber = int.Parse(user.Id),
-                    EmployeeNumber = suggestionViewModel.EmployeeNumber,
+                    EmployeeNumber = user.EmployeeNumber,
                     TeamID = suggestionViewModel.TeamID
                 };
 
@@ -282,11 +281,13 @@ namespace NordicDoorSuggestionSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddComment([Bind("CommentID, EmployeeNumber,SuggestionID, Content, CommentTime")] Comment comment)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
+            
             {
                 var newComment = new Comment {
                     CommentID = comment.CommentID,
-                    EmployeeNumber = comment.EmployeeNumber,
+                    EmployeeNumber = user.EmployeeNumber,
                     SuggestionID = comment.SuggestionID,
                     Content = comment.Content,
                     CommentTime = DateTime.Now,

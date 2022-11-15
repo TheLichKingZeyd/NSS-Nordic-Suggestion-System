@@ -65,9 +65,14 @@ namespace NordicDoorSuggestionSystem.Repositories
 
         /*public async Task<List<Suggestion>> MySuggestions()
         {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+            // var user = await _userManager.GetUserAsync(HttpContext.User);
             return await _context.Suggestion.Where(s => s.EmployeeNumber == ).ToListAsync();
         } */
+        public async Task<List<Suggestion>> QueryEmployee(int employeeNumber)
+        {
+            return await _context.Suggestion.Where(s => s.EmployeeNumber!.Equals(employeeNumber)).ToListAsync();
+        }
+
 
         public async Task Update(Suggestion suggestion) 
         {

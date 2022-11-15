@@ -12,5 +12,6 @@ namespace NordicDoorSuggestionSystem.Repositories
         Task<Suggestion> GetSuggestion(int? suggestionId);
         Task Delete(Suggestion suggestion);
         Task SaveChanges();
+        Task<List<Suggestion>> QueryEmployee(int employeeNumber);
     }
 }
