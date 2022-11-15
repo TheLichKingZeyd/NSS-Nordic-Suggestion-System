@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace NordicDoorSuggestionSystem.Entities
 {
-    [Table("User")]
+    [Table("aspnetuser")]
     public class User : IdentityUser
     {
-        public int EmployeeNumber { get; set; }     
+        public int EmployeeNumber { get; set; }
 
         [MaxLength(50)]
         public string? FirstName { get; set; }
