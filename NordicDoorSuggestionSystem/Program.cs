@@ -59,7 +59,16 @@ public class Program
             .AddEntityFrameworkStores<DataContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();
-  
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
+            options.AddPolicy("TeamLeder", policy => policy.RequireRole("Administrator"));
+            options.AddPolicy("StandardBruker", policy => policy.RequireRole("Administrator"));
+            options.AddPolicy("All", policy => policy.RequireRole("Administrator,Team Leder,Standard Bruker"));
+            options.AddPolicy("Administrator/TeamLeder", policy => policy.RequireRole("Administrator,Team Leder"));
+        });
+
         builder.Services.AddAuthentication(o =>
         {
             o.DefaultScheme = IdentityConstants.ApplicationScheme;

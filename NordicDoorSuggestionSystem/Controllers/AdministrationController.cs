@@ -7,7 +7,7 @@ using System.Data;
 
 namespace bacit_dotnet.MVC.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+    //[Authorize(Roles ="Administrator")]
     public class AdministrationController : Controller
     {
 

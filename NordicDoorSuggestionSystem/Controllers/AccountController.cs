@@ -131,7 +131,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 var result = await _userManager.CreateAsync(user, registerViewModel.Password);
                 if (result.Succeeded)
                 {
-                    if(registerViewModel.RoleSelected != null && registerViewModel.RoleSelected.Length < 0)
+                    if(registerViewModel.RoleSelected != null && registerViewModel.RoleSelected.Length > 0)
                     {
                         if (registerViewModel.RoleSelected == "Standard Bruker")
                         {
