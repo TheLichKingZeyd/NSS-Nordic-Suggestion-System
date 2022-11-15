@@ -24,11 +24,9 @@ public class Program
         // builder.Services.AddTransient<ISqlConnector, SqlConnector>();
 
         builder.Services.AddDbContext<DataContext>(options =>
-        {
-            
+        {            
             options.UseMySql(builder.Configuration.GetConnectionString("MariaDb"),
-                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));
-            
+                ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MariaDb")));   
         });
         
         builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
@@ -38,7 +36,7 @@ public class Program
         builder.Services.Configure<IdentityOptions>(options =>
         {
             // Default Lockout settings.
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             options.Lockout.MaxFailedAccessAttempts = 5;
             options.Lockout.AllowedForNewUsers = false;
             options.SignIn.RequireConfirmedPhoneNumber = false;
