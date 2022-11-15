@@ -1,0 +1,66 @@
+@using NordicDoorSuggestionSystem.Entities
+@model IEnumerable<Team>
+
+@{
+    ViewData["Title"] = "Teams";
+}
+
+<h1>@ViewData["Title"].</h1>
+
+<a asp-action="CreateTeam" asp-controller="Administration" class="btn bnt-primary mb-3" style="width:auto">Lag Nytt Team</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamLeader)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamSgstnCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+@if(Model.Any())
+{
+        <tbody>
+            @foreach (var team in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => team.TeamID)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => team.TeamName)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => team.TeamLeader)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => team.TeamSgstnCount)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => team.DepartmentID)
+                    </th>
+                    <td>
+                        <a asp-action="EditTeam" asp-route-id="@team.TeamID">Edit</a> |
+                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+} else {
+    <h2>Systemet har ingen brukere</h2>
+}
+</table>

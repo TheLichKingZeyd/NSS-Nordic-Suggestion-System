@@ -1,5 +1,7 @@
 ﻿using NordicDoorSuggestionSystem.DataAccess;
 using NordicDoorSuggestionSystem.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace NordicDoorSuggestionSystem.Repositories
 {
@@ -12,16 +14,35 @@ namespace NordicDoorSuggestionSystem.Repositories
             this._context = dataContext;
         }
 
-        public Team GetTeam(int teamID)
+        public async Task<Team> GetTeam(int? TeamID)
         {
-            Team team = _context.Team.FirstOrDefault(x => x.TeamID == teamID);
-            return team;
+            if (TeamID == null) 
+                throw new NullReferenceException("TeamID can not be null");
+
+            var team = await _context.Team.FindAsync(TeamID);
             
+            if (team == null) 
+                return null;
+
+            return team;
         }
 
-        public Team? GetTeamByNumber(int teamID)
+        public Task<List<Team>> GetTeams()
         {
-            return _context.Team.FirstOrDefault(x => x.TeamID == teamID);
+            return _context.Team.ToListAsync();
+        }
+
+        public async Task DeleteTeam(Team team)
+        {
+            _context.Team.Remove(team);
+        }
+        public async Task SaveChanges(){
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Team team) 
+        {
+            _context.Team.Update(team);
         }
     }
 }

@@ -11,10 +11,7 @@
             <input type="submit" value="Hjem"/>
         }
         <a asp-action="Users" asp-controller="Administration" style="width:auto">Administrer Brukere</a>
-        @using (Html.BeginForm("Index", "Home"))
-        {
-            <input type="submit" value="Administrer Teams" />
-        }
+        <a asp-action="Teams" asp-controller="Administration" style="width:auto">Administrer Teams</a>
         @using (Html.BeginForm("Index", "Home"))
         {
             <input type="submit" value="Visning" />

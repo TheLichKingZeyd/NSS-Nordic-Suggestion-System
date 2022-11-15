@@ -1,0 +1,42 @@
+@model NordicDoorSuggestionSystem.Models.TeamViewModel
+@{
+    ViewData["Title"] = "Team";
+}
+
+<h1>Team</h1>
+
+<h4>Lag et nytt Team!</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateTeam">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TeamName" class="control-label"></label>
+                <input asp-for="TeamName" class="form-control" />
+                <span asp-validation-for="TeamName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamLeader" class="control-label"></label>
+                <input asp-for="TeamLeader" class="form-control" />
+                <span asp-validation-for="TeamLeader" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentID" class="control-label"></label>
+                <input asp-for="DepartmentID" class="form-control" />
+                <span asp-validation-for="DepartmentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create Team" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Teams">Back to Teams</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
