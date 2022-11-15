@@ -36,7 +36,9 @@
                         @Html.DisplayFor(modelItem => user.EmployeeNumber)
                     </th>
                     <th>
-                        @Html.DisplayFor(modelItem => user.LastName + ", " + user.FirstName)
+                        @Html.DisplayFor(modelItem => user.LastName)
+                        <i>, </i>
+                        @Html.DisplayFor(modelItem => user.FirstName)
                     </th>
                     <td>
                         <a asp-action="ModifyUser" asp-route-id="@user.Id">Edit</a> |
