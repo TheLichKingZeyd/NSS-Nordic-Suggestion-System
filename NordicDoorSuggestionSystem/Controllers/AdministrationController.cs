@@ -163,5 +163,10 @@ namespace bacit_dotnet.MVC.Controllers
             }
             return View();
         }
+
+        public IActionResult TeamMembers()
+        {
+            return View();
+        }
     }
 }

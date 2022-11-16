@@ -4,16 +4,20 @@ using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Collections.Generic;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
     public class StatisticsController : Controller
     {
         private readonly DataContext _context;
+        private readonly ISqlConnector sqlConnector;
 
-         public StatisticsController(DataContext context)
+         public StatisticsController(DataContext context, ISqlConnector sqlConnector)
         {
             _context = context;
+            this.sqlConnector = sqlConnector;
         }
         public IActionResult Index()
         {
@@ -57,10 +61,31 @@ namespace NordicDoorSuggestionSystem.Controllers
 
             dataset.Add(labelsFor);
 
-            List<int> DepartmentCount = new List<int>(new int[] { 35, 37, 81, 21 } );
+            List<int?> DepartmentCount = _context.Team.Where(p=>p.DepartmentID == 1 || p.DepartmentID == 2 || p.DepartmentID == 3 || p.DepartmentID == 4).Select(p=>p.TeamSgstnCount).ToList();
             dataset.Add(DepartmentCount);
             
             return dataset;
+        }
+
+        private void RunCommand(string sql)
+        {
+            using (var connection = sqlConnector.GetDbConnection())
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        private IDataReader ReadData(string query, IDbConnection connection)
+        {
+            connection.Open();
+            using var command = connection.CreateCommand();
+            command.CommandType = System.Data.CommandType.Text;
+            command.CommandText = query;
+            return command.ExecuteReader();
         }
     }
 }
