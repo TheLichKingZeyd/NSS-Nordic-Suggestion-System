@@ -139,6 +139,12 @@ namespace NordicDoorSuggestionSystem.Controllers
                                 where TeamID = '{suggestionViewModel.TeamID}';";
             RunCommand(sql);
 
+            var sql2 = $@"update employee 
+                                set 
+                                   SuggestionCount = SuggestionCount + 1
+                                where EmployeeNumber = '{user.EmployeeNumber}';";
+            RunCommand(sql2);
+
                 await _suggestionRepository.Add(newSuggestion);
                 await _suggestionRepository.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -253,6 +259,18 @@ namespace NordicDoorSuggestionSystem.Controllers
                 await _suggestionRepository.SaveChanges();
 
             }
+
+            var sql = $@"update team 
+                                set 
+                                   TeamSgstnCount = TeamSgstnCount - 1
+                                where TeamID = '{suggestion.TeamID}';";
+            RunCommand(sql);
+
+            var sql2 = $@"update employee 
+                                set 
+                                   SuggestionCount = SuggestionCount - 1
+                                where EmployeeNumber = '{suggestion.EmployeeNumber}';";
+            RunCommand(sql2);
 
             return RedirectToAction(nameof(Index));
         }
