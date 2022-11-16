@@ -12,12 +12,10 @@ namespace NordicDoorSuggestionSystem.Controllers
     public class StatisticsController : Controller
     {
         private readonly DataContext _context;
-        private readonly ISqlConnector sqlConnector;
 
-         public StatisticsController(DataContext context, ISqlConnector sqlConnector)
+         public StatisticsController(DataContext context)
         {
             _context = context;
-            this.sqlConnector = sqlConnector;
         }
         public IActionResult Index()
         {
@@ -73,27 +71,6 @@ namespace NordicDoorSuggestionSystem.Controllers
             dataset.Add(Counts);
             
             return dataset;
-        }
-
-        private void RunCommand(string sql)
-        {
-            using (var connection = sqlConnector.GetDbConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-
-        private IDataReader ReadData(string query, IDbConnection connection)
-        {
-            connection.Open();
-            using var command = connection.CreateCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = query;
-            return command.ExecuteReader();
         }
     }
 }
