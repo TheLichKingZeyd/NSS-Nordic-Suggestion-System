@@ -1,0 +1,216 @@
+﻿/* Global */
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #e4ebf7;
+    font-family: bahnschrift;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+.child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1%;
+    padding: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    color: white;
+    background-color: #4c90fc;
+    margin-left: 30%;
+    margin-right: 30%;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.childHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    color: white;
+    background-color: #1C3879;
+    opacity: 100%;
+}
+
+    .childHeader li {
+        list-style: none;
+        display: inline-flex;
+        padding: 0 100px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+@media only screen and (max-width: 1000px) {
+    .childHeader li {
+        padding: 0 20px;
+    }
+}
+
+.childHeader a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease 0s;
+}
+
+    .childHeader a:hover {
+        text-decoration: none;
+        color: #c1c8d4;
+    }
+
+.childHeader button {
+    text-decoration: none;
+    background: none;
+    border: none;
+    color: white;
+    transition: all 0.3s ease 0s;
+}
+
+    .childHeader button:hover {
+        text-decoration: none;
+        color: #c1c8d4;
+    }
+
+.childFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    font-size: 20px;
+    line-height: 20px;
+    color: white;
+    background-color: #1C3879;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-top-right-radius: 5vh;
+    border-top-left-radius: 5vh;
+    opacity: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+    .childFooter li {
+        list-style: none;
+        display: inline-flex;
+        padding: 0 70px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+
+@media only screen and (max-width: 1000px) {
+    .childFooter li {
+        list-style: none;
+        display: inline-flex;
+        padding: 0 20px;
+        text-align: center;
+        text-decoration: none;
+    }
+}
+
+#add {
+    background: #FF7A59;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: static;
+}
+
+
+a {
+    font-size: 50px;
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+
+.notificationBox {
+    display: none;
+    flex-direction: column;
+    height: 70vh;
+    width: 60vh;
+    background-color: white;
+    border: solid 2px black;
+    margin-top: 20vh;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1000px) {
+    .notificationBox {
+        display: none;
+        flex-direction: column;
+        height: 60vh;
+        width: 40vh;
+        background-color: white;
+        border: solid 2px black;
+        margin-top: 20vh;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .notificationContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: scroll;
+        height: 60vh;
+        width: 40vh;
+    }
+}
+
+.notificationTitle {
+    margin-top: 1vh;
+    margin-bottom: 4vh;
+}
+
+.notificationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    height: 90vh;
+    width: 50vh;
+}
+
+.notification label {
+    display: flex;
+    flex-direction: column;
+    font-weight: normal;
+    padding: 5px;
+}
+
+#closeNotifiBtn {
+    padding: 15px;
+    margin-top: 5vh;
+    cursor: pointer;
+    background-color: #FF7A59;
+    border: solid 1px black;
+    border-radius: 10%;
+    width: 100px;
+    margin-bottom: 5vh;
+    color: white;
+    transition: all 0.3s ease 0s;
+}
+
+    #closeNotifiBtn:hover {
+        color: #c1c8d4;
+    }

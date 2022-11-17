@@ -1,0 +1,318 @@
+﻿
+* {
+    background-color: #e4ebf7;
+    margin: 0;
+    padding: 0;
+    font-family: bahnschrift;
+}
+
+input {
+    background-color: white;
+    padding-top: 4px;
+}
+
+h1 {
+    background-color: white;
+}
+
+textarea {
+    background-color: white;
+}
+
+p {
+    background-color: white;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+}
+
+.submitHeader {
+    grid-area: 1 / 1 / 2 / 7;
+    justify-items: center;
+    align-items: center;
+    display: inline-grid;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.mainContent {
+    grid-area: 2 / 2 / 6 / 6;
+    justify-items: center;
+    align-items: center;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    background-color: white;
+}
+
+.right {
+    grid-area: 2 / 6 / 6 / 7;
+    background-color: white;
+}
+
+.left {
+    grid-area: 2 / 1 / 6 / 2;
+    background-color: white;
+}
+
+.footerBtn {
+    display: grid;
+    grid-area: 6 / 1 / 7 / 7;
+    justify-items: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 5vh;
+    background-color: white;
+}
+
+.allbtn {
+    border: none;
+    margin-top: 20vh;
+    cursor: pointer;
+    transition: 0.5s;
+    margin-left: 4vh;
+    background-color: white;
+}
+
+.back1 {
+    rotate: 180deg;
+    background: white;
+}
+
+.allbtn:hover {
+    color: #e4ebf7;
+}
+
+#submit1 {
+    display: grid;
+    width: 70vh;
+    height: 60vh;
+    background: white;
+    place-self: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px -1px #a6a6a6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: 15vh;
+}
+
+#submit2 {
+    display: none;
+    width: 70vh;
+    height: 60vh;
+    background: white;
+    place-self: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px -1px #a6a6a6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: 15vh;
+}
+
+#submit3 {
+    display: none;
+    width: 70vh;
+    height: 60vh;
+    background: white;
+    place-self: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px -1px #a6a6a6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: 15vh;
+}
+
+#submit4 {
+    display: none;
+    width: 70vh;
+    height: 60vh;
+    background: white;
+    place-self: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px -1px #a6a6a6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: 15vh;
+}
+
+#submit5 {
+    display: none;
+    width: 70vh;
+    height: 80vh;
+    background: white;
+    place-self: center;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px -1px #a6a6a6;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: 8vh;
+}
+
+.submitHeaderSummary {
+    grid-area: 1 / 1 / 2 / 7;
+    justify-items: center;
+    align-items: center;
+    display: inline-grid;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.mainContentSummary {
+    grid-area: 2 / 2 / 8 / 6;
+    justify-items: center;
+    align-items: center;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    background-color: white;
+}
+
+.rightSummary {
+    grid-area: 2 / 6 / 8 / 7;
+    background-color: white;
+}
+
+.leftSummary {
+    grid-area: 2 / 1 / 8 / 2;
+    background-color: white;
+}
+
+.footerBtnSummary {
+    display: grid;
+    grid-area: 8 / 1 / 9 / 7;
+    justify-items: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 5vh;
+    background-color: white;
+}
+
+
+
+.circleNav {
+    height: 40px;
+    width: 55px;
+    background-color: white;
+    border-radius: 50%;
+    border: solid 0.1px grey;
+    text-align: center;
+    padding-top: 15px;
+    font-size: 25px;
+    margin-left: 1vh;
+}
+
+.circleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.active {
+    background-color: #8AEA50;
+}
+
+.used {
+    background-color: #E5E7E9;
+}
+
+i {
+    background: none;
+}
+
+.SgstnTitle {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    font-size: 25px;
+    text-align: center;
+}
+
+.submitSumTitle {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    font-size: 50px;
+    text-align: center;
+}
+
+.submitReasonTitle {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    text-align: center;
+    font-size: 25px;
+}
+
+.submitProblem {
+    resize: none;
+}
+
+.submitSolution {
+    resize: none;
+}
+
+.submitTarget {
+    resize: none;
+}
+
+.submitSgstBtn {
+    width: 50vh;
+    height: 8vh;
+    border-radius: 10px;
+    font-size: 25px;
+    background-color: #FF7A59;
+    color: white;
+    border: none;
+    box-shadow: 0 8px 8px 0px lightgrey;
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 90%
+}
+
+    .submitSgstBtn:hover {
+        color: lightgrey;
+        opacity: 100%
+    }
+
+*,
+*:before,
+*:after {
+}
+
+input[type="date"] {
+    opacity: 90%;
+    background-color: lightgrey;
+    padding: 10px;
+    color: black;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+::-webkit-calendar-picker-indicator {
+    background-color: #ffffff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}

@@ -3,140 +3,155 @@
 *@
 @{
     ViewBag.Title = "Send inn § NSS";
-    Layout = "~/Views/Shared/_BaseNoFooterLayout.cshtml";
+    Layout = "~/Views/Shared/_SubmitLayout.cshtml";
 
 }
 
-<div id="childSubmit1">
-    <button id="next1" type="button" class="next1 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
-    <button id="" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
-    <center>
-        <h1>Skriv tittel</h1> <br>
-        <div class="context">
-            <input type="text" name="" value="" placeholder="Tittel..">
-            <h3 style="padding-top: 10px;">Ansvarlig</h3>
-            <label for=""> Meg<input type="checkbox" name="" value=""> Andre<input type="checkbox" name="" value=""> </label>
 
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/submit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.cdnfonts.com/css/bahnschrift" rel="stylesheet">
+    <title></title>
+</head>
+<body>
+    <form>
+        <div class="wrapper">
+            <div id="submit1">
+                <div class="submitHeader">
+                    <h1 style="background-color: white;">Skriv tittel</h1>
+                </div>
 
-        </div>
-    </center>
-    <center>
-        <span class="circleNav active" style="font-weight: lighter">1</span>
-        <span class="circleNav" style="font-weight: lighter">2</span>
-        <span class="circleNav" style="font-weight: lighter">3</span>
-        <span class="circleNav" style="font-weight: lighter">4</span>
-        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
-    </center>
-</div>
-<div id="childSubmit2">
-    <button id="next2" type="button" class="next2 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
-    <button id="back2" type="button" class="back2 allbtn"><i class="fa fa-angle-left" style="font-size:50px"></i></button>
+                <div class="mainContent">
+                    <input class="SgstnTitle" id="title" type="text" maxlength="22" placeholder="Tittel..">
+                </div>
+                <div class="right">
+                    <button id="next1" type="button" type="submit" class="next1 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+                </div>
+                <div class="left">
+                    <button id="" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px; display:none;"></i></button>
+                </div>
+                <div class="footerBtn">
+                    <div class="circleContainer">
+                        <span class="circleNav active" style="font-weight: lighter">1</span>
+                        <span class="circleNav" style="font-weight: lighter;">2</span>
+                        <span class="circleNav" style="font-weight: lighter">3</span>
+                        <span class="circleNav" style="font-weight: lighter">4</span>
+                        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+                    </div>
+                </div>
+            </div>
 
-    <center>
-        <h1>Skriv problem</h1> <br>
-        <div class="context">
-            <label> <textarea name="name" rows="6" cols="40" placeholder="Problemstilling"></textarea></label> <br>
-        </div>
-    </center>
-    <center>
-        <span class="circleNav used" style="font-weight: lighter">1</span>
-        <span class="circleNav active" style="font-weight: lighter">2</span>
-        <span class="circleNav" style="font-weight: lighter">3</span>
-        <span class="circleNav" style="font-weight: lighter">4</span>
-        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
-    </center>
-</div>
-<div id="childSubmit3">
-    <button id="next3" type="button" class="next3 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
-    <button id="back3" type="button" class="back3 allbtn"><i class="fa fa-angle-left" style="font-size:50px"></i></button>
-    <center>
-        <h1>Skriv løsning</h1> <br>
-        <div class="context">
-            <label> <textarea name="name" rows="6" cols="60" placeholder="Løsning.."></textarea> </label>
-        </div>
-    </center>
+            <div id="submit2">
+                <div class="submitHeader">
+                    <h1>Skriv problemstilling</h1>
+                </div>
+                <div class="mainContent">
+                    <textarea id="problem" rows="6" cols="40" type="text" placeholder="Problemstilling"></textarea>
+                </div>
+                <div class="right">
+                    <button id="next2" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+                </div>
+                <div class="left">
+                    <button id="back2" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+                </div>
+                <div class="footerBtn">
+                    <div class="circleContainer">
+                        <span class="circleNav used" style="font-weight: lighter">1</span>
+                        <span class="circleNav active" style="font-weight: lighter;">2</span>
+                        <span class="circleNav" style="font-weight: lighter">3</span>
+                        <span class="circleNav" style="font-weight: lighter">4</span>
+                        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+                    </div>
+                </div>
+            </div>
 
-    <center>
-        <span class="circleNav used" style="font-weight: lighter">1</span>
-        <span class="circleNav used" style="font-weight: lighter">2</span>
-        <span class="circleNav active" style="font-weight: lighter">3</span>
-        <span class="circleNav" style="font-weight: lighter">4</span>
-        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
-    </center>
-</div>
-<div id="childSubmit4">
-    <button id="next4" type="button" class="next4 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
-    <button id="back4" type="button" class="back4 allbtn"><i class="fa fa-angle-left" style="font-size:50px"></i></button>
-    <center>
-        <h1>Hva er målet</h1> <br>
-        <div class="context">
-            <label>
-                <textarea name="name" rows="10" cols="40" placeholder="Løsning.."></textarea> <br>
-                Dato for ferdigstilling: <input type="date" name="" value="">
-            </label>
-        </div>
-    </center>
+            <div id="submit3">
+                <div class="submitHeader">
+                    <h1>Skriv løsning</h1>
+                </div>
+                <div class="mainContent">
+                    <textarea id="solution" rows="6" cols="40" type="text" placeholder="Løsning.."></textarea>
+                </div>
+                <div class="right">
+                    <button id="next3" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+                </div>
+                <div class="left">
+                    <button id="back3" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+                </div>
+                <div class="footerBtn">
+                    <div class="circleContainer">
+                        <span class="circleNav used" style="font-weight: lighter">1</span>
+                        <span class="circleNav used" style="font-weight: lighter;">2</span>
+                        <span class="circleNav active" style="font-weight: lighter">3</span>
+                        <span class="circleNav" style="font-weight: lighter">4</span>
+                        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+                    </div>
+                </div>
+            </div>
 
-    <center>
-        <span class="circleNav used" style="font-weight: lighter">1</span>
-        <span class="circleNav used" style="font-weight: lighter">2</span>
-        <span class="circleNav used" style="font-weight: lighter">3</span>
-        <span class="circleNav active" style="font-weight: lighter">4</span>
-        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
-    </center>
-</div>
-<div id="childSubmit5">
-    <button id="next5" type="button" class="next5 allbtn"><i class="fa fa-paper-plane activeSend" style="font-size:50px"></i></button>
-    <button id="back5" type="button" class="back5 allbtn"><i class="fa fa-angle-left" style="font-size:50px"></i></button>
-    <center>
-        <h1></h1> <br>
-        <div class="contextSummary">
-            <input readonly type="text" name="" value="" placeholder="Tittel.."> <br>
-            <h3 style="padding-top: 10px;">Ansvarlig</h3>
-            <label for=""> Meg<input readonly type="checkbox" name="" value=""> Andre<input readonly type="checkbox" name="" value=""> </label>
-            <label><input readonly type="text" name="" value="" placeholder="Problemstilling.."></label>
-            <label> <textarea readonly name="name" rows="6" cols="40" placeholder="Løsning.."></textarea> </label>
-            <label>
-                <textarea readonly name="name" rows="6" cols="40" placeholder="Løsning.."></textarea> <br>
-                Dato for ferdigstilling: <input readonly type="date" name="" value="">
-            </label>
-        </div>
-    </center>
+            <div id="submit4">
+                <div class="submitHeader">
+                    <h1>Hva er målet?</h1>
+                </div>
+                <div class="mainContent">
+                    <textarea id="goal" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
+                    Dato for ferdigstilling: <input id="date" type="date" name="" value="">
+                </div>
+                <div class="right">
+                    <button id="next4" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+                </div>
+                <div class="left">
+                    <button id="back4" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+                </div>
+                <div class="footerBtn">
+                    <div class="circleContainer">
+                        <span class="circleNav used" style="font-weight: lighter">1</span>
+                        <span class="circleNav used" style="font-weight: lighter;">2</span>
+                        <span class="circleNav used" style="font-weight: lighter">3</span>
+                        <span class="circleNav active" style="font-weight: lighter">4</span>
+                        <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+                    </div>
+                </div>
+            </div>
 
-    <div id="notificationBox" class="notificationBox">
-        <div class="notificationTitle">
-            <h1>Notifikasjoner</h1>
-        </div>
-        <div class="notificationContainer">
-            <div class="notification">
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
+            <div id="submit5">
+                <div class="submitHeaderSummary">
+                    <input readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
+                </div>
+                <div class="mainContentSummary">
+                    <textarea readonly id="finalProblem" class="submitProblem" rows="6" cols="40" type="text" class="submitReasonTitle" placeholder="Problemstilling.."></textarea> <br>
+
+                    <textarea readonly id="finalSolution" class="submitSolution" rows="6" cols="40" type="text" placeholder="Løsning.."></textarea> <br>
+                    <textarea readonly id="finalGoal" class="submitTarget" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
+                    <p style="padding-bottom: 5px;">Dato for ferdigstilling:</p> <input readonly id="finalDate" type="date" name="" value="">
+                </div>
+                <div class="rightSummary">
+
+                </div>
+                <div class="leftSummary">
+                    <button id="back5" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+                </div>
+                <div class="footerBtnSummary">
+                    <div class="circleContainer">
+                        <button class="submitSgstBtn" type="button" name="button">Send inn</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <button id="closeNotifiBtn" type="button"><h3>Lukk</h3></button>
-    </div>
-
-
-
-
+    </form>
 
     <script type="text/javascript">// Get the view id
-        var sub1 = document.getElementById("childSubmit1");
-        var sub2 = document.getElementById("childSubmit2");
-        var sub3 = document.getElementById("childSubmit3");
-        var sub4 = document.getElementById("childSubmit4");
-        var sub5 = document.getElementById("childSubmit5");
+
+        var sub1 = document.getElementById("submit1");
+        var sub2 = document.getElementById("submit2");
+        var sub3 = document.getElementById("submit3");
+        var sub4 = document.getElementById("submit4");
+        var sub5 = document.getElementById("submit5");
 
         // Get the button id
         var nxt1 = document.getElementById("next1");
@@ -146,71 +161,108 @@
         var nxt5 = document.getElementById("next5");
 
         //Get the backbutton
+
         var bc2 = document.getElementById("back2");
         var bc3 = document.getElementById("back3");
         var bc4 = document.getElementById("back4");
         var bc5 = document.getElementById("back5");
 
         // When user clicks the button, new view
+
         nxt1.onclick = function () {
             sub1.style.display = "none";
-            sub2.style.display = "block";
+            sub2.style.display = "grid";
         }
 
         nxt2.onclick = function () {
             sub2.style.display = "none";
-            sub3.style.display = "block";
+            sub3.style.display = "grid";
         }
         bc2.onclick = function () {
             sub2.style.display = "none";
-            sub1.style.display = "block";
+            sub1.style.display = "grid";
         }
 
         nxt3.onclick = function () {
             sub3.style.display = "none";
-            sub4.style.display = "block";
+            sub4.style.display = "grid";
         }
         bc3.onclick = function () {
             sub3.style.display = "none";
-            sub2.style.display = "block";
+            sub2.style.display = "grid";
         }
 
         nxt4.onclick = function () {
             sub4.style.display = "none";
-            sub5.style.display = "block";
+            sub5.style.display = "grid";
         }
         bc4.onclick = function () {
             sub4.style.display = "none";
-            sub3.style.display = "block";
+            sub3.style.display = "grid";
         }
 
-        nxt5.onclick = function () {
-        }
         bc5.onclick = function () {
             sub5.style.display = "none";
-            sub4.style.display = "block";
+            sub4.style.display = "grid";
         }
 
-        //get the modal and opacity view id
+        document.getElementById('next1').addEventListener('click', TransferTitle);
+        function TransferTitle() {
+            // Create an array and get the id elments for transfer.
 
-        var notifiModal = document.getElementById("notificationBox");
-        var childHeader = document.getElementById("childHeader");
-        var childFooter = document.getElementById("childFooter");
-        //get the button id
-        var notiBtn = document.getElementById("notificationBtn");
-        var closeNotifiBtn = document.getElementById("closeNotifiBtn");
+            var copyTitle = ['title'];
+            // Create an array and get the id elments for transfer.
 
-        //function for notifications view
-        notiBtn.onclick = function () {
-            notifiModal.style.display = "flex";
-            childHeader.style.opacity = "50%";
-            childFooter.style.opacity = "50%";
-        }
+            var sendTitle = ['finalTitle'];
+            // for sends copyTitle to sendTitle
 
-        closeNotifiBtn.onclick = function () {
-            notifiModal.style.display = "none";
-            childHeader.style.opacity = "100%";
-            childFooter.style.opacity = "100%";
-        }</script>
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };
 
+        document.getElementById('next2').addEventListener('click', TransferProblem);
+        function TransferProblem() {
+            // Create an array and get the id elments for transfer.
 
+            var copyTitle = ['problem'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalProblem'];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };
+        document.getElementById('next3').addEventListener('click', TransferSolution);
+        function TransferSolution() {
+            // Create an array and get the id elments for transfer.
+
+            var copyTitle = ['solution'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalSolution'];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };
+        document.getElementById('next4').addEventListener('click', TransferGoal);
+        function TransferGoal() {
+            // Create an array and get the id elments for transfer.
+
+            var copyTitle = ['goal', 'date'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalGoal', 'finalDate'];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };</script>
+
+</body>
+</html>
