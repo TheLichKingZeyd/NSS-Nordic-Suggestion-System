@@ -32,6 +32,7 @@ public class Program
         builder.Services.AddScoped<IEmployeeRepository, EFEmployeeRepository>();
         builder.Services.AddScoped<ITeamRepository, TeamRepository>();
         builder.Services.AddScoped<ISuggestionRepository, SuggestionRepository>();
+        builder.Services.AddTransient<ISqlConnector, SqlConnector>();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {

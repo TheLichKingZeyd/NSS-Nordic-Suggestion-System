@@ -11,6 +11,7 @@ using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using NordicDoorSuggestionSystem.Repositories;
+using System.Data;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -21,15 +22,17 @@ namespace NordicDoorSuggestionSystem.Controllers
 
         private readonly ISuggestionRepository _suggestionRepository;
         private readonly DataContext _context;
+        private readonly ISqlConnector sqlConnector;
 
 
-        public SuggestionController(UserManager<User> userManager, ISuggestionRepository suggestionRepository, DataContext context)
+        public SuggestionController(UserManager<User> userManager, ISuggestionRepository suggestionRepository, DataContext context, ISqlConnector sqlConnector)
 
 
         {
             _userManager = userManager;
             _suggestionRepository = suggestionRepository;
             _context = context;
+            this.sqlConnector = sqlConnector;
         }
 
         // GET: Suggestion/Henter  ut Suggestions fra databasen i en liste + legger til søkefunksjon
@@ -129,6 +132,18 @@ namespace NordicDoorSuggestionSystem.Controllers
                     EmployeeNumber = user.EmployeeNumber,
                     TeamID = suggestionViewModel.TeamID
                 };
+
+                  var sql = $@"update team 
+                                set 
+                                   TeamSgstnCount = TeamSgstnCount + 1
+                                where TeamID = '{suggestionViewModel.TeamID}';";
+            RunCommand(sql);
+
+            var sql2 = $@"update employee 
+                                set 
+                                   SuggestionCount = SuggestionCount + 1
+                                where EmployeeNumber = '{user.EmployeeNumber}';";
+            RunCommand(sql2);
 
                 await _suggestionRepository.Add(newSuggestion);
                 await _suggestionRepository.SaveChanges();
@@ -245,6 +260,18 @@ namespace NordicDoorSuggestionSystem.Controllers
 
             }
 
+            var sql = $@"update team 
+                                set 
+                                   TeamSgstnCount = TeamSgstnCount - 1
+                                where TeamID = '{suggestion.TeamID}';";
+            RunCommand(sql);
+
+            var sql2 = $@"update employee 
+                                set 
+                                   SuggestionCount = SuggestionCount - 1
+                                where EmployeeNumber = '{suggestion.EmployeeNumber}';";
+            RunCommand(sql2);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -308,6 +335,27 @@ namespace NordicDoorSuggestionSystem.Controllers
         public IActionResult Feed()
         {
             return View();
+        }
+
+        private void RunCommand(string sql)
+        {
+            using (var connection = sqlConnector.GetDbConnection())
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        private IDataReader ReadData(string query, IDbConnection connection)
+        {
+            connection.Open();
+            using var command = connection.CreateCommand();
+            command.CommandType = System.Data.CommandType.Text;
+            command.CommandText = query;
+            return command.ExecuteReader();
         }
     }
 

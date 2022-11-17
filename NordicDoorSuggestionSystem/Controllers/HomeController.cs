@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,11 +19,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new RazorViewModel
-            {
-                Content = "En time til ørsta rådhus"
-            };
-            return View("Index", model);
+            return View("Index");
         }
     }
 }

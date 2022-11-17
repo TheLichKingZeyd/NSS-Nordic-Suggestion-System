@@ -1,0 +1,98 @@
+.body{
+    text-decoration: none;
+}
+h1{
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    position: fixed;
+    top: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.NavContainer0{
+    display: block;
+    align-items: center;
+    width: 370px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 18%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.NavContainer{
+    display: block;
+    align-items: center;
+    width: 370px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 31%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.NavContainer1{
+    display: block;
+    align-items: center;
+    width: 370px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 58%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.NavContainer2{
+    display: block;
+    align-items: center;
+    width: 370px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 72%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.NavContainer3{
+    display: block;
+    align-items: center;
+    width: 370px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 44%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.NavLink{
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+    color: black;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+i{
+    position: relative;
+    left: 1px;
+    margin-right: 10px;
+}
