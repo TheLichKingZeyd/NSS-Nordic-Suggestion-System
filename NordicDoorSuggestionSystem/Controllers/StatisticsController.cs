@@ -4,6 +4,8 @@ using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Collections.Generic;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -57,8 +59,16 @@ namespace NordicDoorSuggestionSystem.Controllers
 
             dataset.Add(labelsFor);
 
-            List<int> DepartmentCount = new List<int>(new int[] { 35, 37, 81, 21 } );
-            dataset.Add(DepartmentCount);
+            var DepartmentCount = _context.Team.Where(p=>p.DepartmentID == 1).Sum(p=>p.TeamSgstnCount);
+            var DepartmentCount1 = _context.Team.Where(p=>p.DepartmentID == 2).Sum(p=>p.TeamSgstnCount);
+            var DepartmentCount2 = _context.Team.Where(p=>p.DepartmentID == 3).Sum(p=>p.TeamSgstnCount);
+            var DepartmentCount3 = _context.Team.Where(p=>p.DepartmentID == 4).Sum(p=>p.TeamSgstnCount);
+            List<int?> Counts = new List<int?>();
+            Counts.Add(DepartmentCount);
+            Counts.Add(DepartmentCount1);
+            Counts.Add(DepartmentCount2);
+            Counts.Add(DepartmentCount3);
+            dataset.Add(Counts);
             
             return dataset;
         }

@@ -4,6 +4,10 @@ namespace NordicDoorSuggestionSystem.Repositories
 {
     public interface ITeamRepository
     {
-        Team GetTeam(int teamID);
+        Task<Team> GetTeam(int? TeamID);
+        Task<List<Team>> GetTeams();
+        Task DeleteTeam(Team team);
+        Task SaveChanges();
+        Task Update(Team team);
     }
 }
