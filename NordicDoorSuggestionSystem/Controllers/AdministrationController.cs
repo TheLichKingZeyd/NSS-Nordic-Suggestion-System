@@ -168,5 +168,28 @@ namespace bacit_dotnet.MVC.Controllers
         {
             return View();
         }
+        
+        public async Task<IActionResult> DeleteUser (string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            var currentUser = _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return View("Denne brukeren eksisterer ikke");
+            }
+            else
+            {
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    employeeRepository.Delete(user.EmployeeNumber);
+                    return RedirectToAction("Users");
+                } 
+                else 
+                {
+                    return RedirectToAction("Users");
+                }
+            }
+        }
     }
 }
