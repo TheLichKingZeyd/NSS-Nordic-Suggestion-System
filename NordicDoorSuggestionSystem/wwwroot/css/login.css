@@ -1,7 +1,7 @@
-﻿body {
-    background-color: #e4ebf7;
-    font-family: Verdana;
-    font-weight: 600;
+﻿* {
+    font-family: bahnschrift;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -15,47 +15,50 @@ p {
 
 h1 {
     font-size: 50px;
+    color: white;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica;
-}
 
 
 .containerLogIn {
     display: flex;
+    height: 100vh;
+    width: 100%;
     justify-content: center;
     align-items: center;
+    display: flex;
+    background-color: white;
+    flex-wrap: nowrap;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)),url('https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
-.boxContainerLogIn {
-    margin-top: 12vh;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    width: 60vh;
-    height: 55vh;
-    border-radius: 10px;
-    box-shadow: 0 8px 8px -1px #a6a6a6;
-}
+;
+
+
 
 .LoginHeader {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5vh;
     font-size: 20px;
-    line-height: 20px;
-    color: white;
-    background-color: #1C3879;
     margin: 0;
-    border-radius: 10px 10px 0 0;
+    margin-bottom: 100px;
+    color: white;
 }
 
 input {
     margin: 5px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    width: 30vh;
+    font-size: 15px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .loginContent {
@@ -68,13 +71,11 @@ input {
 
 .btn-default {
     align-items: center;
-    background-color: #0276FF;
+    background-color: #FF7A59;
     border-radius: 8px;
     border-style: none;
     color: #fff;
     cursor: pointer;
-    display: flex;
-    flex-direction: row;
     font-family: sans-serif;
     font-size: 100%;
     line-height: 1.15;
@@ -83,19 +84,20 @@ input {
     text-align: center;
     transition: 0.3s;
     margin-top: 5vh;
+    margin-bottom: 15vh;
+    width: 25vh;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    opacity: 80%;
 }
 
-    .btn-default:active {
-        background-color: #006AE8;
-    }
-
     .btn-default:hover {
-        background-color: #1C84FF;
+        background-color: #FF7A59;
+        opacity: 100%;
     }
 
 .text-danger {
-    color: red;
-    font-weight: lighter;
+    color: white;
+    font-weight: bolder;
 }
 
 .control-label {
