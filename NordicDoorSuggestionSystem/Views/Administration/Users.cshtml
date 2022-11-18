@@ -16,14 +16,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Ansattnummer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeNumber)
+                Fornavn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
-                @Html.DisplayNameFor(model => model.FirstName)
+                Etternavn
+            </th>
+            <th>
+                Kontotype
             </th>
         </tr>
     </thead>
@@ -34,21 +36,22 @@
             {
                 <tr>
                     <th>
-                        @Html.DisplayFor(modelItem => user.Id)
-                    </th>
-                    <th>
                         @Html.DisplayFor(modelItem => user.EmployeeNumber)
                     </th>
                     <th>
-                        @Html.DisplayFor(modelItem => user.LastName)
-                        <i>, </i>
                         @Html.DisplayFor(modelItem => user.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => user.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => user.Role)
                     </th>
                     <td>
                         <a asp-action="EditUser" asp-controller="Administration" class="btn btn-primary" asp-route-id="@user.Id">Edit</a>
                     </td>
                     <td>
-                        <form asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id" method="post">
+                        <form asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id" method="get">
                             <button onclick="return confirm('Er du sikker du vil slette denne brukeren: @user.LastName, @user.FirstName')" type="submit" class="btn btn-danger btn-sm">Slett</button>
                         </form>
                     </td>
