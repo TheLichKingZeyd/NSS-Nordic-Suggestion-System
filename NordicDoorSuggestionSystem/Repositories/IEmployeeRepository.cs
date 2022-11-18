@@ -4,7 +4,7 @@ namespace NordicDoorSuggestionSystem.Repositories
 {
     public interface IEmployeeRepository
     {
-        void Update(Employee employee, List<string> roles);
+        void Update(Employee employee);
         void Add(Employee employee);
         List<Employee> GetEmployees();
         void Delete(int employeenumber);

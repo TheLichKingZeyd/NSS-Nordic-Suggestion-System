@@ -1,0 +1,95 @@
+﻿@using NordicDoorSuggestionSystem.Models.Administrate
+@model UserEditViewModel
+@{
+    ViewBag.Title = "Edit User";
+}
+@{
+    ViewData["Title"] = "Endre Bruker";
+}
+
+<h1>@ViewData["Title"] til ansatt: @Html.DisplayFor(modelItem => Model.EmployeeNumber)</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <i></i>
+            </th>
+            <th>
+                <i>Før</i>
+            </th>
+            <th>
+                <i>Etter</i>
+            </th>
+        </tr>
+    </thead>
+    @if (Model != null)
+    {
+        <form asp-controller="Administration" asp-action="EditUser" asp-route-returnurl="Users" method="post" class="form-horizontal" role="form">
+            <input asp-for="PreviousRole" type="hidden" />
+            @for (var i = 0; i < 3; i++)
+            {
+                @if (i == 0)
+                {
+                <tbody>
+                    <tr>
+                        <th>
+                            <i>Fornavn</i>
+                        </th>
+                        <th>
+                                @Html.DisplayFor(modelItem => Model.FirstName)
+                        </th>
+                        <th>
+                            <input asp-for="FirstName" class="form-control" />
+                        </th>
+                    </tr>
+                </tbody>
+                }
+                else if (i == 1)
+                {
+                <tbody>
+                    <tr>
+                        <th>
+                            <i>Etternavn</i>
+                        </th>
+                        <th>
+                                @Html.DisplayFor(modelItem => Model.LastName)
+                        </th>
+                        <th>
+                            <input asp-for="LastName" class="form-control" />
+                        </th>
+                    </tr>
+                </tbody>
+                }
+                else if (i == 2)
+                {
+                <tbody>
+                    <tr>
+                        <th>
+                            <i>Kontotype</i>
+                        </th>
+                        <th>
+                                @Html.DisplayFor(modelItem => Model.PreviousRole)
+                        </th>
+                        <th>
+                            <select asp-for="RoleSelected" asp-items="@Model.RoleList" class="form-control">
+                                <option disabled selected>- Kontotype -</option>
+                            </select>
+                        </th>
+                    </tr>
+                </tbody>
+                }
+            }
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Fullfør</button>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <a asp-action="Users" class="btn btn-danger btn-sm">Avbryt</a>
+        </div>
+        </form>        
+    }
+    else
+    {
+        <h2>Du har ikke valgt en bruker.</h2>
+    }
+</table>
