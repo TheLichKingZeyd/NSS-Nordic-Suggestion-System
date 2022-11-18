@@ -20,7 +20,6 @@ h1{
     position: fixed;
     top: 18%;
     left: 50%;
-    /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
 .NavContainer{
@@ -34,7 +33,6 @@ h1{
     position: fixed;
     top: 31%;
     left: 50%;
-    /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
 .NavContainer1{
@@ -48,7 +46,6 @@ h1{
     position: fixed;
     top: 58%;
     left: 50%;
-    /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
 .NavContainer2{
@@ -62,7 +59,7 @@ h1{
     position: fixed;
     top: 72%;
     left: 50%;
-    /* bring your own prefixes */
+
     transform: translate(-50%, -50%);
 }
 .NavContainer3{
@@ -76,7 +73,19 @@ h1{
     position: fixed;
     top: 44%;
     left: 50%;
-    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+.NavContainer4{
+    display: block;
+    align-items: center;
+    width: 445px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 88%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 .NavLink{
