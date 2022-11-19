@@ -45,6 +45,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         public async Task<IActionResult> Index(string title)
         {
             var suggestions = new List<Suggestion>();
+
             if (!String.IsNullOrEmpty(title))
             {
                 suggestions = await _suggestionRepository.QueryTitle(title);

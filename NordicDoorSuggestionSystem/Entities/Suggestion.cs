@@ -21,7 +21,7 @@ namespace NordicDoorSuggestionSystem.Entities
         [MaxLength(150)]
         public string? Goal { get; set; }
         public DateTime? Deadline { get; set; }
-        public short? Progress { get; set; }
+        public string? Progress { get; set; }
 
         public Employee Employee  { get; set; }
         [ForeignKey("Employee")]
