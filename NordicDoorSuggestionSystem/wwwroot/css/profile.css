@@ -1,29 +1,13 @@
-﻿/* Global */
+﻿
+
 * {
     margin: 0;
     padding: 0;
-    background-color: #e4ebf7;
     font-family: bahnschrift;
 }
 
 .content {
     flex-grow: 1;
-}
-
-.child {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1%;
-    padding: 20px;
-    font-size: 20px;
-    line-height: 20px;
-    color: white;
-    background-color: #4c90fc;
-    margin-left: 30%;
-    margin-right: 30%;
-    flex-direction: column;
-    cursor: pointer;
 }
 
 .childHeader {
@@ -34,8 +18,8 @@
     font-size: 20px;
     line-height: 20px;
     color: white;
-    background-color: #1C3879;
     opacity: 100%;
+    background-color: #1C3879;
 }
 
     .childHeader li {
@@ -48,7 +32,7 @@
 
 @media only screen and (max-width: 1000px) {
     .childHeader li {
-        padding: 0 20px;
+        padding: 0 60px;
     }
 }
 
@@ -80,18 +64,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 5px;
     font-size: 20px;
-    line-height: 20px;
     color: white;
-    background-color: #1C3879;
-    margin-left: 10%;
-    margin-right: 10%;
-    border-top-right-radius: 5vh;
-    border-top-left-radius: 5vh;
     opacity: 100%;
     position: fixed;
+    margin-top: auto;
     bottom: 0;
+    margin: 0;
+    width: 100%;
+    background-color: #1C3879;
 }
 
     .childFooter li {
@@ -107,11 +89,34 @@
     .childFooter li {
         list-style: none;
         display: inline-flex;
-        padding: 0 20px;
+        padding: 0 50px;
         text-align: center;
         text-decoration: none;
     }
+
+    .header li {
+    }
 }
+
+.fa {
+    font-size: 40px;
+}
+
+button i {
+    font-size: 50px;
+}
+
+button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+    button:hover {
+        color: lightgrey;
+    }
 
 #add {
     background: #FF7A59;
@@ -130,8 +135,11 @@ a {
 }
 
 p {
-    font-size: 20px;
     font-weight: bold;
+}
+
+label {
+    font-weight: lighter;
 }
 
 h1 {
@@ -146,8 +154,7 @@ h1 {
     width: 60vh;
     background-color: white;
     border: solid 2px black;
-    margin-top: 20vh;
-    position: absolute;
+    margin-top: 1vh;
     align-items: center;
     justify-content: center;
 }
@@ -182,7 +189,7 @@ h1 {
 }
 
 .notificationContainer {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     overflow: scroll;
@@ -214,4 +221,46 @@ h1 {
         color: #c1c8d4;
     }
 
+#cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7vh;
+}
 
+.cardPicture {
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 15vh;
+    width: 15vh;
+}
+
+.cardHeader {
+    margin-top: 1vh;
+}
+
+    .cardHeader label {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+.showMyStats {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 35vh;
+    width: 60vh;
+    margin-top: 4vh;
+    background-color: grey;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    height: 30vh;
+    width: 55vh;
+    background-color: white;
+}

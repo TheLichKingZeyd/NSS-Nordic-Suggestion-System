@@ -1,56 +1,53 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html lang="en" dir="ltr">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/css/profile.css">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/profile.css">
+    <title></title>
 </head>
 <body>
     <div id="childHeader" class="childHeader">
         <nav>
             <ul>
                 <li>
-                    <button onclick="location.href='@Url.Action("Index","NavigationPage")'"><i class="fa fa-home" style="cursor: pointer; font-size: 40px;"></i></button>
+                    <button onclick="location.href='@Url.Action("Index","NavigationPage")'"><i class="fa fa-home" style="cursor: pointer; font-size: 50px;"></i></button>
                 </li>
                 <li>
                     <h1>Profil</h1>
                 </li>
                 <li>
-                    <button id="notificationBtn" class="fa fa-bell" style="cursor: pointer; font-size: 40px;"></button>
+                    <button id="notificationBtn" class="fa fa-bell" style="cursor: pointer; font-size: 45px;"></button>
                 </li>
             </ul>
         </nav>
     </div>
-    <div class="">
         @RenderBody()
+<center>
+    <div class="childFooter">
+        <ul>
+            <li>
+                <button onclick="location.href='@Url.Action("Index","SubmitPage")'" id="add" class="fa fa-edit" style="font-size: 40px; border: none; font-weight:bold;"></button>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <button onclick="location.href='@Url.Action("MySuggestions","Suggestion")'" class="fa fa-archive"></button>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <button onclick="location.href='@Url.Action("MyTeam","AccountPages")'" class="fa">&#xf0c0;</button>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <button onclick="location.href='@Url.Action("ShowStatisticsData","Statistics")'" class=" fa fa-bar-chart"></button>
+            </li>
+        </ul>
     </div>
-    <div class="parentProfile">
-        <div class="childFooter">
-            <ul>
-                <li>
-                    <button onclick="location.href='@Url.Action("Index","SubmitPage")'" id="add" class="fa fa-edit" style="font-size: 40px; border: none; color: white; cursor: pointer;" font-weight:bold;"></button>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <button onclick="location.href='@Url.Action("MySuggestions","Suggestion")'" style="font-size: 40px; background: none; border: none; color: white; cursor: pointer;" class="fa fa-archive"></button>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                  <button onclick="location.href='@Url.Action("MyTeam","AccountPages")'" style="font-size: 40px; background: none; border: none; color: white; cursor: pointer;" class="fa">&#xf0c0;</button>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <button onclick="location.href='@Url.Action("ShowStatisticsData","Statistics")'" style="font-size: 40px; background: none; border: none; color: white; cursor: pointer;" class=" fa fa-bar-chart"></button>
-                </li>
-            </ul>
-        </div>
-    </div>
+</center>
 </body>
 </html>
-
