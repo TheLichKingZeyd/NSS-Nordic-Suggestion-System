@@ -1,5 +1,4 @@
 ﻿
-
 * {
     background-color: #e4ebf7;
     margin: 0;
@@ -10,7 +9,6 @@
 input {
     background-color: white;
     padding-top: 4px;
-    border: solid 1px grey;
 }
 
 h1 {
@@ -19,7 +17,6 @@ h1 {
 
 textarea {
     background-color: white;
-    resize: none;
 }
 
 p {
@@ -50,6 +47,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: scroll;
     background-color: white;
 }
 
@@ -151,23 +149,22 @@ p {
     margin-bottom: 15vh;
 }
 
-
 #submit5 {
     display: none;
     width: 70vh;
-    height: 100vh;
+    height: 80vh;
     background: white;
     place-self: center;
     border-radius: 10px;
     box-shadow: 0 8px 8px -1px #a6a6a6;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(8, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    margin-bottom: 15vh;
+    margin-bottom: 8vh;
 }
 
-.submitHeaderSumary {
+.submitHeaderSummary {
     grid-area: 1 / 1 / 2 / 7;
     justify-items: center;
     align-items: center;
@@ -176,7 +173,7 @@ p {
     background-color: white;
 }
 
-.mainContentSumary {
+.mainContentSummary {
     grid-area: 2 / 2 / 8 / 6;
     justify-items: center;
     align-items: center;
@@ -189,17 +186,17 @@ p {
     background-color: white;
 }
 
-.rightSumary {
+.rightSummary {
     grid-area: 2 / 6 / 8 / 7;
     background-color: white;
 }
 
-.leftSummry {
+.leftSummary {
     grid-area: 2 / 1 / 8 / 2;
     background-color: white;
 }
 
-.footerBtnSumary {
+.footerBtnSummary {
     display: grid;
     grid-area: 8 / 1 / 9 / 7;
     justify-items: center;
@@ -258,6 +255,13 @@ i {
     text-align: center;
 }
 
+.submitReasonTitle {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    text-align: center;
+    font-size: 25px;
+}
 
 .submitProblem {
     resize: none;

@@ -1,64 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>NordicDoorSuggestionSystem</RootNamespace>
+		<UserSecretsId>52d02d82-6a5b-4ba1-8b2c-e266a15b5756</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="NuGet.Frameworks" />
-    <None Remove="NuGet.Packaging" />
-    <None Remove="NuGet.Configuration" />
-    <None Remove="NuGet.ProjectModel" />
-    <None Remove="NuGet.Packaging.Core" />
-    <None Remove="NuGet.PackageManagement" />
-    <None Remove="NuGet.Core" />
-    <None Remove="NuGet.Build.Tasks" />
-    <None Remove="NuGet.Build" />
-    <None Remove="NuGet.Build.Tasks.Pack" />
-    <None Remove="Microsoft.EntityFrameworkCore" />
-    <None Remove="MySqlConnector" />
-    <None Remove="MySql.Data.EntityFrameworkCore" />
-    <None Remove="MySql.EntityFrameworkCore" />
-    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
-    <None Remove="EntityFramework" />
-    <None Remove="Newtonsoft.Json" />
-    <None Remove="Microsoft.Extensions.DependencyInjection" />
-    <None Remove="Microsoft.Extensions.Logging" />
-    <None Remove="System.Text.Json" />
-    <None Remove="Microsoft.Bcl.AsyncInterfaces" />
-    <None Remove="System.Drawing.Common" />
-    <None Remove="Microsoft.Win32.SystemEvents" />
-    <None Remove="System.Windows.Extensions" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NuGet.Frameworks" Version="6.4.0" />
-    <PackageReference Include="NuGet.Packaging" Version="6.4.0" />
-    <PackageReference Include="NuGet.Configuration" Version="6.4.0" />
-    <PackageReference Include="NuGet.ProjectModel" Version="6.4.0" />
-    <PackageReference Include="NuGet.Packaging.Core" Version="6.4.0" />
-    <PackageReference Include="NuGet.PackageManagement" Version="6.4.0" />
-    <PackageReference Include="NuGet.Core" Version="2.14.0" />
-    <PackageReference Include="NuGet.Build.Tasks" Version="6.4.0" />
-    <PackageReference Include="NuGet.Build" Version="2.12.1" />
-    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.4.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-    <PackageReference Include="MySqlConnector" Version="2.2.0" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-    <PackageReference Include="System.Text.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="7.0.0" />
-    <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Migrations\" />
+		<Folder Include="Views\AdministrateEmployees\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="DynamicVML" Version="1.5.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.5" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	    <PrivateAssets>all</PrivateAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+	  <PackageReference Include="Microsoft.VisualStudio.web.CodeGeneration.Design" Version="6.0.10" />
+	  <PackageReference Include="MySql.Data" Version="8.0.31" />
+	  <PackageReference Include="MySqlConnector" Version="2.1.13" />
+	  <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+	</ItemGroup>
+
 </Project>
