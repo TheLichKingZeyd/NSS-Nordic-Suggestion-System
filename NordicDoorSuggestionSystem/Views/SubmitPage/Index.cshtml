@@ -19,7 +19,7 @@
     <title></title>
 </head>
 <body>
-    <form>
+  
         <div class="wrapper">
             <div id="submit1">
                 <div class="submitHeader">
@@ -124,10 +124,12 @@
                     <input readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
                 </div>
                 <div class="mainContentSummary">
-                    <textarea readonly id="finalProblem" class="submitProblem" rows="6" cols="40" type="text" class="submitReasonTitle" placeholder="Problemstilling.."></textarea> <br>
+                    <textarea readonly id="finalProblem" rows="6" cols="40" type="text" class="submitReasonTitle" placeholder="Problemstilling.."></textarea> <br>
 
                     <textarea readonly id="finalSolution" class="submitSolution" rows="6" cols="40" type="text" placeholder="Løsning.."></textarea> <br>
+
                     <textarea readonly id="finalGoal" class="submitTarget" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
+
                     <p style="padding-bottom: 5px;">Dato for ferdigstilling:</p> <input readonly id="finalDate" type="date" name="" value="">
                 </div>
                 <div class="rightSummary">
@@ -143,7 +145,6 @@
                 </div>
             </div>
         </div>
-    </form>
 
     <script type="text/javascript">// Get the view id
 
@@ -154,6 +155,7 @@
         var sub5 = document.getElementById("submit5");
 
         // Get the button id
+
         var nxt1 = document.getElementById("next1");
         var nxt2 = document.getElementById("next2");
         var nxt3 = document.getElementById("next3");
