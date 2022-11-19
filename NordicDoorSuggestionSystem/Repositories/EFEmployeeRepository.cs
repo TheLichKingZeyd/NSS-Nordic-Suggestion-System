@@ -42,7 +42,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             dataContext.Employees.Add(employee);
             dataContext.SaveChanges();
         }
-        public void Update(Employee employee, List<string> roles)
+        public void Update(Employee employee)
         {
             var existingEmployee = GetEmployeeByNumber(employee.EmployeeNumber);
             if (existingEmployee == null)
@@ -52,6 +52,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             existingEmployee.EmployeeNumber = employee.EmployeeNumber;
             existingEmployee.FirstName = employee.FirstName;
             existingEmployee.LastName = employee.LastName;
+            existingEmployee.TeamID = employee.TeamID;
             dataContext.SaveChanges();
         }
     }

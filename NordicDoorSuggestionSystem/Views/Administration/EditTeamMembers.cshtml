@@ -1,0 +1,83 @@
+@model NordicDoorSuggestionSystem.Models.EditTeamMemberViewModel
+
+@{
+    ViewData["Title"] = "Edit Team Members";
+}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Sortable - Connect lists</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+   
+  .box{
+    border: 1px solid black;
+    width: 20%;
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  .box h4{
+    width: 100%;
+    text-align: center;
+  }
+
+  #sortable1, #sortable2 {
+    list-style-type: none;
+    width: 100%;
+    min-height: 200px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  #sortable1 li, #sortable2 li {
+    font-size: 1.2em;
+    text-align: center;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+  } );
+  </script>
+</head>
+<body>
+
+<form asp-action="EditTeamMembers" method="post">
+    @for (var i = 0; i < Model.TeamList.Count(); i++)
+    {
+        <div class="box" id="@Model.TeamList[i].TeamID">
+            <h4 style="text-align: center;">@Model.TeamList[i].TeamName</h4>
+            <ul id="sortable1" class="connectedSortable">
+            @*<input type="hidden" asp-for="@Model.TeamList[i].TeamID" />*@
+            @for (var j = 0; j < Model.EmployeeList.Count(); j++)
+            {
+                if (Model.TeamList[i].TeamID == Model.EmployeeList[j].TeamID)
+                {
+                    <li class="ui-state-default">
+                        @Model.EmployeeList[j].FirstName @Model.EmployeeList[j].LastName
+                        <input type="hidden" asp-for="@Model.EmployeeList[i].EmployeeNumber" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[i].FirstName" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[i].LastName" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[i].TeamID" />
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    }
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-danger" style="float: right;"/>
+    </div>
+</form>
+ 
+</body>
+</html>
