@@ -126,6 +126,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                     EmployeeNumber = registerViewModel.EmployeeNumber,
                     FirstName = registerViewModel.FirstName,
                     LastName = registerViewModel.LastName,
+                    Role = registerViewModel.RoleSelected,
                     LockoutEnabled = false,
                     LockoutEnd = null };
                 var result = await _userManager.CreateAsync(user, registerViewModel.Password);
@@ -152,7 +153,6 @@ namespace NordicDoorSuggestionSystem.Controllers
                         EmployeeNumber = registerViewModel.EmployeeNumber,
                         FirstName = registerViewModel.FirstName,
                         LastName = registerViewModel.LastName,
-                        Role = registerViewModel.RoleSelected,
                         SuggestionCount = 0
                     };                    
 
