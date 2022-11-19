@@ -1,3 +1,5 @@
+@model NordicDoorSuggestionSystem.Models.DetailMemberViewModel
+
 @{
     ViewData["Title"] = "Team Members";
 }
@@ -9,21 +11,32 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <style>
-  #sortable1, #sortable2 {
-    border: 1px solid #eee;
-    width: 142px;
-    min-height: 20px;
-    list-style-type: none;
-    margin: 0;
-    padding: 5px 0 0 0;
+   
+  .box{
+    border: 1px solid black;
+    width: 20%;
+    display: inline-block;
     float: left;
-    margin-right: 10px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .box h4{
+    width: 100%;
+    text-align: center;
+  }
+
+  #sortable1, #sortable2 {
+    list-style-type: none;
+    width: 100%;
+    min-height: 200px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
   }
   #sortable1 li, #sortable2 li {
-    margin: 0 5px 5px 5px;
-    padding: 5px;
     font-size: 1.2em;
-    width: 120px;
+    text-align: center;
   }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -38,39 +51,28 @@
 </head>
 <body>
 
+<form asp-action="EditTeams" method="post">
+@foreach (var teams in Model.TeamList)
+{
+  <div class="box">
+  <h4 style="text-align: center;">@teams.TeamName</h4>
+  <input type="hidden" asp-for="@teams.TeamID"/>
   <ul id="sortable1" class="connectedSortable">
-    <h4 style="text-align: center;">Team Null</h4>
-    <li class="ui-state-default">Item 1</li>
-</ul>
+    @foreach (var employee in Model.EmployeeList.Where(n => n.TeamID == teams.TeamID))
+    {
+      <li class="ui-state-default">
+        <input type="hidden" asp-for="@employee.TeamID" />
+        @employee.FirstName @employee.LastName
+        </li>
+    }
+  </ul>
+</div>
+}
 
-  <ul id="sortable1" class="connectedSortable">
-    <h4 style="text-align: center;">Team 1</h4>
-  <li class="ui-state-default">Item 1</li>
-  <li class="ui-state-default">Item 2</li>
-  <li class="ui-state-default">Item 3</li>
-  <li class="ui-state-default">Item 4</li>
-  <li class="ui-state-default">Item 5</li>
-</ul>
-
- 
-<ul id="sortable2" class="connectedSortable">
-  <h4 style="text-align: center;">Team 2</h4>
-  <li class="ui-state-default">Item 1</li>
-  <li class="ui-state-default">Item 2</li>
-  <li class="ui-state-default">Item 3</li>
-  <li class="ui-state-default">Item 4</li>
-  <li class="ui-state-default">Item 5</li>
-</ul>
-
-<ul id="sortable2" class="connectedSortable">
-  <h4 style="text-align: center;">Team 3</h4>
-  <li class="ui-state-default">Item 1</li>
-  <li class="ui-state-default">Item 2</li>
-  <li class="ui-state-default">Item 3</li>
-  <li class="ui-state-default">Item 4</li>
-  <li class="ui-state-default">Item 5</li>
-</ul>
- 
+<div class="form-group">
+  <input type="submit" value="Update" class="btn btn-danger" style="float: right;"/>
+</div>
+</form>
  
 </body>
 </html>

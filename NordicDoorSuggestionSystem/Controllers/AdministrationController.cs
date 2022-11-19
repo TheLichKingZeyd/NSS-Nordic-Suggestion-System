@@ -166,7 +166,12 @@ namespace bacit_dotnet.MVC.Controllers
 
         public IActionResult TeamMembers()
         {
-            return View();
+            DetailMemberViewModel vm = new DetailMemberViewModel();
+            var teams = _context.Team.ToList();
+            var employees = _context.Employees.ToList();
+            vm.EmployeeList = employees;
+            vm.TeamList = teams;
+            return View(vm);
         }
         
         public async Task<IActionResult> DeleteUser (string id)
@@ -191,5 +196,48 @@ namespace bacit_dotnet.MVC.Controllers
                 }
             }
         }
+
+        public async Task<IActionResult> DetailsMembers(int id)
+        {
+            var team = await _teamRepository.GetTeam(id);
+            DetailMemberViewModel vm = new DetailMemberViewModel();
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            vm.TeamName = team.TeamName;
+            vm.TeamID = team.TeamID;
+
+            var employees = _context.Employees.Where(d => d.TeamID.Equals(team.TeamID)).ToList();
+            vm.EmployeeList = employees;
+
+            return View(vm);
+        }
+
+        public IActionResult AddEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTeams(DetailMemberViewModel detailMemberViewModel)
+        {
+            foreach (var employee in detailMemberViewModel.EmployeeList)
+            {
+                var updatedEmployee = new Employee{
+                    EmployeeNumber = employee.EmployeeNumber,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    ProfilePicture = employee.ProfilePicture,
+                    SuggestionCount = employee.SuggestionCount,
+                    TeamID = employee.TeamID
+                };
+            }
+            return View();
+        }
+
+        
     }
 }
