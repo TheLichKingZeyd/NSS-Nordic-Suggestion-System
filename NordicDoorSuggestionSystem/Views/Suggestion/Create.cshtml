@@ -94,7 +94,7 @@
         </div>
         <div class="mainContent">
             <textarea id="goal" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
-            Dato for ferdigstilling: <input id="date" type="date" name="" value="">
+            Dato for ferdigstilling: <input id="date" type="date" asp-for="Deadline" value="">
         </div>
         <div class="right">
             <button id="next4" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
@@ -131,7 +131,7 @@
 
                     <input asp-for="Progress" readonl id="finalProgress" type="number" placeholder="Fremgang"> <br>
 
-                    <p style="padding-bottom: 5px;">Dato for ferdigstilling:</p> <input asp-for="Deadline" readonly id="finalDate" type="date" name="" value=""> <br>
+                    <p style="padding-bottom: 5px;">Dato for ferdigstilling:</p> <input asp-for="Deadline" readonly id="finalDate" type="date" name="Deadline" value=""> <br>
                 </div>
                 <div class="right">
 
