@@ -13,10 +13,17 @@ h2{
 }
 
 a.Create:hover{
-    color:#000000;
-    background-color:#FFFFFF;
+    color: grey;
 }
-
+.fa-home{
+  font-size: 70px !important; 
+  position: fixed;
+  top: 6%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+  color: black;
+}
 
 .Create{
     display:inline-block;
@@ -33,12 +40,25 @@ a.Create:hover{
     width: auto;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
+    text-decoration: none;
 }
-.table, th, td{
+.table, td, th{
     border: thin solid black;
 }
+.EDDrow{
+  color: black;
+  text-decoration: none;
+  border: none;
+  border-bottom: thin solid black;
+}
+.EDDrow a{
+  color: black;
+}
+.EDDrow a:hover{
+  color: grey;
+}
 .table th{
-    background-color: lightblue;
+    background-color: lightgray;
 }
 .th, td{
     padding: 15px;
@@ -54,6 +74,7 @@ a.Create:hover{
   .SearchField p{
     border: black solid 1px;
     padding: 10px;
+    font-weight: bold;
   }
   ul {
     list-style-type: none;
@@ -66,7 +87,12 @@ a.Create:hover{
     grid-area: header;
     text-align: center;
     font-size: 35px;
-    height: 20%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
   }
 
 li {
