@@ -1,69 +1,273 @@
 ﻿@model NordicDoorSuggestionSystem.Models.SuggestionViewModel
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_SubmitLayout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>Send inn et forslag!</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+
+<div class="wrapper">
+    <div id="submit1">
+        <div class="submitHeader">
+            <h1 style="background-color: white;">Skriv tittel</h1>
+        </div>
+
+        <div class="mainContent">
+            <input class="SgstnTitle" id="title" type="text" maxlength="22" placeholder="Tittel.."> <br>
+
+            <input type="number" id="responible" placeholder="Ansvarlig.." maxlength="3"> <br>
+
+            <input type="number" id="teamId" placeholder="Team- ID.." maxlength="3"> <br>
+
+            <input type="number" id="progress" placeholder="Fremgang" maxlength="4"> <br>
+
+        </div>
+        <div class="right">
+            <button id="next1" type="button" class="next1 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+        </div>
+        <div class="left">
+            <button id="" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px; display:none;"></i></button>
+        </div>
+        <div class="footerBtn">
+            <div class="circleContainer">
+                <span class="circleNav active" style="font-weight: lighter">1</span>
+                <span class="circleNav" style="font-weight: lighter;">2</span>
+                <span class="circleNav" style="font-weight: lighter">3</span>
+                <span class="circleNav" style="font-weight: lighter">4</span>
+                <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="submit2">
+        <div class="submitHeader">
+            <h1>Skriv problemstilling</h1>
+        </div>
+        <div class="mainContent">
+            <textarea id="problem" rows="6" cols="40" type="text" placeholder="Problemstilling"></textarea>
+        </div>
+        <div class="right">
+            <button id="next2" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+        </div>
+        <div class="left">
+            <button id="back2" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+        </div>
+        <div class="footerBtn">
+            <div class="circleContainer">
+                <span class="circleNav used" style="font-weight: lighter">1</span>
+                <span class="circleNav active" style="font-weight: lighter;">2</span>
+                <span class="circleNav" style="font-weight: lighter">3</span>
+                <span class="circleNav" style="font-weight: lighter">4</span>
+                <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="submit3">
+        <div class="submitHeader">
+            <h1>Skriv løsning</h1>
+        </div>
+        <div class="mainContent">
+            <textarea id="solution" rows="6" cols="40" type="text" placeholder="Løsning.."></textarea>
+        </div>
+        <div class="right">
+            <button id="next3" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+        </div>
+        <div class="left">
+            <button id="back3" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+        </div>
+        <div class="footerBtn">
+            <div class="circleContainer">
+                <span class="circleNav used" style="font-weight: lighter">1</span>
+                <span class="circleNav used" style="font-weight: lighter;">2</span>
+                <span class="circleNav active" style="font-weight: lighter">3</span>
+                <span class="circleNav" style="font-weight: lighter">4</span>
+                <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="submit4">
+        <div class="submitHeader">
+            <h1>Hva er målet?</h1>
+        </div>
+        <div class="mainContent">
+            <textarea id="goal" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
+            Dato for ferdigstilling: <input id="date" type="date" name="" value="">
+        </div>
+        <div class="right">
+            <button id="next4" type="button" class="allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
+        </div>
+        <div class="left">
+            <button id="back4" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+        </div>
+        <div class="footerBtn">
+            <div class="circleContainer">
+                <span class="circleNav used" style="font-weight: lighter">1</span>
+                <span class="circleNav used" style="font-weight: lighter;">2</span>
+                <span class="circleNav used" style="font-weight: lighter">3</span>
+                <span class="circleNav active" style="font-weight: lighter">4</span>
+                <span class="circleNav"><i class="fa fa-paper-plane"></i></span>
+            </div>
+        </div>
+    </div>
+    <center>
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Problem" class="control-label"></label>
-                <input asp-for="Problem" class="form-control" />
-                <span asp-validation-for="Problem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Solution" class="control-label"></label>
-                <input asp-for="Solution" class="form-control" />
-                <span asp-validation-for="Solution" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Goal" class="control-label"></label>
-                <input asp-for="Goal" class="form-control" />
-                <span asp-validation-for="Goal" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <label asp-for="ResponsibleEmployee" class="control-label"></label>
-                <input asp-for="ResponsibleEmployee" class="form-control" />
-                <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Deadline" class="control-label"></label>
-                <input asp-for="Deadline" class="form-control" />
-                <span asp-validation-for="Deadline" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TeamID" class="control-label"></label>
-                <input asp-for="TeamID" class="form-control" />
-                <span asp-validation-for="TeamID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Progress" class="control-label"></label>
-                <input asp-for="Progress" class="form-control" />
-                <span asp-validation-for="Progress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div id="submit5">
+                <div class="submitHeader">
+                    <input asp-for="Title" readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
+                </div>
+                <div class="mainContent">
+                    <textarea asp-for="Problem" readonly id="finalProblem" rows="6" cols="40" type="text" placeholder="Problemstilling.."></textarea> <br>
+
+                    <textarea asp-for="Solution" readonly id="finalSolution" class="submitSolution" rows="6" cols="40" type="text" placeholder="Løsning.."></textarea> <br>
+
+                    <textarea asp-for="Goal" readonly id="finalGoal" class="submitTarget" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
+
+                    <input asp-for="ResponsibleEmployee" id="finalResponsible" readonl type="number" placeholder="Ansvarlig.."> <br>
+
+                    <input asp-for="TeamID" readonl id="finalTeamId" type="number" placeholder="Team- ID.."> <br>
+
+                    <input asp-for="Progress" readonl id="finalProgress" type="number" placeholder="Fremgang"> <br>
+
+                    <p style="padding-bottom: 5px;">Dato for ferdigstilling:</p> <input asp-for="Deadline" readonly id="finalDate" type="date" name="" value=""> <br>
+                </div>
+                <div class="right">
+
+                </div>
+                <div class="left">
+                    <button id="back5" type="button" class="back1 allbtn"><i class="fa fa-angle-right" style="font-size:50px;"></i></button>
+                </div>
+                <div class="footerBtn">
+                    <div class="circleContainer">
+                        <div class="circleContainer">
+                            <button class="submitSgstBtn" type="submit" value="Create">Send inn</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
-    </div>
+    </center>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<script type="text/javascript">// Get the view id
+
+        var sub1 = document.getElementById("submit1");
+        var sub2 = document.getElementById("submit2");
+        var sub3 = document.getElementById("submit3");
+        var sub4 = document.getElementById("submit4");
+        var sub5 = document.getElementById("submit5");
+
+        // Get the button id
+
+        var nxt1 = document.getElementById("next1");
+        var nxt2 = document.getElementById("next2");
+        var nxt3 = document.getElementById("next3");
+        var nxt4 = document.getElementById("next4");
+        var nxt5 = document.getElementById("next5");
+
+        //Get the backbutton
+
+        var bc2 = document.getElementById("back2");
+        var bc3 = document.getElementById("back3");
+        var bc4 = document.getElementById("back4");
+        var bc5 = document.getElementById("back5");
+
+        // When user clicks the button, new view
+
+        nxt1.onclick = function () {
+            sub1.style.display = "none";
+            sub2.style.display = "grid";
+        }
+
+        nxt2.onclick = function () {
+            sub2.style.display = "none";
+            sub3.style.display = "grid";
+        }
+        bc2.onclick = function () {
+            sub2.style.display = "none";
+            sub1.style.display = "grid";
+        }
+
+        nxt3.onclick = function () {
+            sub3.style.display = "none";
+            sub4.style.display = "grid";
+        }
+        bc3.onclick = function () {
+            sub3.style.display = "none";
+            sub2.style.display = "grid";
+        }
+
+        nxt4.onclick = function () {
+            sub4.style.display = "none";
+            sub5.style.display = "grid";
+        }
+        bc4.onclick = function () {
+            sub4.style.display = "none";
+            sub3.style.display = "grid";
+        }
+
+        bc5.onclick = function () {
+            sub5.style.display = "none";
+            sub4.style.display = "grid";
+        }
+
+        document.getElementById('next1').addEventListener('click', TransferTitle);
+        function TransferTitle() {
+            // Create an array and get the id elments for transfer.
+
+            var copyTitle = ['title', 'responible'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalTitle', 'finalResponsible'];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };
+
+        document.getElementById('next2').addEventListener('click', TransferProblem);
+        function TransferProblem() {
+            // Create an array and get the id elments for transfer.
+
+            var copyTitle = ['problem', 'progress'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalProblem', 'finalProgress'];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };
+        document.getElementById('next3').addEventListener('click', TransferSolution);
+        function TransferSolution() {
+            // Create an array and get the id elments for transfer.
+
+            var copyTitle = ['solution', 'teamId'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalSolution', 'finalTeamId',];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };
+        document.getElementById('next4').addEventListener('click', TransferGoal);
+        function TransferGoal() {
+            // Create an array and get the id elments for transfer.
+
+            var copyTitle = ['goal', 'date'];
+            // Create an array and get the id elments for transfer.
+
+            var sendTitle = ['finalGoal', 'finalDate'];
+            // for sends copyTitle to sendTitle
+
+            for (var i = 0; i < copyTitle.length; i++) {
+                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
+            }
+        };</script>
