@@ -235,14 +235,5 @@ namespace bacit_dotnet.MVC.Controllers
 
             return View(vm);
         }
-
-        public IActionResult AddEmployee()
-        {
-            return View();
-        }
-
-        
-
-        
     }
 }

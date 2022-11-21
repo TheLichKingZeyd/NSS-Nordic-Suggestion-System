@@ -10,9 +10,18 @@
   <title>jQuery UI Sortable - Connect lists</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>
    
   .box{
+    border: 1px solid black;
+    width: 16%;
+    display: inline-block;
+    float: left;
+    margin: 0;
+    padding: 0;
+  }
+  .nullbox{
     border: 1px solid black;
     width: 20%;
     display: inline-block;
@@ -26,10 +35,24 @@
     text-align: center;
   }
 
-  #sortable1, #sortable2 {
+  .nullbox h4{
+    width: 100%;
+    text-align: center;
+  }
+
+  #sortable1 {
     list-style-type: none;
     width: 100%;
     min-height: 200px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  #sortable2 {
+    list-style-type: none;
+    width: 100%;
+    min-height: 438.5px;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -51,7 +74,29 @@
 </head>
 <body>
 
+  <h2>Organiser Teams</h2>
+
 <form asp-action="EditTeamMembers" method="post">
+
+
+  <div class="nullbox">
+    <h4 style="text-align: center;">Uten Team</h4>
+    <ul id="sortable2" class="connectedSortable">
+      @for (int k = 0; k < Model.EmployeeList.Count(); k++)
+      {
+        if (Model.EmployeeList[k].TeamID == null)
+        {
+          <li class="ui-state-default">
+              @Model.EmployeeList[k].FirstName @Model.EmployeeList[k].LastName
+              <input type="hidden" asp-for="@Model.EmployeeList[k].EmployeeNumber" />
+              <input type="hidden" asp-for="@Model.EmployeeList[k].FirstName" />
+              <input type="hidden" asp-for="@Model.EmployeeList[k].LastName" />
+              <input asp-for="@Model.EmployeeList[k].TeamID" class="form-control" id="teamX"/>
+          </li>
+        }
+      }
+    </ul>
+  </div>
     @for (var i = 0; i < Model.TeamList.Count(); i++)
     {
         <div class="box" id="@Model.TeamList[i].TeamID">
@@ -64,10 +109,10 @@
                 {
                     <li class="ui-state-default">
                         @Model.EmployeeList[j].FirstName @Model.EmployeeList[j].LastName
-                        <input type="hidden" asp-for="@Model.EmployeeList[i].EmployeeNumber" />
-                        <input type="hidden" asp-for="@Model.EmployeeList[i].FirstName" />
-                        <input type="hidden" asp-for="@Model.EmployeeList[i].LastName" />
-                        <input type="hidden" asp-for="@Model.EmployeeList[i].TeamID" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].EmployeeNumber" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].FirstName" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].LastName" />
+                        <input asp-for="@Model.EmployeeList[j].TeamID" class="form-control" id="teamX"/>
                     </li>
                 }
             }
@@ -78,6 +123,23 @@
         <input type="submit" value="Update" class="btn btn-danger" style="float: right;"/>
     </div>
 </form>
+
+<button id="startUpdate">Save Changes</button>
  
 </body>
+<script>
+// Click event for button to demonstrate change
+$("#startUpdate").click(function() {
+  updateID();
+});
+
+
+function updateID() {
+
+  // Cycle through each input - WARNING - you will want to make this more selective
+  $("input").each(function() {
+    $('#teamX').val(5);
+  });
+}
+</script>
 </html>
