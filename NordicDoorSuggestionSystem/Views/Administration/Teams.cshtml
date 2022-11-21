@@ -8,7 +8,7 @@
 <h1>@ViewData["Title"].</h1>
 
 <a asp-action="CreateTeam" asp-controller="Administration" class="btn bnt-primary mb-3" style="width:auto">Lag Nytt Team</a>
-<a asp-action="TeamMembers" asp-controller="Administration" class="btn bnt-primary mb-3" style="width:auto">Velg Team Members</a>
+<a asp-action="EditTeamMembers" asp-controller="Administration" class="btn bnt-primary mb-3" style="width:auto">Velg Team Members</a>
 
 <table class="table">
     <thead>
@@ -55,7 +55,8 @@
                     </th>
                     <td>
                         <a asp-action="EditTeam" asp-route-id="@team.TeamID">Edit</a> |
-                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a>
+                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a> |
+                        <a asp-action="DetailsMembers" asp-route-id="@team.TeamID">Members</a> 
                     </td>
                 </tr>
             }
