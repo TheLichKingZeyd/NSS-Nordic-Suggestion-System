@@ -1,20 +1,64 @@
 ﻿@{
-    ViewData["Title"] = "Administrator Menu";
-}
-<head>
+    Layout = null;
+ }
+<!DOCTYPE html>
 
-</head>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+         <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
 <body>
-    <div style="height:90%; text-align:center; align-items:center; display:flex; justify-content:center; flex-direction:column; padding-top: 20px;">
-        @using (Html.BeginForm("Index", "Home"))
-        {
-            <input type="submit" value="Hjem"/>
-        }
-        <a asp-action="Users" asp-controller="Administration" style="width:auto">Administrer Brukere</a>
-        <a asp-action="Teams" asp-controller="Administration" style="width:auto">Administrer Teams</a>
-        @using (Html.BeginForm("Index", "Home"))
-        {
-            <input type="submit" value="Visning" />
-        }
+    <h1>NORDIC DOOR</h1>
+    <div class= "NavContainer0">
+        <ul>
+            <li class = "NavLink">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="Users">Administrer brukere</a>
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+            </li>
+        </ul>
+    </div>
+    <div class= "NavContainer">
+        <ul>
+            <li class = "NavLink">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="Teams">Administrer Teams</a>
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </li>
+        </ul>
+    </div>
+    <div class= "NavContainer1">
+        <ul>
+            <li class = "NavLink">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Suggestion" asp-action="Index">Administrer alle forslag</a>
+                <i class="fa fa-server" aria-hidden="true"></i>
+            </li>
+        </ul>
+    </div>
+    <div class= "NavContainer3">
+        <ul>
+            <li class = "NavLink">
+                <a class="nav-link text-dark" asp-area="" asp-controller="AccountPages" asp-action="MyTeam">Mitt Team</a>
+                <i class="fa fa-users" aria-hidden="true"></i>
+            </li>
+        </ul>
+    </div>
+    <div class= "NavContainer2">
+        <ul>
+            <li class = "NavLink">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="ShowStatisticsData">Vis Statistikk</a>
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            </li>
+        </ul>
+    </div>
+    <div class= "NavContainer4">
+        <ul>
+            <li class = "NavLink">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Tilbake til Menyen</a>
+                <i class="" aria-hidden="true"></i>
+            </li>
+        </ul>
     </div>
 </body>
+</html>
