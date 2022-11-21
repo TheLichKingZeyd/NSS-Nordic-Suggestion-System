@@ -7,99 +7,33 @@
 
 }
 
-<div class="cardContainer">
-    <div class="card">
-        <div class="cardPicture">
-            <i class="fa fa-user" style="font-size:75px"></i>
-        </div>
-        <div class="cardHeader">
-            <label>Per Skaugum</label>
-        </div>
-        <div class="cardProfileInfo">
-            <p>Ansatt nr: <label>un-identified</label> </p>
-            <p>Stilling: <label>un-identified</label> </p>
-            <p>Team: <label>un-identified</label> </p>
-        </div>
-        <button id="statisticBtn" type="button"><h3>Se statistikk</h3></button>
-    </div>
 
-    <div id="notificationBox" class="notificationBox">
-        <div class="notificationTitle">
-            <h1>Notifikasjoner</h1>
-        </div>
-        <div class="notificationContainer">
-            <div class="notification">
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
-                <label>Notifikasjon</label>
+<center>
+    <div id="cardContainer" class="cardContainer">
+        <div class="card">
+            <div class="cardPicture">
+                <i class="fa fa-user" style="font-size:75px; color: grey;"></i>
+            </div>
+            <div class="cardHeader">
+                <label>Per Skaugum</label>
+            </div>
+            <div class="cardProfileInfo">
+                <p>Ansatt nr: <label>un-identified</label> </p>
+                <p>Stilling: <label>un-identified</label> </p>
+                <p>Team: <label>un-identified</label> </p>
+            </div>
+            <div class="showMyStats">
+                <h2>Statistikk</h2>
+                <center>
+                    <div class="stats">
+
+                    </div>
+                </center>
             </div>
         </div>
-        <button id="closeNotifiBtn" type="button"><h3>Lukk</h3></button>
     </div>
+</center>
 
-    <div id="statisticBox" class="statisticBox">
-        <div class="statisticTitle">
-            <h1>Din Statistikk</h1>
-        </div>
-        <div class="statisticContainer">
-            <div class="displayStatistic">
 
-            </div>
-        </div>
-        <button id="closeStatBtn" type="button"><h3>Lukk</h3></button>
-    </div>
-</div>
 
-<script type="text/javascript">
-    //get the modal and opacity view id
-
-    var notifiModal = document.getElementById("notificationBox");
-    var statModal = document.getElementById("statisticBox");
-    var childHeader = document.getElementById("childHeader");
-    var childFooter = document.getElementById("childFooter");
-    //get the button id
-
-    var statBtn = document.getElementById("statisticBtn");
-    var notiBtn = document.getElementById("notificationBtn");
-    var closeNotifiBtn = document.getElementById("closeNotifiBtn");
-    var closeStatBtn = document.getElementById("closeStatBtn");
-
-    //function for notifications view
-
-    notiBtn.onclick = function () {
-        notifiModal.style.display = "flex";
-        childHeader.style.opacity = "50%";
-        childFooter.style.opacity = "50%";
-    }
-
-    closeNotifiBtn.onclick = function () {
-        notifiModal.style.display = "none";
-        childHeader.style.opacity = "100%";
-        childFooter.style.opacity = "100%";
-    }
-
-    statBtn.onclick = function () {
-        statModal.style.display = "flex";
-        childHeader.style.opacity = "50%";
-        childFooter.style.opacity = "50%";
-    }
-
-    closeStatBtn.onclick = function () {
-        statModal.style.display = "none";
-        childHeader.style.opacity = "100%";
-        childFooter.style.opacity = "100%";
-    }
-    </script>
-
- 
 
