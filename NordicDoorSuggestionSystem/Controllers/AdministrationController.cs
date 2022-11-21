@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NordicDoorSuggestionSystem.Entities;
@@ -6,7 +6,10 @@ using NordicDoorSuggestionSystem.Repositories;
 using System.Data;
 using NordicDoorSuggestionSystem.DataAccess;
 using NordicDoorSuggestionSystem.Models;
+using NordicDoorSuggestionSystem.Models.Administrate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NordicDoorSuggestionSystem.Models.Account;
 
 namespace bacit_dotnet.MVC.Controllers
 {
@@ -40,6 +43,91 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var users = _userManager.Users;
             return View(users);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem()
+            {
+                Value = "Standard Bruker",
+                Text = "Standard Bruker"
+            });
+            listItems.Add(new SelectListItem()
+            {
+                Value = "Team Leder",
+                Text = "Team Leder"
+            });
+            listItems.Add(new SelectListItem()
+            {
+                Value = "Administrator",
+                Text = "Administrator"
+            });
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var toEdit = new UserEditViewModel
+            {
+                Id = user.Id,
+                EmployeeNumber = user.EmployeeNumber.ToString(),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                RoleList = listItems,
+                PreviousRole = userRoles.ElementAt(0),
+            };
+            return View(toEdit);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(UserEditViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                Employee employee = new Employee
+                {
+                    EmployeeNumber = user.EmployeeNumber,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                };
+                employeeRepository.Update(employee);
+                await _userManager.AddToRoleAsync(user, model.RoleSelected);
+                await _userManager.RemoveFromRoleAsync(user, model.PreviousRole);
+                return RedirectToAction("Users");
+            } 
+            
+            foreach(var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            var currentUser = _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return View("Denne brukeren eksisterer ikke");
+            }
+            else
+            {
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    employeeRepository.Delete(user.EmployeeNumber);
+                    return RedirectToAction("Users");
+                }
+                else
+                {
+                    return RedirectToAction("Users");
+                }
+            }
         }
 
         [HttpGet]

@@ -14,7 +14,8 @@ namespace NordicDoorSuggestionSystem.Entities
 
         [MaxLength(50)]
         public string? LastName { get; set; }
-        
 
+        [Required]
+        public string Role { get; set; }
     }
 }

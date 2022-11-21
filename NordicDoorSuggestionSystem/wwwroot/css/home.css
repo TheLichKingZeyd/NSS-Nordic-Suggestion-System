@@ -1,8 +1,12 @@
-.body{
+body{
     text-decoration: none;
+    background-image: url('https://images.pexels.com/photos/260689/pexels-photo-260689.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2;');
+    background-repeat: none;
+    background-attachment: fixed;
+    background-size: cover;
 }
 h1{
-    font-size: 40px;
+    font-size: 45px;
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
     position: fixed;
     top: 3%;
@@ -20,8 +24,12 @@ h1{
     position: fixed;
     top: 18%;
     left: 50%;
-    /* bring your own prefixes */
     transform: translate(-50%, -50%);
+    background-color: black;
+    opacity: 0.78;
+}
+.NavContainer0 a, i{
+    color: whitesmoke;
 }
 .NavContainer{
     display: block;
@@ -34,8 +42,12 @@ h1{
     position: fixed;
     top: 31%;
     left: 50%;
-    /* bring your own prefixes */
     transform: translate(-50%, -50%);
+    background-color: black;
+    opacity: 0.78;
+}
+.NavContainer a, i{
+    color: whitesmoke;
 }
 .NavContainer1{
     display: block;
@@ -48,8 +60,12 @@ h1{
     position: fixed;
     top: 58%;
     left: 50%;
-    /* bring your own prefixes */
+    background-color: black;
+    opacity: 0.78;
     transform: translate(-50%, -50%);
+}
+.NavContainer1 a, i{
+    color: whitesmoke;
 }
 .NavContainer2{
     display: block;
@@ -57,13 +73,22 @@ h1{
     width: 370px;
     height: auto;
     border: 2px solid black;
+    background-color: black;
+    color: whitesmoke;
     font-size: 23px;
     margin: 3px;
     position: fixed;
     top: 72%;
     left: 50%;
-    /* bring your own prefixes */
+    opacity: 0.78;
+
     transform: translate(-50%, -50%);
+}
+.NavContainer2 a{
+    color: whitesmoke;
+}
+.NavContainer2 i{
+    color: whitesmoke;
 }
 .NavContainer3{
     display: block;
@@ -76,7 +101,24 @@ h1{
     position: fixed;
     top: 44%;
     left: 50%;
-    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    background-color: black;
+    opacity: 0.78;
+}
+.NavContainer3 a, i{
+    color: whitesmoke;
+}
+.NavContainer4{
+    display: block;
+    align-items: center;
+    width: 445px;
+    height: auto;
+    border: 2px solid black;
+    font-size: 23px;
+    margin: 3px;
+    position: fixed;
+    top: 88%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 .NavLink{
@@ -90,9 +132,39 @@ h1{
 a{
     text-decoration: none;
     color: black;
+    font-weight: bold;
+}
+a:hover{
+    color: grey;
 }
 i{
-    position: relative;
-    left: 1px;
-    margin-right: 10px;
+    float: right;
+    padding-right: 28px;
+}
+.HomeButton{
+    background-color: white;
+    position: fixed;
+    top: 6%;
+    left: 67%;
+    transform: translate(-50%, -50%);
+}
+.fa-home{
+    font-size: 50px !important; 
+    position: fixed;
+    top: 6%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+}
+.fa-home:hover{
+    color: grey;
+}
+.fa-user-circle{
+    font-size: 50px !important; 
+    position: fixed;
+    top: 6%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+}
+.fa-user-circle:hover{
+    color: grey;
 }

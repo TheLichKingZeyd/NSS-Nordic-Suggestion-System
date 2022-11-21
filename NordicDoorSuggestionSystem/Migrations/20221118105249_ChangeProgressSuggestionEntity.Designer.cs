@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NordicDoorSuggestionSystem.DataAccess;
 
@@ -10,9 +11,10 @@ using NordicDoorSuggestionSystem.DataAccess;
 namespace NordicDoorSuggestionSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221118105249_ChangeProgressSuggestionEntity")]
+    partial class ChangeProgressSuggestionEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,8 +204,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool?>("AccountState")
-                        .HasMaxLength(15)
-                        .HasColumnType("tinyint(15)");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -216,6 +217,10 @@ namespace NordicDoorSuggestionSystem.Migrations
 
                     b.Property<byte[]>("ProfilePicture")
                         .HasColumnType("longblob");
+
+                    b.Property<string>("Role")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<int?>("SuggestionCount")
                         .HasColumnType("int");
@@ -401,10 +406,6 @@ namespace NordicDoorSuggestionSystem.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");

@@ -1,0 +1,164 @@
+h1{
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    
+}
+h2{
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    
+}
+.CreateButton{
+    font-family:'Roboto',sans-serif;
+}
+
+a.Create:hover{
+    color: grey;
+}
+.fa-home{
+  font-size: 70px !important; 
+  position: fixed;
+  top: 6%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+  color: black;
+}
+.fa-home:hover{
+  color: grey;
+}
+
+.Create{
+    display:inline-block;
+    padding: 3px;
+    margin: 3px;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align:center;
+}
+.table{
+    width: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-decoration: none;
+}
+.table, td, th{
+    border: thin solid black;
+}
+.EDDrow{
+  color: black;
+  text-decoration: none;
+  border: none;
+  border-bottom: thin solid black;
+}
+.EDDrow a{
+  color: black;
+}
+.EDDrow a:hover{
+  color: grey;
+}
+.table th{
+    background-color: lightgray;
+}
+.th, td{
+    padding: 15px;
+    text-align: center;
+}
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .SearchField p{
+    border: black solid 1px;
+    padding: 10px;
+    font-weight: bold;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Style the header */
+  .header {
+    grid-area: header;
+    text-align: center;
+    font-size: 35px;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+
+li {
+    display: block;
+    margin: 4px;
+    padding: 10px;
+    float: left;
+}
+  li button{
+    display: block;
+    padding: 8px;
+    background-color: #dddddd;
+  }
+  
+  /* The grid container */
+  .grid-container {
+    display: grid;
+    grid-template-areas: 
+      'header header header header header header' 
+      'left middle middle middle middle right' 
+      'footer footer footer footer footer footer';
+    grid-column-gap: 3px;
+  } 
+  
+  .left,
+  .middle,
+  .right {
+    padding: 5px;
+  }
+  
+  /* Style the left column */
+  .left {
+    grid-area: left;
+  }
+  
+  /* Style the middle column */
+  .middle {
+    grid-area: middle;
+  }
+  
+  /* Style the right column */
+  .right {
+    grid-area: right;
+  }
+  
+  /* Style the footer */
+  .footer {
+    align-items: center;
+    grid-area: footer;
+    padding: 10px;
+    text-align: center;
+    height: 10%;
+    margin-left: 30%;
+  }
+  
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media (max-width: 1200px) {
+    .grid-container  {
+      grid-template-areas: 
+        'header header header header header header' 
+        'left left left left left left' 
+        'middle middle middle middle middle middle' 
+        'right right right right right right' 
+        'footer footer footer footer footer footer';
+    }
+  }
