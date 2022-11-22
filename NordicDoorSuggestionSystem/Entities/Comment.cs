@@ -13,8 +13,8 @@ namespace NordicDoorSuggestionSystem.Entities
         
         public Suggestion? Suggestion { get; set; }
         [ForeignKey("Suggestion")]
-        public int? SuggestionID { get; set; }
-        public Employee? Employee { get; set; }
+        public int SuggestionID { get; set; }
+        public Employee Employee { get; set; }
         [ForeignKey("Employee")]
         public int? EmployeeNumber { get; set; }
         public string? FirstName { get; set; }

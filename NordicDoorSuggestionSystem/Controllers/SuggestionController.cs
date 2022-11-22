@@ -381,6 +381,19 @@ namespace NordicDoorSuggestionSystem.Controllers
             command.CommandText = query;
             return command.ExecuteReader();
         }
+         public async Task<IActionResult> AllSuggestions(string title)
+        {
+            var suggestions = new List<Suggestion>();
+
+            if (!String.IsNullOrEmpty(title))
+            {
+                suggestions = await _suggestionRepository.QueryTitle(title);
+            } else {
+                suggestions = await _suggestionRepository.GetSuggestions();
+            }
+    
+              return View(suggestions);
+        }
     }
 
 }

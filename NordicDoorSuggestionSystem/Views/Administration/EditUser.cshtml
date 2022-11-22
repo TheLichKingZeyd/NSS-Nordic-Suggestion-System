@@ -1,13 +1,11 @@
 ﻿@using NordicDoorSuggestionSystem.Models.Administrate
 @model UserEditViewModel
 @{
-    ViewBag.Title = "Edit User";
+    Layout ="~/Views/Shared/_editteam.cshtml";
 }
-@{
-    ViewData["Title"] = "Endre Bruker";
-}
-
-<h1>@ViewData["Title"] til ansatt: @Html.DisplayFor(modelItem => Model.EmployeeNumber)</h1>
+<br>
+<h2>Ansatt under endring [ @Html.DisplayFor(modelItem => Model.FirstName) @Html.DisplayFor(modelItem => Model.LastName) ]</h2>
+<h4>Ansatt nummer: @Html.DisplayFor(modelItem => Model.EmployeeNumber)</h4>
 
 <table class="table">
     <thead>
@@ -80,16 +78,17 @@
                 </tbody>
                 }
             }
+            <br>
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-primary">Fullfør</button>
         </div>
-        <div class="col-md-offset-2 col-md-10">
-            <a asp-action="Users" class="btn btn-danger btn-sm">Avbryt</a>
-        </div>
-        </form>        
+        </form>  
     }
     else
     {
         <h2>Du har ikke valgt en bruker.</h2>
     }
 </table>
+<div class="col-md-offset-2 col-md-10">
+            <a asp-action="Users" class="btn btn-danger btn-sm">Avbryt</a>
+        </div>      
