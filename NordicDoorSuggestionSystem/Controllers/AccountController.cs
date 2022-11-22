@@ -36,31 +36,31 @@ namespace NordicDoorSuggestionSystem.Controllers
 
 
             // Set up a testuser for test purposes
-            var user = new User
-            {
-                UserName = "123456",
-                EmployeeNumber = 123456,
-                FirstName = "Test",
-                LastName = "Testersen",
-                Role = "Administrator",
-                LockoutEnabled = false,
-                LockoutEnd = null
-            };
-            var password = "123Asd";
+            // var user = new User
+            // {
+            //     UserName = "123456",
+            //     EmployeeNumber = 123456,
+            //     FirstName = "Test",
+            //     LastName = "Testersen",
+            //     Role = "Administrator",
+            //     LockoutEnabled = false,
+            //     LockoutEnd = null
+            // };
+            // var password = "123Asd";
 
-            _userManager.CreateAsync(user, password);
-            _userManager.AddToRoleAsync(user, "Administrator");
+            // _userManager.CreateAsync(user, password);
+            // _userManager.AddToRoleAsync(user, "Administrator");
 
-            var employee = new Employee
-            {
-                EmployeeNumber = user.EmployeeNumber,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Role = user.Role,
-                SuggestionCount = 0
-            };
-            employeeRepository.Add(employee);
-            // End of setting up testuser for test purposes
+            // var employee = new Employee
+            // {
+            //     EmployeeNumber = user.EmployeeNumber,
+            //     FirstName = user.FirstName,
+            //     LastName = user.LastName,
+            //     Role = user.Role,
+            //     SuggestionCount = 0
+            // };
+            // employeeRepository.Add(employee);
+            // // End of setting up testuser for test purposes
         }
 
         // GET: /Account/Login
@@ -181,6 +181,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                         EmployeeNumber = registerViewModel.EmployeeNumber,
                         FirstName = registerViewModel.FirstName,
                         LastName = registerViewModel.LastName,
+                        Role = registerViewModel.RoleSelected,
                         SuggestionCount = 0
                     };                    
 
