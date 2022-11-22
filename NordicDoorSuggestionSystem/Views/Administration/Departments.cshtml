@@ -1,0 +1,60 @@
+﻿@using NordicDoorSuggestionSystem.Entities
+@model IEnumerable<Department>
+
+@{
+    //Layout = "~/Views/Shared/_teams.cshtml";
+}
+
+<br>
+<h1>Avdelinger</h1>
+
+<a asp-action="CreateDepartment" asp-controller="Administration" class="btn btn-success">Lag Ny Avdeling</a>
+<br>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <i>Avdeling</i>
+            </th>
+            <th>
+                <i>Antall Teams</i>
+            </th>
+        </tr>
+    </thead>
+
+    @if (Model.Any())
+    {
+        <tbody>
+            @foreach (var department in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => department.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => department.TeamCount)
+                    </th>                    
+                    <td>
+                        <div style="display:flex; flex-direction:row;">
+                            <form asp-action="EditDepartment" asp-controller="Administration" asp-route-id="@department.DepartmentID" method="get">
+                                <button type="submit" class="btn btn-primary">Endre</button>
+                            </form>
+                            <form asp-action="DetailDepartment" asp-controller="Administration" asp-route-id="@department.DepartmentID" method="get">
+                                <button type="submit" class="btn btn-primary">Detaljer</button>
+                            </form>
+                            <form asp-action="DeleteDepartment" asp-controller="Administration" asp-route-id="@department.DepartmentID" method="get">
+                                <button onclick="return confirm('Er du sikker du vil slette denne avdelingen: @department.DepartmentName')" type="submit" class="btn btn-danger btn-sm">Slett</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <h2>Systemet har ingen avdelinger</h2>
+    }
+</table>

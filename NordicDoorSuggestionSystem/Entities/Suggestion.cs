@@ -13,14 +13,20 @@ namespace NordicDoorSuggestionSystem.Entities
         [Timestamp]
         public byte[] UploadTime { get; set; }
         [MaxLength(50)]
+
         public string? Title { get; set; }
         [MaxLength(150)]
+
         public string? Problem { get; set; }
         [MaxLength(150)]
+
         public string? Solution { get; set; }
         [MaxLength(150)]
+
         public string? Goal { get; set; }
+
         public DateTime? Deadline { get; set; }
+
         public string? Progress { get; set; }
 
         public Employee Employee  { get; set; }
