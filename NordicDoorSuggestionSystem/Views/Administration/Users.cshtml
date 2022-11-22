@@ -1,16 +1,15 @@
 @using NordicDoorSuggestionSystem.Entities
 @model IEnumerable<User>
 @{
-    ViewBag.Title = "All Users";
-}
-@{
-    ViewData["Title"] = "Brukere";
+    Layout ="~/Views/Shared/_team.cshtml";
 }
 
-<h1>@ViewData["Title"].</h1>
+<br>
+<h1>Administrer brukere</h1>
 
-<a asp-action="Register" asp-controller="Account" class="btn bnt-primary mb-3" style="width:auto">Lag Ny Bruker</a>
-
+<a asp-action="Register" asp-controller="Account" class="btn btn-success" >Legg til ny bruker</a>
+<a asp-action="EditTeamMembers" asp-controller="Administration" class="btn btn-info">Legg til bruker i Team</a>
+<br><br>
 
 <table class="table">
     <thead>
@@ -29,6 +28,7 @@
             </th>
         </tr>
     </thead>
+
 @if(Model.Any())
 {
         <tbody>
@@ -48,7 +48,7 @@
                         @Html.DisplayFor(modelItem => user.Role)
                     </th>
                     <td>
-                        <a asp-action="EditUser" asp-controller="Administration" class="btn btn-primary" asp-route-id="@user.Id">Edit</a>
+                        <a asp-action="EditUser" asp-controller="Administration" class="btn .btn-default" asp-route-id="@user.Id">Endre bruker</a>
                     </td>
                     <td>
                         <form asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id" method="get">
@@ -58,9 +58,7 @@
                 </tr>
             }
         </tbody>
-
 } else {
     <h2>Systemet har ingen brukere</h2>
 }
 </table>
-
