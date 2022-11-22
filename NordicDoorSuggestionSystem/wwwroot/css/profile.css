@@ -194,6 +194,7 @@ h1 {
 .stats {
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 30vh;
     width: 40vh;
     background-color: white;
@@ -220,3 +221,84 @@ h1 {
         height: 6vh;
         color: black;
     }
+
+    .present {
+        width: 205px;
+        margin: 0 auto;
+      }
+      .box, .lid {
+        background:
+          -webkit-radial-gradient(white 15%, transparent 15.1%),
+          -webkit-radial-gradient(white 15%, transparent 15.1%),
+        rgb(240, 58, 58);
+        background-position: 0 0, 12.5px 12.5px;
+        background-size: 25px 25px;
+        position: relative;
+        margin: 0 auto;
+      }
+      .box {
+        width: 200px;
+        height: 125px;
+      }
+      .lid {
+        width: 200px;
+        height: 35px;
+        box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+        z-index: 1;
+        padding: 0 2px;
+        background-color: rgb(216, 52, 52);
+        /* transitions */
+        top: 0;
+        left: 0;
+        transition: 
+          top ease-out 0.5s,
+          left ease-out 0.5s,
+          transform ease-out 0.5s;
+      }
+      .box span, .lid span {
+        position: absolute;
+        display: block;
+        background: rgba(235, 199, 0, 0.8);
+        box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+      }
+      .box span:first-child {
+        width: 100%;
+        height: 30px;
+        top: 40px;
+      }
+      .box span:last-child, .lid span {
+        width: 30px;
+        height: 100%;
+        left: 85px;
+      }
+      .lid span {
+        left: 86px;
+      }
+      .promo {
+        font-size: 15px;
+        color: black;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-align: center;
+        position: relative;
+        height: 0;
+        top: 5px;
+        transition: all ease-out 0.7s;
+      }
+      .promo p {
+        font-size: 12px;
+        margin: 0;
+      }
+      .promo h2 {
+        font-size: 20px;
+        margin: 0;
+      }
+      
+      /* hover effects */
+      .present:hover .lid {
+        top: -50px;
+        transform: rotateZ(10deg);
+        left: 5px;
+      }
+      .present:hover .promo {
+        top: -40px;
+      }

@@ -1,6 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model NordicDoorSuggestionSystem.Models.Employees.ProfileViewModel
+
 @{
     ViewBag.Title = "Profil § NSS";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
@@ -16,18 +15,30 @@
                 <button class="profileUpload" type="button" name="button">Nytt bilde</button>
             </div>
             <div class="cardHeader">
-                <label>Per Skaugum</label>
+                <label>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</label>
             </div>
             <div class="cardProfileInfo">
-                <p>Ansatt nr: <label>un-identified</label> </p>
-                <p>Stilling: <label>un-identified</label> </p>
-                <p>Team: <label>un-identified</label> </p>
+                <p>Ansatt nr: <label>@Html.DisplayFor(model => model.EmployeeNumber)</label> </p>
+                <p>Rolle: <label>@Html.DisplayFor(model => model.Role)</label> </p>
+                <p>Team: <label>@Html.DisplayFor(model => model.TeamName)</label> </p>
             </div>
             <div class="showMyStats">
                 <h2>Statistikk</h2>
                 <center>
                     <div class="stats">
-
+                          <div class="present">
+                            <div class="lid">
+                                <span></span>
+                            </div>
+                        <div class="promo">
+                            <p>DU HAR</p>
+                            <h2>@Html.DisplayFor(model => model.SuggestionCount) Forslag!</h2>
+                        </div>
+                        <div class="box">
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                     </div>
                 </center>
             </div>
