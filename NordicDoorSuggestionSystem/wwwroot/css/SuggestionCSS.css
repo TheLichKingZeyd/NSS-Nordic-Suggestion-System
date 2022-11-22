@@ -1,31 +1,55 @@
 h1{
-    font-size: 40px;
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-    
+  font-size: 40px;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  
 }
 h2{
-    font-size: 30px;
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-    
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  
 }
+.grid-header{
+display: grid;
+grid-template-columns: auto auto auto;
+background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+background-repeat: no-repeat;
+background-position: center;
+background-attachment: fixed;
+background-size: 100% 100%;
+border-bottom: 3px solid black;
+}
+.grid-items{
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.fa-home{
+font-size: 70px !important; 
+text-decoration: none;
+color: black;
+}
+.fa-home:hover{
+color: gray;
+}
+.fa-arrow-circle-left{
+font-size: 70px !important; 
+text-decoration: none;
+color: black;
+}
+.fa-arrow-circle-left:hover{
+color: gray;
+}
+.grid-items-center{
+text-align: center;
+}
+
 .CreateButton{
     font-family:'Roboto',sans-serif;
 }
 
 a.Create:hover{
     color: grey;
-}
-.fa-home{
-  font-size: 70px !important; 
-  position: fixed;
-  top: 6%;
-  left: 90%;
-  transform: translate(-50%, -50%);
-  text-decoration: none;
-  color: black;
-}
-.fa-home:hover{
-  color: grey;
 }
 
 .Create{
@@ -67,7 +91,7 @@ a.Create:hover{
     padding: 15px;
     text-align: center;
 }
-* {
+.grid-container {
     box-sizing: border-box;
   }
   
@@ -83,19 +107,6 @@ a.Create:hover{
     list-style-type: none;
     margin: 0;
     padding: 0;
-  }
-
-  /* Style the header */
-  .header {
-    grid-area: header;
-    text-align: center;
-    font-size: 35px;
-    height: 100%;
-    background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: 100% 100%;
   }
 
 li {
@@ -114,7 +125,6 @@ li {
   .grid-container {
     display: grid;
     grid-template-areas: 
-      'header header header header header header' 
       'left middle middle middle middle right' 
       'footer footer footer footer footer footer';
     grid-column-gap: 3px;
@@ -154,8 +164,7 @@ li {
   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
   @media (max-width: 1200px) {
     .grid-container  {
-      grid-template-areas: 
-        'header header header header header header' 
+      grid-template-areas:
         'left left left left left left' 
         'middle middle middle middle middle middle' 
         'right right right right right right' 

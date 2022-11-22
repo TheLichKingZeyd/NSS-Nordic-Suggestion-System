@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
 @{
-    Layout = null;
+    Layout ="~/Views/Shared/_suggestionAll.cshtml";
  }
 <!DOCTYPE html>
 
@@ -12,12 +12,9 @@
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <body>
-    <a asp-controller="Home" asp-action="Index" class="fa fa-home" aria-hidden="true"></a>
+
+<br>
 <div class = "grid-container">
-    <div class="header">
-        <h1>Nordic Door</h1>
-        <h2>Alle forslag</h2>
-    </div>
     <div class="left">
         <div class ="CreateButton">
         <button class ="button" >
