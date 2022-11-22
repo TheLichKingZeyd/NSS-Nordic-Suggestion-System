@@ -316,6 +316,8 @@ namespace NordicDoorSuggestionSystem.Controllers
                 var newComment = new Comment {
                     CommentID = comment.CommentID,
                     EmployeeNumber = user.EmployeeNumber,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     SuggestionID = comment.SuggestionID,
                     Content = comment.Content,
                     CommentTime = DateTime.Now,

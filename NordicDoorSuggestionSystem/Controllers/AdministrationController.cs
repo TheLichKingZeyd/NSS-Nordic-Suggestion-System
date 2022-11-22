@@ -252,9 +252,71 @@ namespace bacit_dotnet.MVC.Controllers
             return View();
         }
 
-        public IActionResult TeamMembers()
+        
+
+        [HttpGet]
+        public IActionResult EditTeamMembers()
         {
-            return View();
+            EditTeamMemberViewModel vm = new EditTeamMemberViewModel();
+            var teams = _context.Team.ToList();
+            var employees = _context.Employees.ToList();
+            vm.EmployeeList = employees;
+            vm.TeamList = teams;
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTeamMembers(DetailMemberViewModel detailMemberViewModel)
+        {
+            var employees = _context.Employees.ToList();
+            foreach (Employee employee in employees) 
+            { 
+                foreach (Employee updated in detailMemberViewModel.EmployeeList)
+                {
+                    if (employee.EmployeeNumber == updated.EmployeeNumber && employee.TeamID != updated.TeamID)
+                    {
+                        employeeRepository.Update(updated);
+                    }
+                }
+            }
+            return RedirectToAction("EditTeamMembers");
+        }
+
+        public async Task<IActionResult> DetailsMembers(int id)
+        {
+            var team = await _teamRepository.GetTeam(id);
+            DetailMemberViewModel vm = new DetailMemberViewModel();
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            vm.TeamName = team.TeamName;
+            vm.TeamID = team.TeamID;
+
+            var employees = _context.Employees.Where(d => d.TeamID.Equals(team.TeamID)).ToList();
+            vm.EmployeeList = employees;
+
+            return View(vm);
+        }
+
+        public async Task<IActionResult> MittTeam()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            MittTeamViewModel vm = new MittTeamViewModel();
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+            vm.EmployeeNumber = currentUser.EmployeeNumber;
+            var mittTeam = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.TeamID).FirstOrDefault();
+            vm.TeamID = mittTeam;
+            var employees = _context.Employees.Where(e => e.TeamID.Equals(vm.TeamID)).ToList();
+            var teamname = _context.Team.Where(e => e.TeamID.Equals(vm.TeamID)).Select(e => e.TeamName).FirstOrDefault();
+            vm.TeamName = teamname;
+            vm.EmployeeTeamList = employees;
+            return View(vm);
         }
     }
 }

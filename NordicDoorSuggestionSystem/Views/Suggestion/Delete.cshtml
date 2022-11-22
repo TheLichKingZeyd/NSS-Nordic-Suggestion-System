@@ -1,14 +1,12 @@
 ﻿@model NordicDoorSuggestionSystem.Entities.Suggestion
 
 @{
-    ViewData["Title"] = "Delete";
+    Layout ="~/Views/Shared/_delete.cshtml";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<br>
+<h3>Er du sikker på at du vil slette denne?</h3>
 <div>
-    <h4>SuggestionEntity</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -57,7 +55,6 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="SuggestionID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Teams">Back to List</a>
+        <input type="submit" value="Slett" class="btn btn-danger" />
     </form>
 </div>
