@@ -56,10 +56,18 @@
 
             </div>
         </div>
+        
         <button id="closeStatBtn" type="button"><h3>Lukk</h3></button>
     </div>
 </div>
+@using (Html.BeginForm("UploadProfilePic","ProfilePageController",FormMethod.Post,new{enctype="multipart/form-data"}))
+{
+    <div class="ImgUpload">
+    <p>Change your profile picuture:</p>
+    <input type="file" name="Upload Picture" id="UploadedData" onchange="filecheck(this);" />
 
+    </div>
+}
 <script type="text/javascript">
     //get the modal and opacity view id
 
