@@ -1,0 +1,27 @@
+@model NordicDoorSuggestionSystem.Models.MittTeamViewModel
+
+@{
+    ViewData["Title"] = "DetailsMember";
+}
+
+<h1>@Html.DisplayFor(model => model.TeamName)</h1>
+<div>
+    <br>
+    <a asp-controller="Home" asp-action="Index">Gå Tilbake</a>
+</div>
+<hr>
+
+<h2>Medlemmer</h2>
+<hr />
+
+@foreach (var c in Model.EmployeeTeamList)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <i>@c.FirstName</i>
+            <i> </i>
+            <i>@c.LastName</i>
+        </div>
+    </div>
+}
+<hr />

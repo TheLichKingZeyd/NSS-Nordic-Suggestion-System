@@ -300,5 +300,23 @@ namespace bacit_dotnet.MVC.Controllers
 
             return View(vm);
         }
+
+        public async Task<IActionResult> MittTeam()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            MittTeamViewModel vm = new MittTeamViewModel();
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+            vm.EmployeeNumber = currentUser.EmployeeNumber;
+            var mittTeam = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.TeamID).FirstOrDefault();
+            vm.TeamID = mittTeam;
+            var employees = _context.Employees.Where(e => e.TeamID.Equals(vm.TeamID)).ToList();
+            var teamname = _context.Team.Where(e => e.TeamID.Equals(vm.TeamID)).Select(e => e.TeamName).FirstOrDefault();
+            vm.TeamName = teamname;
+            vm.EmployeeTeamList = employees;
+            return View(vm);
+        }
     }
 }
