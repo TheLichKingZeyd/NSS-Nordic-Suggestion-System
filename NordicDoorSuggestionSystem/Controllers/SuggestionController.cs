@@ -144,7 +144,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                             Solution = suggestionViewModel.Solution,
                             Goal = suggestionViewModel.Goal,
                             Deadline = suggestionViewModel.Deadline,
-                            Progress = "Plan",
+                            Progress = suggestionViewModel.Progress,
                             EmployeeNumber = maker.EmployeeNumber,
                             TeamID = responsible.TeamID
                         };
@@ -163,7 +163,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                         Solution = suggestionViewModel.Solution,
                         Goal = suggestionViewModel.Goal,
                         Deadline = suggestionViewModel.Deadline,
-                        Progress = "Plan",
+                        Progress = suggestionViewModel.Progress,
                         EmployeeNumber = maker.EmployeeNumber,
                         TeamID = maker.TeamID
                     };
