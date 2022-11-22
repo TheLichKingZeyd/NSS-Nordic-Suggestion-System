@@ -10,5 +10,6 @@ namespace NordicDoorSuggestionSystem.Repositories
         Task DeleteTeam(Team team);
         Task SaveChanges();
         Task Update(Team team);
+        // Task<List<Team>> QueryTeam (int employeeNumber);
     }
 }

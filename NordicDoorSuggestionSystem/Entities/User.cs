@@ -17,5 +17,6 @@ namespace NordicDoorSuggestionSystem.Entities
 
         [Required]
         public string Role { get; set; }
+
     }
 }
