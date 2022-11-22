@@ -8,10 +8,12 @@ namespace NordicDoorSuggestionSystem.Repositories
     public class TeamRepository : ITeamRepository
     {
         private readonly DataContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public TeamRepository(DataContext dataContext)
+        public TeamRepository(DataContext dataContext, UserManager<User>userManager)
         {
             this._context = dataContext;
+            this._userManager = userManager;
         }
 
         public async Task<Team> GetTeam(int? TeamID)
@@ -44,5 +46,9 @@ namespace NordicDoorSuggestionSystem.Repositories
         {
             _context.Team.Update(team);
         }
+        /* public async Task<List<Team>> QueryTeam(int employeeNumber)
+        {
+            return await _context.Employees.Where(s => s.TeamID!.Equals()).ToListAsync();
+        }*/
     }
 }
