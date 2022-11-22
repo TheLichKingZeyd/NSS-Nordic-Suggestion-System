@@ -96,7 +96,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             vm.Solution = suggestion.Solution;
             vm.Goal = suggestion.Goal;
             vm.Deadline = suggestion.Deadline;
-            vm.TeamID = suggestion.TeamID;
+            vm.TeamID = suggestion.TeamID.Value;
 
             var Comments = _context.Comment.Where(d => d.SuggestionID.Equals(suggestion.SuggestionID)).ToList();
             vm.CommentsList = Comments;
@@ -174,7 +174,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 Solution = suggestion.Solution,
                 Goal = suggestion.Goal,
                 Deadline = suggestion.Deadline,
-                TeamID = suggestion.TeamID
+                TeamID = suggestion.TeamID.Value
             };
 
             return View(editSuggestionViewModel);
