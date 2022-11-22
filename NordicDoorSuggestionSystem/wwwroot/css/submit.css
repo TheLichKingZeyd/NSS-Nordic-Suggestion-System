@@ -5,7 +5,7 @@
     background-color: white;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: courier new;
 }
 
 input {
@@ -16,6 +16,7 @@ input {
 
 h1 {
     background-color: white;
+    font-family: sans-serif;
 }
 
 textarea {
@@ -26,6 +27,30 @@ textarea {
 p {
     background-color: white;
 }
+
+.btnBackNav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10vh;
+}
+
+.buttonBack {
+    border-radius: 5px;
+    height: 40px;
+    width: 100px;
+    background-color: white;
+    opacity: 60%;
+    color: black;
+    font-weight: bold;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+    .buttonBack:hover {
+        color: lightgrey;
+        opacity: 100%;
+        background-color: red;
+    }
 
 .wrapper {
     width: 100%;

@@ -116,7 +116,8 @@
         <form asp-action="Create">
             <div id="submit5">
                 <div class="submitHeader">
-                    <input asp-for="Title" readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
+                        <input asp-for="Title" readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
+                    
                 </div>
                 <div class="mainContent">
                     <textarea asp-for="Problem" readonly id="finalProblem" rows="6" cols="40" type="text" placeholder="Problemstilling.."></textarea> <br>
@@ -149,6 +150,9 @@
             </div>
         </form>
     </center>
+    <div class="btnBackNav">
+        <button onclick="location.href='@Url.Action("Index","Home")'" class="buttonBack" type="button" name="button">Angre forslag</button>
+    </div>
 </div>
 
 
