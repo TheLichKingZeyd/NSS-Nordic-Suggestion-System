@@ -1,14 +1,11 @@
 @model NordicDoorSuggestionSystem.Models.DetailMemberViewModel
 
 @{
-    ViewData["Title"] = "DetailsMember";
+    Layout ="~/Views/Shared/_teamMedlem.cshtml";
 }
 
+<br>
 <h1>@Html.DisplayFor(model => model.TeamName)</h1>
-<div>
-    <br>
-    <a asp-action="Teams">Back to List</a>
-</div>
 <hr>
 
 <h2>Medlemmer</h2>

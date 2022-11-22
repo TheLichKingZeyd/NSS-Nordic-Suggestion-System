@@ -1,7 +1,7 @@
 @model NordicDoorSuggestionSystem.Models.EditTeamMemberViewModel
 
 @{
-    ViewData["Title"] = "Edit Team Members";
+    Layout ="~/Views/Shared/_organize.cshtml";
 }
 
 <head>
@@ -43,7 +43,7 @@
   #sortable1 {
     list-style-type: none;
     width: 100%;
-    min-height: 200px;
+    min-height: 300px;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -52,7 +52,7 @@
   #sortable2 {
     list-style-type: none;
     width: 100%;
-    min-height: 438.5px;
+    min-height: 640px;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -74,6 +74,7 @@
 </head>
 <body>
 
+<br>
   <h2>Organiser Teams</h2>
 
 <form asp-action="EditTeamMembers" method="post">
@@ -119,8 +120,9 @@
         </ul>
     </div>
     }
+    <br>
     <div class="form-group">
-        <input type="submit" value="Update" class="btn btn-danger" style="float: right;"/>
+        <input type="submit" value="Update" class="btn btn-success" style="float: right;"/>
     </div>
 </form>
  
