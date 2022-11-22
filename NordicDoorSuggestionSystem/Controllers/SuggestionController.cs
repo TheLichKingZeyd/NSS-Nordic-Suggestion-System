@@ -19,13 +19,19 @@ namespace NordicDoorSuggestionSystem.Controllers
     public class SuggestionController : Controller
     {
         private readonly UserManager<User> _userManager;
-
+        private readonly IEmployeeRepository employeeRepository;
         private readonly ISuggestionRepository _suggestionRepository;
         private readonly DataContext _context;
         private readonly ISqlConnector sqlConnector;
 
 
-        public SuggestionController(UserManager<User> userManager, ISuggestionRepository suggestionRepository, DataContext context, ISqlConnector sqlConnector)
+        public SuggestionController(
+            UserManager<User> userManager,
+            IEmployeeRepository employeeRepository,
+            ISuggestionRepository suggestionRepository, 
+            DataContext context, 
+            ISqlConnector sqlConnector)
+
 
 
         {
@@ -33,6 +39,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             _suggestionRepository = suggestionRepository;
             _context = context;
             this.sqlConnector = sqlConnector;
+            this.employeeRepository = employeeRepository;
         }
 
         // GET: Suggestion/Henter  ut Suggestions fra databasen i en liste + legger til søkefunksjon
@@ -116,39 +123,53 @@ namespace NordicDoorSuggestionSystem.Controllers
         // Then it calls the SaveChanges() from SR and returns to the index view.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,ResponsibleEmployee, Problem, Solution, Goal, Deadline, Progress, EmployeeNumber, TeamID")] SuggestionViewModel suggestionViewModel)
+        public async Task<IActionResult> Create(SuggestionViewModel suggestionViewModel)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-
+            var maker = employeeRepository.GetEmployeeByNumber(user.EmployeeNumber);
+            
             if (ModelState.IsValid)
             {
-                var newSuggestion = new Suggestion {
-                    Title = suggestionViewModel.Title,
-                    ResponsibleEmployee = suggestionViewModel.ResponsibleEmployee,
-                    Problem = suggestionViewModel.Problem,
-                    Solution = suggestionViewModel.Solution,
-                    Goal = suggestionViewModel.Goal,
-                    Deadline = suggestionViewModel.Deadline,
-                    Progress = suggestionViewModel.Progress,
-                    EmployeeNumber = user.EmployeeNumber,
-                    TeamID = suggestionViewModel.TeamID
-                };
-
-                  var sql = $@"update team 
-                                set 
-                                   TeamSgstnCount = TeamSgstnCount + 1
-                                where TeamID = '{suggestionViewModel.TeamID}';";
-            RunCommand(sql);
-
-            var sql2 = $@"update employee 
-                                set 
-                                   SuggestionCount = SuggestionCount + 1
-                                where EmployeeNumber = '{user.EmployeeNumber}';";
-            RunCommand(sql2);
-
-                await _suggestionRepository.Add(newSuggestion);
-                await _suggestionRepository.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                if (suggestionViewModel.ResponsibleEmployee != null)
+                {
+                    var responsible = employeeRepository.GetEmployeeByNumber(suggestionViewModel.ResponsibleEmployee.Value);
+                    if (responsible.TeamID != null)
+                    {
+                        var newSuggestion = new Suggestion
+                        {
+                            Title = suggestionViewModel.Title,
+                            ResponsibleEmployee = suggestionViewModel.ResponsibleEmployee,
+                            Problem = suggestionViewModel.Problem,
+                            Solution = suggestionViewModel.Solution,
+                            Goal = suggestionViewModel.Goal,
+                            Deadline = suggestionViewModel.Deadline,
+                            Progress = "Plan",
+                            EmployeeNumber = maker.EmployeeNumber,
+                            TeamID = responsible.TeamID
+                        };
+                        await _suggestionRepository.Add(newSuggestion);
+                        await _suggestionRepository.SaveChanges();
+                        return RedirectToAction(nameof(MySuggestions));
+                    }
+                }
+                else if (suggestionViewModel.ResponsibleEmployee == null && maker.TeamID != null)
+                {
+                    var newSuggestion = new Suggestion
+                    {
+                        Title = suggestionViewModel.Title,
+                        ResponsibleEmployee = maker.EmployeeNumber,
+                        Problem = suggestionViewModel.Problem,
+                        Solution = suggestionViewModel.Solution,
+                        Goal = suggestionViewModel.Goal,
+                        Deadline = suggestionViewModel.Deadline,
+                        Progress = "Plan",
+                        EmployeeNumber = maker.EmployeeNumber,
+                        TeamID = maker.TeamID
+                    };
+                    await _suggestionRepository.Add(newSuggestion);
+                    await _suggestionRepository.SaveChanges();
+                    return RedirectToAction(nameof(MySuggestions));
+                }
             }
             return View(suggestionViewModel);
         }

@@ -6,6 +6,7 @@ namespace NordicDoorSuggestionSystem.Repositories
     {
         Task<Team> GetTeam(int? TeamID);
         Task<List<Team>> GetTeams();
+        Task<List<Team>> GetTeamsInDepartment(int departmentId);
         Task DeleteTeam(Team team);
         Task SaveChanges();
         Task Update(Team team);

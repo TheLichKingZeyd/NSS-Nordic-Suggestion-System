@@ -34,6 +34,11 @@ namespace NordicDoorSuggestionSystem.Repositories
             return _context.Team.ToListAsync();
         }
 
+        public Task<List<Team>> GetTeamsInDepartment(int departmentId)
+        {
+            return _context.Team.Where(x => x.DepartmentID == departmentId).ToListAsync();
+        }
+
         public async Task DeleteTeam(Team team)
         {
             _context.Team.Remove(team);

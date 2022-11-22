@@ -10,6 +10,6 @@ namespace NordicDoorSuggestionSystem.Entities
         [MaxLength(50)]
         public string? DepartmentName { get; set; }
         [MaxLength(50)]
-        public string? DepartmentLeader { get; set; }
+        public int? TeamCount { get; set; }
     }
 }

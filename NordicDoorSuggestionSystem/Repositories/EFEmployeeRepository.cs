@@ -22,7 +22,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             dataContext.SaveChanges();
         }
 
-        private Employee? GetEmployeeByNumber(int employeenumber)
+        public Employee? GetEmployeeByNumber(int employeenumber)
         {
             return dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber == employeenumber);
         }

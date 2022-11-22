@@ -21,16 +21,24 @@ namespace bacit_dotnet.MVC.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmployeeRepository employeeRepository;
         private readonly ITeamRepository _teamRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
         private readonly DataContext _context;
 
-        public AdministrationController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IEmployeeRepository employeeRepository, DataContext context, ITeamRepository teamRepository)
+        public AdministrationController(
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IEmployeeRepository employeeRepository,
+            DataContext context,
+            ITeamRepository teamRepository,
+            IDepartmentRepository departmentRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             this.employeeRepository = employeeRepository;
             _context = context;
             _teamRepository = teamRepository;
+            this._departmentRepository = departmentRepository;
         }
 
         public IActionResult Index()
@@ -84,6 +92,7 @@ namespace bacit_dotnet.MVC.Controllers
             var user = await _userManager.FindByIdAsync(model.Id);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
+            user.Role = model.RoleSelected;
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
@@ -92,14 +101,20 @@ namespace bacit_dotnet.MVC.Controllers
                     EmployeeNumber = user.EmployeeNumber,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    Role = model.RoleSelected
                 };
                 employeeRepository.Update(employee);
+                
+                return RedirectToAction("Users");
+            }
+            if (model.PreviousRole != model.RoleSelected)
+            {
                 await _userManager.AddToRoleAsync(user, model.RoleSelected);
                 await _userManager.RemoveFromRoleAsync(user, model.PreviousRole);
-                return RedirectToAction("Users");
-            } 
-            
-            foreach(var error in result.Errors)
+            }
+           
+
+            foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
@@ -317,6 +332,95 @@ namespace bacit_dotnet.MVC.Controllers
             vm.TeamName = teamname;
             vm.EmployeeTeamList = employees;
             return View(vm);
+        }
+
+        [HttpGet]
+        public IActionResult Departments()
+        {
+            var departments = _context.Departments;
+            return View(departments);
+        }
+
+        [HttpGet]
+        public IActionResult CreateDepartment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateDepartment(CreateDepartmentViewModel createDepViewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var newDepartment = new Department
+                {
+                    DepartmentName = createDepViewModel.DepartmentName,
+                    TeamCount = 0
+                };
+
+                _context.Add(newDepartment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Departments));
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult EditDepartment(int id)
+        {
+            var department = _departmentRepository.GetDepartmentByID(id);
+            var departmentToChange = new EditDepartmentViewModel
+            {
+                DepartmentID = department.DepartmentID,
+                DepartmentName = department.DepartmentName,
+                TeamCount = department.TeamCount.Value
+            };
+            return View(departmentToChange);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDepartment(EditDepartmentViewModel editedDepartment)
+        {
+            var changedDepartment = new Department
+            {
+                DepartmentID = editedDepartment.DepartmentID,
+                DepartmentName = editedDepartment.DepartmentName,
+                TeamCount = editedDepartment.TeamCount
+            };
+            await _departmentRepository.Update(changedDepartment);
+            await _departmentRepository.SaveChanges();
+            return RedirectToAction("Departments");
+        }
+
+        [HttpGet]
+        public IActionResult DetailDepartment(int id)
+        {
+            var department = _departmentRepository.GetDepartmentByID(id);
+            var teams = _context.Team.Where(e => e.DepartmentID.Equals(id)).ToList();
+            //var teams = _teamRepository.GetTeams();
+            var departmentToShow = new DetailDepartmentViewModel
+            {
+                DepartmentName = department.DepartmentName,
+                TeamList = teams
+            };
+            return View(departmentToShow);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteDepartment(int id)
+        {
+            var department = _departmentRepository.GetDepartmentByID(id);
+            if (department == null)
+            {
+                return View("Denne avdelingen eksisterer ikke");
+            }
+            else
+            {
+                await _departmentRepository.Delete(department);
+                await _departmentRepository.SaveChanges();
+                return RedirectToAction("Departments");
+            }
         }
     }
 }
