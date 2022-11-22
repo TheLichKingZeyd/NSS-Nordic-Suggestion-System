@@ -16,19 +16,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TeamID)
+                <i>Teamnavn</i>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TeamName)
+                <i>Teamleder</i>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TeamLeader)
+                <i>Forslag</i>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TeamSgstnCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartmentID)
+                <i>Avdeling</i>
             </th>
             <th></th>
         </tr>
@@ -40,9 +37,6 @@
             @foreach (var team in Model)
             {
                 <tr>
-                    <th>
-                        @Html.DisplayFor(modelItem => team.TeamID)
-                    </th>
                     <th>
                         @Html.DisplayFor(modelItem => team.TeamName)
                     </th>
@@ -64,6 +58,6 @@
             }
         </tbody>
 } else {
-    <h2>Systemet har ingen brukere</h2>
+    <h2>Systemet har ingen team</h2>
 }
 </table>

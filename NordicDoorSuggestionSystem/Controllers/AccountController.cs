@@ -7,6 +7,7 @@ using System.Security.Claims;
 using NordicDoorSuggestionSystem.Models.Account;
 using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Repositories;
+using NordicDoorSuggestionSystem.Models.Administrate;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {

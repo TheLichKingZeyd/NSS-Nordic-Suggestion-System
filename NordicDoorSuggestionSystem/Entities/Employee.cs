@@ -15,6 +15,8 @@ namespace NordicDoorSuggestionSystem.Entities
         public byte[]? ProfilePicture { get; set; }
         public int? SuggestionCount { get; set; }
 
+        public string Role { get; set; }
+
         public Team? Team { get; set; }
         [ForeignKey("Team")]
         public int? TeamID { get; set; }

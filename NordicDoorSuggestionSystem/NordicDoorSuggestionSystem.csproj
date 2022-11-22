@@ -10,8 +10,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\AdministrateEmployees\**" />
+	  <Content Remove="Views\AdministrateEmployees\**" />
+	  <EmbeddedResource Remove="Views\AdministrateEmployees\**" />
+	  <None Remove="Views\AdministrateEmployees\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Views\Administration\DeleteUser.cshtml" />
+	  <Content Remove="Views\Administration\DetailsDepartment.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Folder Include="Migrations\" />
-		<Folder Include="Views\AdministrateEmployees\" />
 	</ItemGroup>
 
 	<ItemGroup>
