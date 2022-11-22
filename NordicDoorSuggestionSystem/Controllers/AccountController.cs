@@ -33,6 +33,34 @@ namespace NordicDoorSuggestionSystem.Controllers
             _roleManager = roleManager;
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+
+
+            // Set up a testuser for test purposes
+            var user = new User
+            {
+                UserName = "123456",
+                EmployeeNumber = 123456,
+                FirstName = "Test",
+                LastName = "Testersen",
+                Role = "Administrator",
+                LockoutEnabled = false,
+                LockoutEnd = null
+            };
+            var password = "123Asd";
+
+            _userManager.CreateAsync(user, password);
+            _userManager.AddToRoleAsync(user, "Administrator");
+
+            var employee = new Employee
+            {
+                EmployeeNumber = user.EmployeeNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Role = user.Role,
+                SuggestionCount = 0
+            };
+            employeeRepository.Add(employee);
+            // End of setting up testuser for test purposes
         }
 
         // GET: /Account/Login
@@ -118,9 +146,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel registerViewModel, string? returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = registerViewModel.EmployeeNumber.ToString(),
@@ -162,7 +189,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                     _logger.LogInformation(3, "User created a new account with password.");
 
 
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal();
                 }
                 AddErrors(result);
             }
