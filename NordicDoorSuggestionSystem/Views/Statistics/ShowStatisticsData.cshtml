@@ -1,6 +1,6 @@
 @model NordicDoorSuggestionSystem.Models.StatisticsViewModel
 @{
-    Layout ="~/Views/Shared/_StatLayout.cshtml";
+    Layout ="~/Views/Shared/_stat.cshtml";
     
     
     <style>
@@ -28,15 +28,11 @@
         font-size: 20px;
         text-align: center;
     }
-    body{
-        background-color: #8EC5FC;
-        background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-
-    }
     
 </style>
 }
 
+<br>
 <div class="grid-container">
   <div class="grid-item" style="background-color: #4158D0;background-image: linear-gradient(225deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">
   	<div class="grid-container2">
@@ -84,10 +80,6 @@
 
   <div class="grid-item" style="background-color: #4158D0;background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);">LEADERBOARD &#128293;</div>
   <div class="grid-item">
-  	<div class="grid-container">
-  		<div class="grid-item3">Beste Avdeling</div>
-  		<div class="grid-item3"><b>81 </b>Department 3</div>
-	</div>
     <div class="grid-container">
   		<div class="grid-item3">Beste Team</div>
   		<div class="grid-item3">
@@ -166,33 +158,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript">
-            $.ajax({
-                type: "POST",
-                url: "/Statistics/GetStatisticsData",
-                data: "",
-                contextType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data){
-                    var _data=data;
-                    var _chartLabels=_data[0];
-                    var _chartData=_data[1];
-
-                    var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
-
-                    new Chart("myChart",
-                    {
-                    type:'bar',
-                    data: {
-                        labels: _chartLabels,
-                        datasets : [{
-                            backgroundColor: barColor,
-                            data:_chartData
-                            }]
-                        }
-                    });
-                }
-            });
-    
     $(function () {
         $("#ID").click(function (){
 
@@ -200,7 +165,7 @@
             
             var chartView=document.getElementById('ChartView');
 
-            chartView.innerHTML='';
+            chartView.innerHTML='&nbsp';
 
             $('#ChartView').append('<canvas id="myChart" style="width:300px;height:300px;margin: 0 auto;"></canvas>');
 
@@ -241,34 +206,7 @@
         });
     });
 </script>
-<script type="text/javascript">
-            $.ajax({
-                type: "POST",
-                url: "/Statistics/GetDepartmentData",
-                data: "",
-                contextType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data){
-                    var _data=data;
-                    var _chartLabels=_data[0];
-                    var _chartData=_data[1];
-
-                    var barColor=["red","green","blue","orange","goldenrod","purple", "aqua", "lime", "fuchsia", "cadetblue"];
-
-                    new Chart("myChartDept",
-                    {
-                    type:'doughnut',
-                    data: {
-                        labels: _chartLabels,
-                        datasets : [{
-                            backgroundColor: barColor,
-                            data:_chartData
-                            }]
-                        }
-                    });
-                }
-            });
-    
+<script type="text/javascript"> 
     $(function () {
         $("#ID2").click(function (){
 
@@ -276,7 +214,7 @@
             
             var chartViewDept=document.getElementById('ChartViewDept');
 
-            chartViewDept.innerHTML='';
+            chartViewDept.innerHTML='&nbsp';
 
             $('#ChartViewDept').append('<canvas id="myChartDept" style="width:300px;height:300px;margin: 0 auto;"></canvas>');
 

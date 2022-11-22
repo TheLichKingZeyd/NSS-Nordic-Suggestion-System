@@ -1,19 +1,16 @@
 ﻿@model NordicDoorSuggestionSystem.Models.SuggestionDetailViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    Layout ="~/Views/Shared/_detail.cshtml";
 }
 
-<h1>Details</h1>
-
+<br>
 <div>
-    <h4>SuggestionEntity</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2" style="font-size: 2rem;">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" style="font-size: 2rem;">
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
@@ -55,24 +52,22 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.SuggestionID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.SuggestionID" class="btn btn-warning">Endre</a>
+    <a asp-action="AddComment" asp-route-id="@Model?.SuggestionID" class="btn btn-primary">Kommenter</a>
 </div>
 
 @foreach (var c in Model.CommentsList)
 {
     <hr />
     <div class="row">
-        <div class="col-md-3">
-            <i>@c.EmployeeNumber</i>
-            <i>@c.CommentTime</i>
+        <i style="color: grey; font-size: 14px;">@c.FirstName @c.LastName</i>
+        <i style="color: grey; font-size: 10px;">@c.CommentTime</i>
+        <div class="col-md-5">
             <i>@c.Content</i>
-            <i>@c.CommentID</i>
-            <i>@c.SuggestionID</i>
         </div>
     </div>
 }
 <hr />
 
-<a asp-action="AddComment" asp-route-id="@Model?.SuggestionID">Comment</a>
-<br><br><br><br><br><br><br>
+
+<br>

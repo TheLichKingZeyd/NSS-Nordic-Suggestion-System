@@ -11,7 +11,18 @@
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <body>
+    <style>
+        .body{
+                text-decoration: none;
+                background-image: url('https://images.pexels.com/photos/260689/pexels-photo-260689.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2;');
+                background-repeat: none;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+    </style>
+    
     <h1>NORDIC DOOR</h1>
+    <a asp-controller="" asp-action="" class="fa fa-user-circle" aria-hidden="true"></a>
     <div class= "NavContainer0">
         <ul>
             <li class = "NavLink">
@@ -39,7 +50,7 @@
     <div class= "NavContainer3">
         <ul>
             <li class = "NavLink">
-                <a class="nav-link text-dark" asp-area="" asp-controller="AccountPages" asp-action="MyTeam">Mitt Team</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Administration" asp-action="MittTeam">Mitt Team</a>
                 <i class="fa fa-users" aria-hidden="true"></i>
             </li>
         </ul>
@@ -47,7 +58,7 @@
     <div class= "NavContainer2">
         <ul>
             <li class = "NavLink">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="ShowStatisticsData">Vis Statistikk</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Statistics" asp-action="ShowStatisticsData">Statistikk</a>
                 <i class="fa fa-bar-chart" aria-hidden="true"></i>
             </li>
         </ul>

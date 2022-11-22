@@ -1,13 +1,11 @@
 @model NordicDoorSuggestionSystem.Models.TeamViewModel
 @{
-    ViewData["Title"] = "Edit";
+    Layout ="~/Views/Shared/_editteam.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Team</h4>
-<hr />
+<br>
 <div class="row">
+    <h1>Endre</h1>
     <div class="col-md-4">
         <form asp-action="EditTeam">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -21,15 +19,12 @@
                 <input asp-for="TeamLeader" class="form-control" />
                 <span asp-validation-for="TeamLeader" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
                 <input type="submit" value="Edit Team" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Teams">Back to Teams</a>
 </div>
 
 @section Scripts {

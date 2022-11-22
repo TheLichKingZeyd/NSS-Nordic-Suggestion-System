@@ -1,0 +1,45 @@
+h1{
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    
+}
+h2{
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    
+}
+.grid-header{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  border-bottom: 3px solid black;
+}
+.grid-items{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fa-home{
+  font-size: 70px !important; 
+  text-decoration: none;
+  color: black;
+}
+.fa-home:hover{
+  color: gray;
+}
+.fa-arrow-circle-left{
+  font-size: 70px !important; 
+  text-decoration: none;
+  color: black;
+}
+.fa-arrow-circle-left:hover{
+  color: gray;
+}
+.grid-items-center{
+  text-align: center;
+}

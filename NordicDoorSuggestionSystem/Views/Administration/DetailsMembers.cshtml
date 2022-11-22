@@ -1,0 +1,24 @@
+@model NordicDoorSuggestionSystem.Models.DetailMemberViewModel
+
+@{
+    Layout ="~/Views/Shared/_teamMedlem.cshtml";
+}
+
+<br>
+<h1>@Html.DisplayFor(model => model.TeamName)</h1>
+<hr>
+
+<h2>Medlemmer</h2>
+<hr />
+
+@foreach (var c in Model.EmployeeList)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <i>@c.FirstName</i>
+            <i> </i>
+            <i>@c.LastName</i>
+        </div>
+    </div>
+}
+<hr />

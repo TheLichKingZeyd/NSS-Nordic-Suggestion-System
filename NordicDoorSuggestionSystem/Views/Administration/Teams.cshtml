@@ -2,13 +2,15 @@
 @model IEnumerable<Team>
 
 @{
-    ViewData["Title"] = "Teams";
+    Layout ="~/Views/Shared/_team.cshtml";
 }
 
-<h1>@ViewData["Title"].</h1>
+<br>
+<h1>Teams</h1>
 
-<a asp-action="CreateTeam" asp-controller="Administration" class="btn bnt-primary mb-3" style="width:auto">Lag Nytt Team</a>
-<a asp-action="TeamMembers" asp-controller="Administration" class="btn bnt-primary mb-3" style="width:auto">Velg Team Members</a>
+<a asp-action="CreateTeam" asp-controller="Administration" class="btn btn-success" >Lag Nytt Team</a>
+<a asp-action="EditTeamMembers" asp-controller="Administration" class="btn btn-info">Velg Team Medlemmer</a>
+<br><br>
 
 <table class="table">
     <thead>
@@ -55,7 +57,8 @@
                     </th>
                     <td>
                         <a asp-action="EditTeam" asp-route-id="@team.TeamID">Edit</a> |
-                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a>
+                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a> |
+                        <a asp-action="DetailsMembers" asp-route-id="@team.TeamID">Medlemmer</a>
                     </td>
                 </tr>
             }
