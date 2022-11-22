@@ -12,7 +12,7 @@ namespace NordicDoorSuggestionSystem.Models
         public string? Solution { get; set; }
         public string? Goal { get; set; }
         public DateTime? Deadline { get; set; }
-        public short? Progress { get; set; }
+        public string? Progress { get; set; }
         public int EmployeeNumber { get; set;}
         public int TeamID { get; set; }
         public virtual List<Comment>? CommentsList { get; set; }

@@ -2,51 +2,91 @@
 
 @{
     Layout ="~/Views/Shared/_detail.cshtml";
+
+    var spanStyle1 = "";
+    var spanStyle2 = "";
+    var spanStyle3 = "";
+    var spanStyle4 = "";
+    if(Model.Progress == "Plan")
+    {
+        spanStyle2 = "border-color: rgba(211,211,211,.3);";
+        spanStyle3 = "border-color: rgba(211,211,211,.3);";
+        spanStyle4 = "border-color: rgba(211,211,211,.3);";
+    }
+    else if(Model.Progress == "Do")
+    {
+        spanStyle3 = "border-color: rgba(211,211,211,.3);";
+        spanStyle4 = "border-color: rgba(211,211,211,.3);";
+    }
+    else if(Model.Progress == "Study")
+    {
+        spanStyle4 = "border-color: rgba(211,211,211,.3);";
+    }
+    else
+    {
+        spanStyle1 = "";
+        spanStyle2 = "";
+        spanStyle3 = "";
+        spanStyle4 = "";
+    }
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        padding: 10px;
+    }
+    .grid-item {
+    }
+    
+</style>
 }
 
 <br>
+<div class="grid-container">
+<div class="grid-item">
 <div>
     <dl class="row">
-        <dt class = "col-sm-2" style="font-size: 2rem;">
+        <dt class = "col-sm-3" style="font-size: 2rem;">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10" style="font-size: 2rem;">
+        <dd class = "col-sm-8" style="font-size: 2rem;">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Problem)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.Problem)
         </dd>
-         <dt class = "col-sm-2">
+         <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Solution)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.Solution)
         </dd>
-         <dt class = "col-sm-2">
+         <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Goal)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.Goal)
         </dd>
-         <dt class = "col-sm-2">
+         <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.ResponsibleEmployee)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.ResponsibleEmployee)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Deadline)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.Deadline)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.TeamID)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             @Html.DisplayFor(model => model.TeamID)
         </dd>
     </dl>
@@ -55,6 +95,25 @@
     <a asp-action="Edit" asp-route-id="@Model?.SuggestionID" class="btn btn-warning">Endre</a>
     <a asp-action="AddComment" asp-route-id="@Model?.SuggestionID" class="btn btn-primary">Kommenter</a>
 </div>
+</div>
+<div class="grid-item1">
+    <ul class="chart-skills">
+  <li style="@spanStyle1">
+    <span>Plan</span>
+  </li>
+  <li style="@spanStyle2">
+    <span>Do</span>
+  </li>
+  <li style="@spanStyle3">
+    <span>Study</span>
+  </li>
+  <li style="@spanStyle4">
+    <span>Act</span>
+  </li>
+</ul>
+</div>   
+</div>
+
 
 @foreach (var c in Model.CommentsList)
 {
@@ -71,3 +130,4 @@
 
 
 <br>
+

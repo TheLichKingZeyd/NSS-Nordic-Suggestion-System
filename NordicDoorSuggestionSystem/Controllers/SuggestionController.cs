@@ -104,6 +104,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             vm.Goal = suggestion.Goal;
             vm.Deadline = suggestion.Deadline;
             vm.TeamID = suggestion.TeamID.Value;
+            vm.Progress = suggestion.Progress;
 
             var Comments = _context.Comment.Where(d => d.SuggestionID.Equals(suggestion.SuggestionID)).ToList();
             vm.CommentsList = Comments;
