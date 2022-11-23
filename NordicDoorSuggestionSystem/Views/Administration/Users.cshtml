@@ -48,7 +48,7 @@
                         @Html.DisplayFor(modelItem => user.Role)
                     </th>
                     <td>
-                        <a asp-action="EditUser" asp-controller="Administration" class="btn .btn-default" asp-route-id="@user.Id">Endre bruker</a>
+                        <a asp-action="EditUser" asp-controller="Administration" class="btn .btn-default" asp-route-id="@user.Id">Endre</a>
                     </td>
                     <td>
                         <form asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id" method="get">

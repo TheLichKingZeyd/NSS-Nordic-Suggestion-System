@@ -1,4 +1,4 @@
-@model NordicDoorSuggestionSystem.Models.TeamViewModel
+@model NordicDoorSuggestionSystem.Models.Administrate.EditTeamViewModel
 @{
     Layout ="~/Views/Shared/_editteam.cshtml";
 }
@@ -9,16 +9,18 @@
     <div class="col-md-4">
         <form asp-action="EditTeam">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="TeamID" type="hidden" />
             <div class="form-group">
                 <label asp-for="TeamName" class="control-label"></label>
                 <input asp-for="TeamName" class="form-control" />
                 <span asp-validation-for="TeamName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TeamLeader" class="control-label"></label>
-                <input asp-for="TeamLeader" class="form-control" />
-                <span asp-validation-for="TeamLeader" class="text-danger"></span>
-            </div>
+            <label asp-for="LeaderSelected" class="col-md-2">Team Leder</label>
+                <div class="col-md-10">
+                    <select asp-for="LeaderSelected" asp-items="@Model.LeaderList" class="form-control">
+                        <option disabled selected>- Team Leder -</option>
+                    </select>
+                </div>
             <br>
             <div class="form-group">
                 <input type="submit" value="Edit Team" class="btn btn-primary" />

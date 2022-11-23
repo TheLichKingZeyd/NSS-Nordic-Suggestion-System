@@ -36,6 +36,12 @@ namespace NordicDoorSuggestionSystem.Repositories
             return _context.Departments.ToListAsync();
         }
 
+        public void Add(Department department)
+        {
+            _context.Departments.Add(department);
+            _context.SaveChanges();
+        }
+
         public async Task Delete(Department department)
         {
             _context.Departments.Remove(department);
