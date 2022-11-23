@@ -42,7 +42,7 @@ namespace NordicDoorSuggestionSystem.Repositories
         }
         public async Task SaveChanges()
         {
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task Update(Department department)
