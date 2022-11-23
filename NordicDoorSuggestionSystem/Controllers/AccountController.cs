@@ -176,7 +176,10 @@ namespace NordicDoorSuggestionSystem.Controllers
                         }
                     }
 
-
+                    var newModel = new RegisterViewModel
+                    {
+                        RoleList = registerViewModel.RoleList
+                    };
                     var employee = new Employee {
                         EmployeeNumber = registerViewModel.EmployeeNumber,
                         FirstName = registerViewModel.FirstName,
@@ -190,13 +193,13 @@ namespace NordicDoorSuggestionSystem.Controllers
                     _logger.LogInformation(3, "User created a new account with password.");
 
 
-                    //return RedirectToLocal();
+                    return RedirectToAction("Register");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(registerViewModel);
+            return View();
         }
 
    

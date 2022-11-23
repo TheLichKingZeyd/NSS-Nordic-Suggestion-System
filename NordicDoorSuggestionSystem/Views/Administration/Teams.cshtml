@@ -1,5 +1,6 @@
 @using NordicDoorSuggestionSystem.Entities
-@model IEnumerable<Team>
+@using NordicDoorSuggestionSystem.Models.Administrate
+@model List<TeamsViewModel>
 
 @{
     Layout ="~/Views/Shared/_team.cshtml";
@@ -47,11 +48,13 @@
                         @Html.DisplayFor(modelItem => team.TeamSgstnCount)
                     </th>
                     <th>
-                        @Html.DisplayFor(modelItem => team.DepartmentID)
+                        @Html.DisplayFor(modelItem => team.DepartmentName)
                     </th>
                     <td>
                         <a asp-action="EditTeam" asp-route-id="@team.TeamID">Edit</a> |
-                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a> |
+                        <form asp-action="DeleteTeam" asp-controller="Administration" asp-route-id="@team.TeamID">
+                            <button onclick="return confirm('Er du sikker du vil slette dettee teamet: @team.TeamName)" type="submit" class="btn btn-danger btn-sm">Slett</button>
+                        </form> |
                         <a asp-action="DetailsMembers" asp-route-id="@team.TeamID">Medlemmer</a>
                     </td>
                 </tr>

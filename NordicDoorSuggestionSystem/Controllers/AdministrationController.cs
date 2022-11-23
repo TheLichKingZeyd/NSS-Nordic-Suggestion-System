@@ -148,101 +148,148 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpGet]
         public IActionResult Teams()
         {
-            var teams = _context.Team;
-            return View(teams);
+            var teams = _context.Team.ToList();
+            List<TeamsViewModel> teamsToShow = new List<TeamsViewModel>();
+            for (var i = 0; i < teams.Count(); i++)
+            {
+                var leader = employeeRepository.GetEmployeeByNumber(teams[i].TeamLeader.Value);
+                var department = _departmentRepository.GetDepartmentByID(teams[i].DepartmentID.Value);
+                var team = new TeamsViewModel
+                {
+                    TeamID = teams[i].TeamID,
+                    TeamName = teams[i].TeamName,
+                    TeamLeader = leader.LastName + ", " + leader.FirstName,
+                    TeamSgstnCount = teams[i].TeamSgstnCount.Value,
+                    DepartmentName = department.DepartmentName
+                };
+                teamsToShow.Add(team);
+            }
+            return View(teamsToShow);
         }
 
+        [HttpGet]
         public IActionResult CreateTeam()
         {
-            return View();
+            var departments = _context.Departments.ToList();
+            List<SelectListItem> departmentsItems = new List<SelectListItem>();
+            for (var i = 0; i < departments.Count(); i++)
+            {
+                
+                departmentsItems.Add(new SelectListItem()
+                {
+                    Value = departments[i].DepartmentID.ToString(),
+                    Text = departments[i].DepartmentName
+                });
+            }
+            var leaders = _context.Employees.Where(x => x.Role.Equals("Team Leder")).ToList();
+            var moreLeaders = _context.Employees.Where(x => x.Role.Equals("Administrator")).ToList();
+            for (var i = 0; i < moreLeaders.Count(); i++)
+            {
+                leaders.Add(moreLeaders[i]);
+            }
+                List<SelectListItem> leadersItems = new List<SelectListItem>();
+            for (var i = 0; i < leaders.Count(); i++)
+            {
+
+                leadersItems.Add(new SelectListItem()
+                {
+                    Value = leaders[i].EmployeeNumber.ToString(),
+                    Text = leaders[i].LastName + ", " + leaders[i].FirstName
+                });
+            }
+            var createTeam = new CreateTeamViewModel
+            {
+                DepartmentList = departmentsItems,
+                LeaderList = leadersItems
+            };
+            return View(createTeam);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateTeam([Bind("TeamName, TeamLeader, DepartmentID")] TeamViewModel teamViewModel)
+        public async Task<IActionResult> CreateTeam(CreateTeamViewModel createTeamViewModel)
         {
-
+            var leader = employeeRepository.GetEmployeeByNumber(Int32.Parse(createTeamViewModel.LeaderSelected));
+            var department = _departmentRepository.GetDepartmentByID(Int32.Parse(createTeamViewModel.DepartmentSelected));
             if (ModelState.IsValid)
-            {
+            {                
                 var newTeam = new Team {
-                    TeamName = teamViewModel.TeamName,
-                    TeamLeader = teamViewModel.TeamLeader,
-                    DepartmentID = teamViewModel.DepartmentID
-                    
+                    TeamName = createTeamViewModel.TeamName,
+                    TeamLeader = leader.EmployeeNumber,
+                    DepartmentID = department.DepartmentID,
+                    TeamSgstnCount = 0
                 };
-
                 _context.Add(newTeam);
                 await _context.SaveChangesAsync();
+                leader.TeamID = newTeam.TeamID;
+                employeeRepository.Update(leader);
                 return RedirectToAction(nameof(Teams));
             }
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> DeleteTeam(int? id)
         {
             if (id == null || await _teamRepository.GetTeams() == null)
             {
                 return NotFound();
             }
-
-            var team = await _teamRepository.GetTeam(id);
+            var team = _teamRepository.GetTeam(id);
             if (team == null)
             {
                 return NotFound();
             }
-
-            return View(team);
-        }
-
-
-        [HttpPost, ActionName("DeleteTeam")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteTeamConfirmed(int id)
-        {
-            if (await _teamRepository.GetTeams() == null)
+            else
             {
-                return Problem("Entity set 'DataContext.Teams'  is null.");
-            }
-            var team = await _teamRepository.GetTeam(id);
-            if (team != null)
-            {
-                await _teamRepository.DeleteTeam(team);
+                _teamRepository.DeleteTeam(team);
                 await _teamRepository.SaveChanges();
-
             }
-
             return RedirectToAction(nameof(Teams));
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> EditTeam(int? id)
         {
             if (id == null || await _teamRepository.GetTeams() == null)
             {
                 return NotFound();
             }
-
-            var team = await _teamRepository.GetTeam(id);
+            var team = _teamRepository.GetTeam(id);
             if (team == null)
             {
                 return NotFound();
             }
+            var leaders = _context.Employees.Where(x => x.Role.Equals("Team Leder")).ToList();
+            var moreLeaders = _context.Employees.Where(x => x.Role.Equals("Administrator")).ToList();
+            for (var i = 0; i < moreLeaders.Count(); i++)
+            {
+                leaders.Add(moreLeaders[i]);
+            }
+            List<SelectListItem> leadersItems = new List<SelectListItem>();
+            for (var i = 0; i < leaders.Count(); i++)
+            {
 
-            var editTeamViewModel = new TeamViewModel {
-                    TeamID = team.TeamID,
-                    TeamName = team.TeamName,
-                    TeamLeader = team.TeamLeader,
-                    DepartmentID = team.DepartmentID
+                leadersItems.Add(new SelectListItem()
+                {
+                    Value = leaders[i].EmployeeNumber.ToString(),
+                    Text = leaders[i].LastName + ", " + leaders[i].FirstName
+                });
+            }
+            var editTeam = new EditTeamViewModel
+            {
+                TeamID = team.TeamID,
+                TeamName = team.TeamName,
+                LeaderList = leadersItems
             };
-
-            return View(editTeamViewModel);
+            return View(editTeam);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTeam(int id, [Bind("TeamName, TeamLeader")] TeamViewModel editTeamViewModel)
+        public async Task<IActionResult> EditTeam(EditTeamViewModel editTeamViewModel)
         {
-            var team = await _teamRepository.GetTeam(id);
+            var team = _teamRepository.GetTeam(editTeamViewModel.TeamID);
             if ( team == null)
             {
                 return NotFound();
@@ -253,7 +300,8 @@ namespace bacit_dotnet.MVC.Controllers
                 try
                 {
                     team.TeamName = editTeamViewModel.TeamName;
-                    team.TeamLeader = editTeamViewModel.TeamLeader;
+                    var leader = employeeRepository.GetEmployeeByNumber(Int32.Parse(editTeamViewModel.LeaderSelected));
+                    team.TeamLeader = leader.EmployeeNumber;
 
                     await _teamRepository.Update(team);
                     await _teamRepository.SaveChanges();
@@ -300,7 +348,7 @@ namespace bacit_dotnet.MVC.Controllers
 
         public async Task<IActionResult> DetailsMembers(int id)
         {
-            var team = await _teamRepository.GetTeam(id);
+            var team = _teamRepository.GetTeam(id);
             DetailMemberViewModel vm = new DetailMemberViewModel();
             if (team == null)
             {
@@ -360,7 +408,7 @@ namespace bacit_dotnet.MVC.Controllers
                 };
 
                 _context.Add(newDepartment);
-                await _context.SaveChangesAsync();
+                await _departmentRepository.SaveChanges();
                 return RedirectToAction(nameof(Departments));
             }
             return View();
