@@ -51,11 +51,11 @@
                         @Html.DisplayFor(modelItem => team.DepartmentName)
                     </th>
                     <td>
-                        <a asp-action="EditTeam" asp-route-id="@team.TeamID">Edit</a> |
-                        <form asp-action="DeleteTeam" asp-controller="Administration" asp-route-id="@team.TeamID">
+                        <a asp-action="EditTeam" asp-route-id="@team.TeamID" methdo="get">Edit</a> |
+                        <form asp-action="DeleteTeam" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
                             <button onclick="return confirm('Er du sikker du vil slette dettee teamet: @team.TeamName)" type="submit" class="btn btn-danger btn-sm">Slett</button>
                         </form> |
-                        <a asp-action="DetailsMembers" asp-route-id="@team.TeamID">Medlemmer</a>
+                        <a asp-action="DetailsMembers" asp-route-id="@team.TeamID" method="get">Medlemmer</a>
                     </td>
                 </tr>
             }

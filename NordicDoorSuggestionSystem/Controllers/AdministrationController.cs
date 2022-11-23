@@ -212,17 +212,21 @@ namespace bacit_dotnet.MVC.Controllers
             var leader = employeeRepository.GetEmployeeByNumber(Int32.Parse(createTeamViewModel.LeaderSelected));
             var department = _departmentRepository.GetDepartmentByID(Int32.Parse(createTeamViewModel.DepartmentSelected));
             if (ModelState.IsValid)
-            {                
+            {
                 var newTeam = new Team {
                     TeamName = createTeamViewModel.TeamName,
                     TeamLeader = leader.EmployeeNumber,
                     DepartmentID = department.DepartmentID,
                     TeamSgstnCount = 0
                 };
+                department.TeamCount++;
                 _context.Add(newTeam);
+                _departmentRepository.Update(department);
                 await _context.SaveChangesAsync();
                 leader.TeamID = newTeam.TeamID;
                 employeeRepository.Update(leader);
+
+
                 return RedirectToAction(nameof(Teams));
             }
             return View();
@@ -242,6 +246,12 @@ namespace bacit_dotnet.MVC.Controllers
             }
             else
             {
+                var department = _departmentRepository.GetDepartmentByID(team.DepartmentID.Value);
+                department.TeamCount--;
+                var leader = employeeRepository.GetEmployeeByNumber(team.TeamLeader.Value);
+                leader.TeamID = null;
+                _departmentRepository.Update(department);
+                employeeRepository.Update(leader);
                 _teamRepository.DeleteTeam(team);
                 await _teamRepository.SaveChanges();
             }
@@ -279,7 +289,7 @@ namespace bacit_dotnet.MVC.Controllers
             var editTeam = new EditTeamViewModel
             {
                 TeamID = team.TeamID,
-                TeamName = team.TeamName,
+                TeamName = team.TeamName,                
                 LeaderList = leadersItems
             };
             return View(editTeam);
@@ -346,6 +356,7 @@ namespace bacit_dotnet.MVC.Controllers
             return RedirectToAction("EditTeamMembers");
         }
 
+        [HttpGet]
         public async Task<IActionResult> DetailsMembers(int id)
         {
             var team = _teamRepository.GetTeam(id);
@@ -407,8 +418,7 @@ namespace bacit_dotnet.MVC.Controllers
                     TeamCount = 0
                 };
 
-                _context.Add(newDepartment);
-                await _departmentRepository.SaveChanges();
+                _departmentRepository.Add(newDepartment);
                 return RedirectToAction(nameof(Departments));
             }
             return View();
