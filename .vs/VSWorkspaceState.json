@@ -1,8 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\NordicDoorSuggestionSystem"
+    "\\NordicDoorSuggestionSystem",
+    "\\NordicDoorSuggestionSystem\\Controllers",
+    "\\NordicDoorSuggestionSystem\\Entities",
+    "\\NordicDoorSuggestionSystem\\Models",
+    "\\NordicDoorSuggestionSystem\\Repositories",
+    "\\NordicDoorSuggestionSystem\\Views",
+    "\\NordicDoorSuggestionSystem\\Views\\ProfilePage"
   ],
-  "SelectedNode": "\\NordicDoorSuggestionSystem.sln",
+  "SelectedNode": "\\NordicDoorSuggestionSystem\\Views\\ProfilePage\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
