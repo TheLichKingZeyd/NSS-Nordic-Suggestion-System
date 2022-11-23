@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NordicDoorSuggestionSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/NordicDoorSuggestionSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/general.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style></style>
+</head>
+<body>
+
+<div class="grid-header">
+    <div class="grid-items">
+        <a asp-controller="Administration" asp-action="Departments" class="fa fa-arrow-circle-left" aria-hidden="true"></a>
+    </div>
+    <div class="grid-items-center">
+        <div>
+            <h1>Nordic Door</h1>
+        </div>
+        <div>
+            <h2>Administrator</h2>
+        </div>
+    </div>
+    <div class="grid-items">
+        <a asp-controller="Home" asp-action="Index" class="fa fa-home" aria-hidden="true"></a>
+    </div>
+</div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
