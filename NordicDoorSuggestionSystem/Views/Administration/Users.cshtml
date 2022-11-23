@@ -46,14 +46,16 @@
                     </th>
                     <th>
                         @Html.DisplayFor(modelItem => user.Role)
-                    </th>
+                    </th>                    
                     <td>
-                        <a asp-action="EditUser" asp-controller="Administration" class="btn .btn-default" asp-route-id="@user.Id">Endre</a>
-                    </td>
-                    <td>
-                        <form asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id" method="get">
-                            <button onclick="return confirm('Er du sikker du vil slette denne brukeren: @user.LastName, @user.FirstName')" type="submit" class="btn btn-danger btn-sm">Slett</button>
-                        </form>
+                        <div style="display:flex; flex-direction:row;">
+                            <form asp-action="EditUser" asp-controller="Administration" asp-route-id="@user.Id" method="get">
+                                <button type="submit" class="btn btn-outline-primary">Endre</button>
+                            </form>                        
+                            <form asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id" method="get">
+                                <button onclick="return confirm('Er du sikker du vil slette denne brukeren: @user.LastName, @user.FirstName')" type="submit" class="btn btn-outline-danger" style="margin-left:5px;">Slett</button>
+                            </form>
+                        </div>                        
                     </td>
                 </tr>
             }

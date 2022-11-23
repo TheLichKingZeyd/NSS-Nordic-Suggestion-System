@@ -10,8 +10,7 @@ namespace NordicDoorSuggestionSystem.Entities
         public string FirstName { get; set; }
         [MaxLength(50)]
         public string LastName { get; set; }
-        [MaxLength(15)]
-        public bool? AccountState { get; set; }
+
         public byte[]? ProfilePicture { get; set; }
         public int? SuggestionCount { get; set; }
 

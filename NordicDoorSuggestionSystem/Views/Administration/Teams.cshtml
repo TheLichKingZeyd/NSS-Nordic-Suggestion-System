@@ -51,11 +51,17 @@
                         @Html.DisplayFor(modelItem => team.DepartmentName)
                     </th>
                     <td>
-                        <a asp-action="EditTeam" asp-route-id="@team.TeamID" methdo="get">Edit</a> |
-                        <form asp-action="DeleteTeam" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
-                            <button onclick="return confirm('Er du sikker du vil slette dettee teamet: @team.TeamName)" type="submit" class="btn btn-danger btn-sm">Slett</button>
-                        </form> |
-                        <a asp-action="DetailsMembers" asp-route-id="@team.TeamID" method="get">Medlemmer</a>
+                        <div style="display:flex; flex-direction:row;">
+                            <form asp-action="EditTeam" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
+                                <button type="submit" class="btn btn-outline-primary">Endre</button>
+                            </form>
+                            <form asp-action="DetailsMembers" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
+                                <button type="submit" class="btn btn-outline-primary" style="margin-left:5px;">Medlemmer</button>
+                            </form>
+                            <form asp-action="DeleteTeam" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
+                                <button onclick="return confirm('Er du sikker du vil slette dette teamet: @team.TeamName')" type="submit" class="btn btn-outline-danger" style="margin-left:5px;">Slett</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             }

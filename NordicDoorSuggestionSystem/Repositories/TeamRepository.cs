@@ -48,23 +48,22 @@ namespace NordicDoorSuggestionSystem.Repositories
         public async Task AddTeam(Team team)
         {            
             _context.Team.Add(team);
+            await SaveChanges();
         }
 
         public async Task DeleteTeam(Team team)
         {
             _context.Team.Remove(team);
+            await SaveChanges();
         }
         public async Task SaveChanges(){
             await _context.SaveChangesAsync();
         }
 
-        public async Task Update(Team team) 
+        public async Task UpdateTeam(Team team) 
         {
             _context.Team.Update(team);
+            await SaveChanges();
         }
-        /* public async Task<List<Team>> QueryTeam(int employeeNumber)
-        {
-            return await _context.Employees.Where(s => s.TeamID!.Equals()).ToListAsync();
-        }*/
     }
 }

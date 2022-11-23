@@ -124,8 +124,7 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            var currentUser = _userManager.GetUserAsync(HttpContext.User);
+            var user = await _userManager.FindByIdAsync(id);            
             if (user == null)
             {
                 return View("Denne brukeren eksisterer ikke");
@@ -211,7 +210,7 @@ namespace bacit_dotnet.MVC.Controllers
         {
             var leader = employeeRepository.GetEmployeeByNumber(Int32.Parse(createTeamViewModel.LeaderSelected));
             var department = _departmentRepository.GetDepartmentByID(Int32.Parse(createTeamViewModel.DepartmentSelected));
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && leader.TeamID == null)
             {
                 var newTeam = new Team {
                     TeamName = createTeamViewModel.TeamName,
@@ -220,13 +219,10 @@ namespace bacit_dotnet.MVC.Controllers
                     TeamSgstnCount = 0
                 };
                 department.TeamCount++;
-                _context.Add(newTeam);
-                _departmentRepository.Update(department);
-                await _context.SaveChangesAsync();
+                await _teamRepository.AddTeam(newTeam);
+                await _departmentRepository.Update(department);
                 leader.TeamID = newTeam.TeamID;
                 employeeRepository.Update(leader);
-
-
                 return RedirectToAction(nameof(Teams));
             }
             return View();
@@ -249,10 +245,10 @@ namespace bacit_dotnet.MVC.Controllers
                 var department = _departmentRepository.GetDepartmentByID(team.DepartmentID.Value);
                 department.TeamCount--;
                 var leader = employeeRepository.GetEmployeeByNumber(team.TeamLeader.Value);
-                leader.TeamID = null;
-                _departmentRepository.Update(department);
+                leader.TeamID = null;                
                 employeeRepository.Update(leader);
-                _teamRepository.DeleteTeam(team);
+                await _departmentRepository.Update(department);
+                await _teamRepository.DeleteTeam(team);
                 await _teamRepository.SaveChanges();
             }
             return RedirectToAction(nameof(Teams));
@@ -313,7 +309,7 @@ namespace bacit_dotnet.MVC.Controllers
                     var leader = employeeRepository.GetEmployeeByNumber(Int32.Parse(editTeamViewModel.LeaderSelected));
                     team.TeamLeader = leader.EmployeeNumber;
 
-                    await _teamRepository.Update(team);
+                    await _teamRepository.UpdateTeam(team);
                     await _teamRepository.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
