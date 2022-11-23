@@ -113,7 +113,7 @@
                         <input type="hidden" asp-for="@Model.EmployeeList[j].EmployeeNumber" />
                         <input type="hidden" asp-for="@Model.EmployeeList[j].FirstName" />
                         <input type="hidden" asp-for="@Model.EmployeeList[j].LastName" />
-                        <input type="hidden" asp-for="@Model.EmployeeList[j].TeamID" class="form-control" id="teamX"/>
+                        <input asp-for="@Model.EmployeeList[j].TeamID" class="form-control" id="teamX"/>
                     </li>
                 }
             }
