@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NordicDoorSuggestionSystem.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,6 +42,8 @@ namespace NordicDoorSuggestionSystem.Migrations
                     FirstName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Role = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -80,8 +82,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DepartmentName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DepartmentLeader = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    TeamCount = table.Column<int>(type: "int", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,7 +242,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TeamLeader = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TeamSgstnCount = table.Column<ushort>(type: "smallint unsigned", nullable: true),
+                    TeamSgstnCount = table.Column<int>(type: "int", nullable: true),
                     DepartmentID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -265,11 +266,11 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Role = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AccountState = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    AccountState = table.Column<bool>(type: "tinyint(15)", maxLength: 15, nullable: true),
                     ProfilePicture = table.Column<byte[]>(type: "longblob", nullable: true),
-                    SuggestionCount = table.Column<ushort>(type: "smallint unsigned", nullable: true),
+                    SuggestionCount = table.Column<int>(type: "int", nullable: true),
+                    Role = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     TeamID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -301,9 +302,10 @@ namespace NordicDoorSuggestionSystem.Migrations
                     Goal = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    Progress = table.Column<short>(type: "smallint", nullable: true),
+                    Progress = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: false),
-                    TeamID = table.Column<int>(type: "int", nullable: false)
+                    TeamID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -318,8 +320,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         name: "FK_Suggestion_Team_TeamID",
                         column: x => x.TeamID,
                         principalTable: "Team",
-                        principalColumn: "TeamID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TeamID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -332,8 +333,12 @@ namespace NordicDoorSuggestionSystem.Migrations
                     Content = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CommentTime = table.Column<DateTime>(type: "datetime(6)", rowVersion: true, nullable: true),
-                    SuggestionID = table.Column<int>(type: "int", nullable: true),
-                    EmployeeNumber = table.Column<int>(type: "int", nullable: true)
+                    SuggestionID = table.Column<int>(type: "int", nullable: false),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: true),
+                    FirstName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LastName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -347,7 +352,8 @@ namespace NordicDoorSuggestionSystem.Migrations
                         name: "FK_Comment_Suggestion_SuggestionID",
                         column: x => x.SuggestionID,
                         principalTable: "Suggestion",
-                        principalColumn: "SuggestionID");
+                        principalColumn: "SuggestionID",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

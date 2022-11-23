@@ -11,8 +11,8 @@ using NordicDoorSuggestionSystem.DataAccess;
 namespace NordicDoorSuggestionSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221122154722_Fjelltunerræva")]
-    partial class Fjelltunerræva
+    [Migration("20221123130758_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

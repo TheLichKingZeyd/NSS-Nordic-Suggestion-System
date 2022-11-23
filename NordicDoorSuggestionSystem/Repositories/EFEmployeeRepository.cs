@@ -53,6 +53,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             existingEmployee.FirstName = employee.FirstName;
             existingEmployee.LastName = employee.LastName;
             existingEmployee.TeamID = employee.TeamID;
+            existingEmployee.ProfilePicture = employee.ProfilePicture;
             dataContext.SaveChanges();
         }
     }

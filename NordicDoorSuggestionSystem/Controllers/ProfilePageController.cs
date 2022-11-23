@@ -23,11 +23,13 @@ namespace NordicDoorSuggestionSystem.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly DataContext _context;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public ProfilePageController(UserManager<User> userManager, DataContext context)
+        public ProfilePageController(UserManager<User> userManager, DataContext context, IEmployeeRepository employeeRepository)
         {
             _userManager = userManager;
             _context = context;
+            _employeeRepository = employeeRepository;
         }
 
         // GET: /<controller>/
@@ -39,16 +41,16 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 return NotFound();
             }
+            var employee = _employeeRepository.GetEmployeeByNumber(currentUser.EmployeeNumber);
             vm.EmployeeNumber = currentUser.EmployeeNumber;
             vm.FirstName = currentUser.FirstName;
             vm.LastName = currentUser.LastName;
             vm.Role = currentUser.Role;
-            var mittTeam = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.TeamID).FirstOrDefault();
-            vm.TeamID = mittTeam;
-            var teamname = _context.Team.Where(e => e.TeamID.Equals(vm.TeamID)).Select(e => e.TeamName).FirstOrDefault();
+            vm.TeamID = employee.TeamID;
+            var teamname = _context.Team.Where(e => e.TeamID.Equals(employee.TeamID)).Select(e => e.TeamName).FirstOrDefault();
             vm.TeamName = teamname;
-            var mincount = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.SuggestionCount).FirstOrDefault();
-            vm.SuggestionCount = mincount;
+            vm.SuggestionCount = employee.SuggestionCount;
+            vm.ProfilePicture = employee.ProfilePicture; 
             return View(vm);
         }
 
@@ -56,6 +58,25 @@ namespace NordicDoorSuggestionSystem.Controllers
         public IActionResult Statistic()
         {
             return View();
+        }
+
+        //byte[] picture ???
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePicture(ProfileViewModel profilevm)
+        {
+            var employee = new Employee
+            {
+                EmployeeNumber = profilevm.EmployeeNumber,
+                FirstName = profilevm.FirstName,
+                LastName = profilevm.LastName,
+                Role = profilevm.Role,
+                TeamID = profilevm.TeamID,
+                ProfilePicture = profilevm.ProfilePicture,
+                SuggestionCount = profilevm.SuggestionCount,
+            };
+            _employeeRepository.Update(employee);
+
+            return RedirectToAction("Index");
         }
     }
 }
