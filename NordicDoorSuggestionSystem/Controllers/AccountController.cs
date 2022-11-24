@@ -34,10 +34,49 @@ namespace NordicDoorSuggestionSystem.Controllers
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
 
-            
+            CreateInitialEmployee();
         }
 
-        
+        [HttpGet]
+        [AllowAnonymous]
+        public async void CreateInitialEmployee()
+        {
+            var employees = employeeRepository.GetEmployees();
+            if (employees.Count() == 0)
+            {
+                var user = new User
+                {
+                    UserName = "123456",
+                    EmployeeNumber = 123456,
+                    FirstName = "Test",
+                    LastName = "Testersen",
+                    Role = "Administrator",
+                    LockoutEnabled = false,
+                    LockoutEnd = null
+                };
+                var password = "123Asd";
+
+                await _userManager.CreateAsync(user, password);
+                if (!await _roleManager.RoleExistsAsync("Administrator"))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole("Administrator"));
+                    await _roleManager.CreateAsync(new IdentityRole("Team Leder"));
+                    await _roleManager.CreateAsync(new IdentityRole("Standard Bruker"));
+                }
+                await _userManager.AddToRoleAsync(user, "Administrator");
+
+                var employee = new Employee
+                {
+                    EmployeeNumber = user.EmployeeNumber,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Role = user.Role,
+                    CreatedSuggestions = 0,
+                    CompletedSuggestions = 0
+                };
+                employeeRepository.Add(employee);
+            }
+        }
 
         // GET: /Account/Login
         [HttpGet]
