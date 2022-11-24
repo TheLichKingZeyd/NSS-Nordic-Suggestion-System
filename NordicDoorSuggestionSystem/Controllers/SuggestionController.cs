@@ -236,6 +236,15 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var maker = employeeRepository.GetEmployeeByNumber(user.EmployeeNumber);
+            if (maker.CreatedSuggestions == null)
+            {
+                maker.CreatedSuggestions = 0;
+                if (maker.CompletedSuggestions == null)
+                {
+                    maker.CompletedSuggestions = 0;
+                }
+                employeeRepository.Update(maker);
+            }
             
             if (ModelState.IsValid)
             {
