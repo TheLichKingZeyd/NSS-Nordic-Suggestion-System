@@ -207,9 +207,11 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool?>("AccountState")
-                        .HasMaxLength(15)
-                        .HasColumnType("tinyint(15)");
+                    b.Property<int?>("CompletedSuggestions")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CreatedSuggestions")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -226,9 +228,6 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int?>("SuggestionCount")
-                        .HasColumnType("int");
 
                     b.Property<int?>("TeamID")
                         .HasColumnType("int");
@@ -300,6 +299,9 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.Property<int?>("TeamID")
                         .HasColumnType("int");
 
+                    b.Property<string>("TeamName")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Title")
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
@@ -341,9 +343,9 @@ namespace NordicDoorSuggestionSystem.Migrations
                     b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
 
-                    b.Property<string>("TeamLeader")
+                    b.Property<int?>("TeamLeader")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("int");
 
                     b.Property<string>("TeamName")
                         .HasMaxLength(50)
