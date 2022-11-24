@@ -12,7 +12,9 @@ namespace NordicDoorSuggestionSystem.Entities
         public string LastName { get; set; }
 
         public byte[]? ProfilePicture { get; set; }
-        public int? SuggestionCount { get; set; }
+        
+        public int? CompletedSuggestions { get; set; }
+        public int? CreatedSuggestions { get; set; }
 
         public string Role { get; set; }
 

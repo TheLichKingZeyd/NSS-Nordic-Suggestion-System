@@ -37,6 +37,7 @@ namespace NordicDoorSuggestionSystem.Entities
         public Team? Team { get; set; } 
         [ForeignKey("Team")]
         public int? TeamID { get; set; }
+        public string? TeamName { get; set; }
 
     }
 }

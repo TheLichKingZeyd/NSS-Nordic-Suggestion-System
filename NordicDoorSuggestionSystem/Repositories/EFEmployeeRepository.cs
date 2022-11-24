@@ -8,23 +8,21 @@ namespace NordicDoorSuggestionSystem.Repositories
     {
         private readonly DataContext dataContext;
 
-        public EFEmployeeRepository(DataContext dataContext, UserManager<User> employeeManager) : base(employeeManager)
+        public EFEmployeeRepository(DataContext dataContext, UserManager<User> employeeManager)
         {
             this.dataContext = dataContext;
         }
 
-        public void Delete(int employeenumber)
-        {
-            Employee? employee = GetEmployeeByNumber(employeenumber);
-            if (employee == null)
-                return;
+        public async Task Delete(Employee employee)
+        {            
             dataContext.Employees.Remove(employee);
             dataContext.SaveChanges();
         }
 
-        public Employee? GetEmployeeByNumber(int employeenumber)
+        public Employee GetEmployeeByNumber(int employeenumber)
         {
-            return dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber == employeenumber);
+            var employee = dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber == employeenumber);
+            return employee;
         }
 
         public List<Employee> GetEmployees()
@@ -53,8 +51,8 @@ namespace NordicDoorSuggestionSystem.Repositories
             existingEmployee.FirstName = employee.FirstName;
             existingEmployee.LastName = employee.LastName;
             existingEmployee.TeamID = employee.TeamID;
-            existingEmployee.Role = employee.Role;
-            existingEmployee.SuggestionCount = employee.SuggestionCount;
+            existingEmployee.CreatedSuggestions = employee.CreatedSuggestions;
+            existingEmployee.CompletedSuggestions = employee.CompletedSuggestions;
             existingEmployee.ProfilePicture = employee.ProfilePicture;
             dataContext.SaveChanges();
         }

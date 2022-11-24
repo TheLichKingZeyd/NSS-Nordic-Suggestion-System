@@ -1,4 +1,4 @@
-@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
+@model IEnumerable<NordicDoorSuggestionSystem.Models.MySuggestionsViewModel>
 @{
     Layout ="~/Views/Shared/_suggestionAll.cshtml";
  }
@@ -77,8 +77,72 @@
             </div>
         </form>
     </div>
-    <center>
-        <div class="footer">
+  <div class="middle">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tittel
+                </th>
+                <th>
+                    Oppretter
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Ansvarlig
+                </th>
+                <th>
+                    Tidsfrist
+                </th>
+                <th>
+                    Team
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Maker)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Progress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResponsibleEmployee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deadline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamName)
+                </td>
+                <td class = "EDDrow">
+                    <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SuggestionID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+  </div>  
+  <div class="right">
+    <form asp-controller="Suggestion" asp-action="AllSuggestions" method="get">
+        <div class ="SearchField">
+            <p>
+                Søk etter Tittel: <input type="text" name="title" />
+                <input type="submit" value="Søk" />
+            </p>
+        </div>
+    </form>
+  </div>
+    <div class="footer">
             <ul>
                 <li>
                     <button onclick="location.href='@Url.Action("Create","Suggestion")'" id="add" class="fa fa-edit" style="font-size: 40px; border: none; font-weight:bold;"></button>

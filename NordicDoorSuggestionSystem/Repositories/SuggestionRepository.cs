@@ -55,6 +55,34 @@ namespace NordicDoorSuggestionSystem.Repositories
             return await _context.Suggestion.Where(s => s.Title!.Contains(title)).ToListAsync();
         }
 
+        public async Task<List<Suggestion>> QueryTitleOnEmployee(string title, int employee)
+        {
+            var suggestions = await _context.Suggestion.Where(s => s.Title!.Contains(title)).ToListAsync();
+            for (var i = 0; i < suggestions.Count(); i++)
+            {
+                if (employee != suggestions[i].EmployeeNumber)
+                {
+                    suggestions.Remove(suggestions[i]);
+                    i--;
+                }
+            }
+            return suggestions;
+        }
+
+        public async Task<List<Suggestion>> QueryTitleOnResponsible(string title, int employee)
+        {
+            var suggestions = await _context.Suggestion.Where(s => s.Title!.Contains(title)).ToListAsync();
+            for (var i = 0; i < suggestions.Count(); i++)
+            {
+                if (employee != suggestions[i].ResponsibleEmployee)
+                {
+                    suggestions.Remove(suggestions[i]);
+                    i--;
+                }
+            }
+            return suggestions;
+        }
+
         public async Task<List<Suggestion>> QueryProblem(string problem)
         {
             return await _context.Suggestion.Where(s => s.Problem!.Contains(problem)).ToListAsync();
@@ -71,6 +99,11 @@ namespace NordicDoorSuggestionSystem.Repositories
         public async Task<List<Suggestion>> QueryEmployee(int employeeNumber)
         {
             return await _context.Suggestion.Where(s => s.EmployeeNumber!.Equals(employeeNumber)).ToListAsync();
+        }
+
+        public async Task<List<Suggestion>> QueryResponsible(int responsibleNumber)
+        {
+            return await _context.Suggestion.Where(s => s.ResponsibleEmployee!.Equals(responsibleNumber)).ToListAsync();
         }
 
 

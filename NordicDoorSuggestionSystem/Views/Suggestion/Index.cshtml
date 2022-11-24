@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
+﻿@model IEnumerable<NordicDoorSuggestionSystem.Models.MySuggestionsViewModel>
 @{
     Layout ="~/Views/Shared/_suggestionAll.cshtml";
  }
@@ -15,7 +15,13 @@
 
 <br>
 <div class = "grid-container">
-    
+    <div class="left">
+        <div class ="CreateButton">
+        <button class ="button" >
+            <a class ="Create" asp-action="Create">Nytt forslag</a>
+        </button>
+    </div>
+    </div>
   <div class="middle">
     <table class="table">
         <thead>
@@ -24,16 +30,19 @@
                     Tittel
                 </th>
                 <th>
-                    Progress
+                    Oppretter
+                </th>
+                <th>
+                    Status
                 </th>
                 <th>
                     Ansvarlig
                 </th>
                 <th>
-                    Deadline
+                    Tidsfrist
                 </th>
                 <th>
-                    TeamID
+                    Team
                 </th>
             </tr>
         </thead>
@@ -42,6 +51,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Maker)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Progress)
@@ -53,10 +65,10 @@
                     @Html.DisplayFor(modelItem => item.Deadline)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TeamID)
+                    @Html.DisplayFor(modelItem => item.TeamName)
                 </td>
                 <td class = "EDDrow">
-                    <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a>
                 </td>
             </tr>
     }
@@ -65,7 +77,7 @@
     <br>
   </div>  
   <div class="right">
-    <form asp-controller="Suggestion" asp-action="Index">
+    <form asp-controller="Suggestion" asp-action="Index" method="get">
         <div class ="SearchField">
             <p>
                 Søk etter Tittel: <input type="text" name="title" />
