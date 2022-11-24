@@ -27,12 +27,13 @@
             </div>
             <div>
                 <form asp-controller="ProfilePage" asp-action="UploadProfilePicture" method="post">
-                    <input asp-for="FirstName" type="hidden" onchange="fileCheck(this);" />
-                    <input asp-for="LastName" type="hidden" onchange="fileCheck(this);" />
-                    <input asp-for="TeamID" type="hidden" onchange="fileCheck(this);" />
-                    <input asp-for="Role" type="hidden" onchange="fileCheck(this);" />
+                    <input asp-for="EmployeeNumber" type="hidden"  />
+                    <input asp-for="FirstName" type="hidden"  />
+                    <input asp-for="LastName" type="hidden"  />
+                    <input asp-for="TeamID" type="hidden"  />
+                    <input asp-for="Role" type="hidden"  />
                     <input asp-for="SuggestionCount" type="hidden" onchange="fileCheck(this);" />
-                    <input asp-for="ProfilePicture" type="file" onchange="fileCheck(this);" />
+                    <input asp-for="ProfilePicture" type="file" onchange="filecheck(this)" />
                     <input type="Submit" value="Submit" />
                 </form>
  

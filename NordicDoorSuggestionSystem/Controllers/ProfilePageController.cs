@@ -50,7 +50,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             var teamname = _context.Team.Where(e => e.TeamID.Equals(employee.TeamID)).Select(e => e.TeamName).FirstOrDefault();
             vm.TeamName = teamname;
             vm.SuggestionCount = employee.SuggestionCount;
-            vm.ProfilePicture = employee.ProfilePicture; 
+            //vm.ProfilePicture = employee.ProfilePicture; 
             return View(vm);
         }
 
@@ -64,6 +64,20 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadProfilePicture(ProfileViewModel profilevm)
         {
+            //byte[] ImageToByteArray(System.Drawing.Image imageIn)
+            //{
+            //    using (var ms = new MemoryStream())
+            //    {
+            //        imageIn.Save(ms, imageIn.RawFormat);
+            //        return ms.ToArray();
+            //    }
+            //}
+
+            //var Imgtemp = new byte[16777215];
+            //Imgtemp[16777215] = ImageToByteArray(profilevm.ProfilePicture);
+
+
+
             var employee = new Employee
             {
                 EmployeeNumber = profilevm.EmployeeNumber,
