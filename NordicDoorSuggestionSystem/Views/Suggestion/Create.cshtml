@@ -22,9 +22,6 @@
                     <option disabled selected>- Ansvarlig -</option>
                 </select>
             </div>
-
-            @*<input type="number" id="responible" placeholder="Ansvarlig.." maxlength="3"> <br>*@
-            
             <select name="Progress" id="progress" placeholder="Fremgang">
                 <option value="Plan">Plan</option>
                 <option value="Do">Do</option>
@@ -126,7 +123,7 @@
             <div id="submit5">
                 <div class="submitHeader">
                     <input asp-for="Title" readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
-                    
+
                 </div>
                 <div class="mainContent">
                     <textarea asp-for="Problem" readonly id="finalProblem" rows="6" cols="40" type="text" placeholder="Problemstilling.."></textarea> <br>
@@ -165,128 +162,131 @@
             </div>
         </form>
     </center>
-    <div class="btnBackNav">
-        <button onclick="location.href='@Url.Action("Index","Home")'" class="buttonBack" type="button" name="button">Angre forslag</button>
+    <div id="btnBackNav" class="btnBackNav">
+        <button onclick="location.href='@Url.Action("Index","Home")'" class="buttonBack" type="button" name="button"><i class="fa fa-sign-out" style="font-size:35px; rotate:180deg;"></i></button>
     </div>
 </div>
 
 
 <script type="text/javascript">// Get the view id
 
-        var sub1 = document.getElementById("submit1");
-        var sub2 = document.getElementById("submit2");
-        var sub3 = document.getElementById("submit3");
-        var sub4 = document.getElementById("submit4");
-        var sub5 = document.getElementById("submit5");
+    var sub1 = document.getElementById("submit1");
+    var sub2 = document.getElementById("submit2");
+    var sub3 = document.getElementById("submit3");
+    var sub4 = document.getElementById("submit4");
+    var sub5 = document.getElementById("submit5");
+    var btnNav = document.getElementById("btnBackNav");
 
-        // Get the button id
+    // Get the button id
 
-        var nxt1 = document.getElementById("next1");
-        var nxt2 = document.getElementById("next2");
-        var nxt3 = document.getElementById("next3");
-        var nxt4 = document.getElementById("next4");
-        var nxt5 = document.getElementById("next5");
+    var nxt1 = document.getElementById("next1");
+    var nxt2 = document.getElementById("next2");
+    var nxt3 = document.getElementById("next3");
+    var nxt4 = document.getElementById("next4");
+    var nxt5 = document.getElementById("next5");
 
-        //Get the backbutton
+    //Get the backbutton
 
-        var bc2 = document.getElementById("back2");
-        var bc3 = document.getElementById("back3");
-        var bc4 = document.getElementById("back4");
-        var bc5 = document.getElementById("back5");
+    var bc2 = document.getElementById("back2");
+    var bc3 = document.getElementById("back3");
+    var bc4 = document.getElementById("back4");
+    var bc5 = document.getElementById("back5");
 
-        // When user clicks the button, new view
+    // When user clicks the button, new view
 
-        nxt1.onclick = function () {
-            sub1.style.display = "none";
-            sub2.style.display = "grid";
+    nxt1.onclick = function () {
+        sub1.style.display = "none";
+        sub2.style.display = "grid";
+    }
+
+    nxt2.onclick = function () {
+        sub2.style.display = "none";
+        sub3.style.display = "grid";
+    }
+    bc2.onclick = function () {
+        sub2.style.display = "none";
+        sub1.style.display = "grid";
+    }
+
+    nxt3.onclick = function () {
+        sub3.style.display = "none";
+        sub4.style.display = "grid";
+    }
+    bc3.onclick = function () {
+        sub3.style.display = "none";
+        sub2.style.display = "grid";
+    }
+
+    nxt4.onclick = function () {
+        sub4.style.display = "none";
+        sub5.style.display = "grid";
+        btnNav.style.display = "none";
+    }
+    bc4.onclick = function () {
+        sub4.style.display = "none";
+        sub3.style.display = "grid";
+    }
+
+    bc5.onclick = function () {
+        sub5.style.display = "none";
+        sub4.style.display = "grid";
+        btnNav.style.display = "flex";
+    }
+
+    document.getElementById('next1').addEventListener('click', TransferTitle);
+    function TransferTitle() {
+        // Create an array and get the id elments for transfer.
+
+        var copyTitle = ['title', 'responible'];
+        // Create an array and get the id elments for transfer.
+
+        var sendTitle = ['finalTitle', 'finalResponsible'];
+        // for sends copyTitle to sendTitle
+
+        for (var i = 0; i < copyTitle.length; i++) {
+            document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
         }
+    };
 
-        nxt2.onclick = function () {
-            sub2.style.display = "none";
-            sub3.style.display = "grid";
+    document.getElementById('next2').addEventListener('click', TransferProblem);
+    function TransferProblem() {
+        // Create an array and get the id elments for transfer.
+
+        var copyTitle = ['problem', 'progress'];
+        // Create an array and get the id elments for transfer.
+
+        var sendTitle = ['finalProblem', 'finalProgress'];
+        // for sends copyTitle to sendTitle
+
+        for (var i = 0; i < copyTitle.length; i++) {
+            document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
         }
-        bc2.onclick = function () {
-            sub2.style.display = "none";
-            sub1.style.display = "grid";
+    };
+    document.getElementById('next3').addEventListener('click', TransferSolution);
+    function TransferSolution() {
+        // Create an array and get the id elments for transfer.
+
+        var copyTitle = ['solution', 'teamId'];
+        // Create an array and get the id elments for transfer.
+
+        var sendTitle = ['finalSolution', 'finalTeamId',];
+        // for sends copyTitle to sendTitle
+
+        for (var i = 0; i < copyTitle.length; i++) {
+            document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
         }
+    };
+    document.getElementById('next4').addEventListener('click', TransferGoal);
+    function TransferGoal() {
+        // Create an array and get the id elments for transfer.
 
-        nxt3.onclick = function () {
-            sub3.style.display = "none";
-            sub4.style.display = "grid";
+        var copyTitle = ['goal', 'date'];
+        // Create an array and get the id elments for transfer.
+
+        var sendTitle = ['finalGoal', 'finalDate'];
+        // for sends copyTitle to sendTitle
+
+        for (var i = 0; i < copyTitle.length; i++) {
+            document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
         }
-        bc3.onclick = function () {
-            sub3.style.display = "none";
-            sub2.style.display = "grid";
-        }
-
-        nxt4.onclick = function () {
-            sub4.style.display = "none";
-            sub5.style.display = "grid";
-        }
-        bc4.onclick = function () {
-            sub4.style.display = "none";
-            sub3.style.display = "grid";
-        }
-
-        bc5.onclick = function () {
-            sub5.style.display = "none";
-            sub4.style.display = "grid";
-        }
-
-        document.getElementById('next1').addEventListener('click', TransferTitle);
-        function TransferTitle() {
-            // Create an array and get the id elments for transfer.
-
-            var copyTitle = ['title', 'responible'];
-            // Create an array and get the id elments for transfer.
-
-            var sendTitle = ['finalTitle', 'finalResponsible'];
-            // for sends copyTitle to sendTitle
-
-            for (var i = 0; i < copyTitle.length; i++) {
-                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
-            }
-        };
-
-        document.getElementById('next2').addEventListener('click', TransferProblem);
-        function TransferProblem() {
-            // Create an array and get the id elments for transfer.
-
-            var copyTitle = ['problem', 'progress'];
-            // Create an array and get the id elments for transfer.
-
-            var sendTitle = ['finalProblem', 'finalProgress'];
-            // for sends copyTitle to sendTitle
-
-            for (var i = 0; i < copyTitle.length; i++) {
-                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
-            }
-        };
-        document.getElementById('next3').addEventListener('click', TransferSolution);
-        function TransferSolution() {
-            // Create an array and get the id elments for transfer.
-
-            var copyTitle = ['solution', 'teamId'];
-            // Create an array and get the id elments for transfer.
-
-            var sendTitle = ['finalSolution', 'finalTeamId',];
-            // for sends copyTitle to sendTitle
-
-            for (var i = 0; i < copyTitle.length; i++) {
-                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
-            }
-        };
-        document.getElementById('next4').addEventListener('click', TransferGoal);
-        function TransferGoal() {
-            // Create an array and get the id elments for transfer.
-
-            var copyTitle = ['goal', 'date'];
-            // Create an array and get the id elments for transfer.
-
-            var sendTitle = ['finalGoal', 'finalDate'];
-            // for sends copyTitle to sendTitle
-
-            for (var i = 0; i < copyTitle.length; i++) {
-                document.getElementById(sendTitle[i]).value = document.getElementById(copyTitle[i]).value
-            }
-        };</script>
+    };</script>
