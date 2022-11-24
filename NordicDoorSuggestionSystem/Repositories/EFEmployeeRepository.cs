@@ -21,7 +21,7 @@ namespace NordicDoorSuggestionSystem.Repositories
 
         public Employee GetEmployeeByNumber(int employeenumber)
         {
-            var employee = dataContext.Employees.Where(x => x.EmployeeNumber == employeenumber).First();
+            var employee = dataContext.Employees.FirstOrDefault(x => x.EmployeeNumber == employeenumber);
             return employee;
         }
 
