@@ -12,6 +12,7 @@ using NordicDoorSuggestionSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using NordicDoorSuggestionSystem.Repositories;
 using System.Data;
+using System.Reflection;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -57,61 +58,112 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             var suggestions = new List<Suggestion>();
 
-            if (!String.IsNullOrEmpty(title))
+            if (title != null)
             {
                 suggestions = await _suggestionRepository.QueryTitle(title);
-            } else {
+            }
+            else
+            {
                 suggestions = await _suggestionRepository.GetSuggestions();
             }
-           /* if (!String.IsNullOrEmpty(problem))
+
+
+            var mySuggestions = new List<MySuggestionsViewModel>();
+            for (var i = 0; i < suggestions.Count(); i++)
             {
-                suggestions = await _suggestionRepository.QueryProblem(problem);
-            }*/
-              return View(suggestions);
+
+                var responsibleEmployee = employeeRepository.GetEmployeeByNumber(suggestions[i].ResponsibleEmployee.Value);
+                var suggestionMaker = employeeRepository.GetEmployeeByNumber(suggestions[i].EmployeeNumber);
+                var suggestion = new MySuggestionsViewModel
+                {
+                    SuggestionID = suggestions[i].SuggestionID,
+                    Title = suggestions[i].Title,
+                    ResponsibleEmployee = responsibleEmployee.LastName + ", " + responsibleEmployee.FirstName,
+                    Problem = suggestions[i].Problem,
+                    Solution = suggestions[i].Solution,
+                    Goal = suggestions[i].Goal,
+                    Deadline = suggestions[i].Deadline,
+                    Progress = suggestions[i].Progress,
+                    Maker = suggestionMaker.LastName + ", " + suggestionMaker.FirstName,
+                    TeamName = suggestions[i].TeamName
+                };
+                mySuggestions.Add(suggestion);
+            }
+            return View(mySuggestions);
         }
 
         // GET: MySuggestions/Henter brukerens suggestions.
         // This function gets the suggestion view and shows the users suggestions.
         // Will test when it is possible to LogIn
         [HttpGet]
-        public async Task<IActionResult> MySuggestions()
+        public async Task<IActionResult> MySuggestions(string title)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var employee = employeeRepository.GetEmployeeByNumber(user.EmployeeNumber);
-            var createdSgstns = await _suggestionRepository.QueryEmployee(user.EmployeeNumber);
-            var mySuggestions = new List<MySuggestionsViewModel>();
-            for (var i = 0; i < createdSgstns.Count(); i++)
+            var suggestions = new List<Suggestion>();
+
+            if (title != null)
             {
-                var responsibleEmployee = employeeRepository.GetEmployeeByNumber(createdSgstns[i].ResponsibleEmployee.Value);
+                suggestions = await _suggestionRepository.QueryTitleOnResponsible(title, user.EmployeeNumber);
+            }
+            else
+            {
+                suggestions = await _suggestionRepository.QueryResponsible(user.EmployeeNumber);
+            }
+            
+            var employee = employeeRepository.GetEmployeeByNumber(user.EmployeeNumber);
+            var mySuggestions = new List<MySuggestionsViewModel>();
+            for (var i = 0; i < suggestions.Count(); i++)
+            {
+                var suggestionMaker = employeeRepository.GetEmployeeByNumber(suggestions[i].EmployeeNumber);
                 var suggestion = new MySuggestionsViewModel
                 {
-                    SuggestionID = createdSgstns[i].SuggestionID,
-                    Title = createdSgstns[i].Title,
-                    ResponsibleEmployee = responsibleEmployee.LastName + ", " + responsibleEmployee.FirstName,
-                    Problem = createdSgstns[i].Problem,
-                    Solution = createdSgstns[i].Solution,
-                    Goal = createdSgstns[i].Goal,
-                    Deadline = createdSgstns[i].Deadline,
-                    Maker = employee.LastName + ", " + employee.FirstName,
-                    TeamName = createdSgstns[i].TeamName
+                    SuggestionID = suggestions[i].SuggestionID,
+                    Title = suggestions[i].Title,
+                    ResponsibleEmployee = employee.LastName + ", " + employee.FirstName,
+                    Problem = suggestions[i].Problem,
+                    Solution = suggestions[i].Solution,
+                    Goal = suggestions[i].Goal,
+                    Deadline = suggestions[i].Deadline,
+                    Progress = suggestions[i].Progress,
+                    Maker = suggestionMaker.LastName + ", " + suggestionMaker.FirstName,
+                    TeamName = suggestions[i].TeamName
                 };
                 mySuggestions.Add(suggestion);
             }
-            var responsibleSgstns = await _suggestionRepository.QueryResponsible(user.EmployeeNumber);
-            for (var i = 0; i < responsibleSgstns.Count(); i++)
+            return View(mySuggestions);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreatedSuggestions(string title)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var suggestions = new List<Suggestion>();
+
+            if (title != null)
             {
-                var suggestionMaker = employeeRepository.GetEmployeeByNumber(responsibleSgstns[i].EmployeeNumber);
+                suggestions = await _suggestionRepository.QueryTitleOnEmployee(title, user.EmployeeNumber);
+            }
+            else
+            {
+                suggestions = await _suggestionRepository.QueryEmployee(user.EmployeeNumber);
+            }
+            var employee = employeeRepository.GetEmployeeByNumber(user.EmployeeNumber);
+            var mySuggestions = new List<MySuggestionsViewModel>();
+            for (var i = 0; i < suggestions.Count(); i++)
+            {
+                var responsibleEmployee = employeeRepository.GetEmployeeByNumber(suggestions[i].ResponsibleEmployee.Value);
                 var suggestion = new MySuggestionsViewModel
                 {
-                    SuggestionID = responsibleSgstns[i].SuggestionID,
-                    Title = responsibleSgstns[i].Title,
-                    ResponsibleEmployee = employee.LastName + ", " + employee.FirstName,
-                    Problem = responsibleSgstns[i].Problem,
-                    Solution = responsibleSgstns[i].Solution,
-                    Goal = responsibleSgstns[i].Goal,
-                    Deadline = responsibleSgstns[i].Deadline,
-                    Maker = suggestionMaker.LastName + ", " + suggestionMaker.FirstName,
-                    TeamName = responsibleSgstns[i].TeamName
+                    SuggestionID = suggestions[i].SuggestionID,
+                    Title = suggestions[i].Title,
+                    ResponsibleEmployee = responsibleEmployee.LastName + ", " + responsibleEmployee.FirstName,
+                    Problem = suggestions[i].Problem,
+                    Solution = suggestions[i].Solution,
+                    Goal = suggestions[i].Goal,
+                    Deadline = suggestions[i].Deadline,
+                    Progress = suggestions[i].Progress,
+                    Maker = employee.LastName + ", " + employee.FirstName,
+                    TeamName = suggestions[i].TeamName
                 };
                 mySuggestions.Add(suggestion);
             }
@@ -147,7 +199,6 @@ namespace NordicDoorSuggestionSystem.Controllers
                 TeamName = suggestion.TeamName,
                 Progress = suggestion.Progress
             };
-
             var Comments = _context.Comment.Where(d => d.SuggestionID.Equals(suggestion.SuggestionID)).ToList();
             vm.CommentsList = Comments;
 
@@ -193,6 +244,10 @@ namespace NordicDoorSuggestionSystem.Controllers
                     var responsible = employeeRepository.GetEmployeeByNumber(Int32.Parse(createSuggestionViewModel.ResponsibleEmployee));
                     if (responsible.TeamID != null)
                     {
+                        if (createSuggestionViewModel.Progress == null)
+                        {
+                            createSuggestionViewModel.Progress = "Plan";
+                        }
                         var team = _teamRepository.GetTeam(responsible.TeamID);
                         var newsuggestion = new Suggestion
                         {
@@ -216,6 +271,10 @@ namespace NordicDoorSuggestionSystem.Controllers
                 }
                 else if (createSuggestionViewModel.ResponsibleEmployee == null && maker.TeamID != null)
                 {
+                    if (createSuggestionViewModel.Progress == null)
+                    {
+                        createSuggestionViewModel.Progress = "Plan";
+                    }
                     var team = _teamRepository.GetTeam(maker.TeamID);
                     var newSuggestion = new Suggestion
                     {
@@ -241,6 +300,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: Suggestion/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -253,16 +313,50 @@ namespace NordicDoorSuggestionSystem.Controllers
             {
                 return NotFound();
             }
-
+            var employees = _context.Employees.ToList();
+            List<SelectListItem> responsibleItems = new List<SelectListItem>();
+            for (var i = 0; i < employees.Count(); i++)
+            {
+                responsibleItems.Add(new SelectListItem()
+                {
+                    Value = employees[i].EmployeeNumber.ToString(),
+                    Text = employees[i].LastName + ", " + employees[i].FirstName
+                });
+            }
+            List<SelectListItem> progressItems = new List<SelectListItem>();
+            progressItems.Add(new SelectListItem()
+            {
+                Value = "Plan",
+                Text = "Plan"
+            });
+            progressItems.Add(new SelectListItem()
+            {
+                Value = "Do",
+                Text = "Do"
+            });
+            progressItems.Add(new SelectListItem()
+            {
+                Value = "Study",
+                Text = "Study"
+            });
+            progressItems.Add(new SelectListItem()
+            {
+                Value = "Act",
+                Text = "Act"
+            });
             var editSuggestionViewModel = new EditSuggestionViewModel {
                 Title = suggestion.Title,
-                ResponsibleEmployee = suggestion.ResponsibleEmployee,
+                ResponsibleList = responsibleItems,
+                ResponsibleEmployee = suggestion.ResponsibleEmployee.ToString(),
                 Problem = suggestion.Problem,
                 Solution = suggestion.Solution,
                 Goal = suggestion.Goal,
+                ProgressList = progressItems,
+                Progress = suggestion.Progress,
                 Deadline = suggestion.Deadline,
                 TeamID = suggestion.TeamID.Value
             };
+           
 
             return View(editSuggestionViewModel);
         }
@@ -272,9 +366,12 @@ namespace NordicDoorSuggestionSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title, ResponsibleEmployee, Problem, Solution, Goal, Deadline, TeamID")] EditSuggestionViewModel editSuggestionViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Title, ResponsibleEmployee, Problem, Solution, Goal, Progress, Deadline, TeamID")] EditSuggestionViewModel editSuggestionViewModel)
         {
             var suggestion = await _suggestionRepository.GetSuggestion(id);
+            var responsibleEmployee = employeeRepository.GetEmployeeByNumber(Int32.Parse(editSuggestionViewModel.ResponsibleEmployee));
+            var team = _teamRepository.GetTeam(responsibleEmployee.TeamID);
+            var employee = employeeRepository.GetEmployeeByNumber(suggestion.ResponsibleEmployee.Value);
             if ( suggestion == null)
             {
                 return NotFound();
@@ -285,15 +382,25 @@ namespace NordicDoorSuggestionSystem.Controllers
                 try
                 {
                     suggestion.Title = editSuggestionViewModel.Title;
-                    suggestion.ResponsibleEmployee = editSuggestionViewModel.ResponsibleEmployee;
+                    suggestion.ResponsibleEmployee = Int32.Parse(editSuggestionViewModel.ResponsibleEmployee);
                     suggestion.Problem = editSuggestionViewModel.Problem;
                     suggestion.Solution = editSuggestionViewModel.Solution;
                     suggestion.Goal = editSuggestionViewModel.Goal;
+                    suggestion.Progress = editSuggestionViewModel.Progress;
                     suggestion.Deadline = editSuggestionViewModel.Deadline;
-                    suggestion.TeamID = editSuggestionViewModel.TeamID;
+                    suggestion.TeamID = responsibleEmployee.TeamID;
+                    suggestion.TeamName = team.TeamName;
 
                     await _suggestionRepository.Update(suggestion);
                     await _suggestionRepository.SaveChanges();
+                    if (suggestion.Progress == "Act")
+                    {
+                        employee.CompletedSuggestions++;
+                        team.TeamSgstnCount++;
+                        employeeRepository.Update(employee);
+                        await _teamRepository.UpdateTeam(team);
+                    }
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -434,18 +541,42 @@ namespace NordicDoorSuggestionSystem.Controllers
             command.CommandText = query;
             return command.ExecuteReader();
         }
-         public async Task<IActionResult> AllSuggestions(string title)
+
+        [HttpGet]
+        public async Task<IActionResult> AllSuggestions(string title)
         {
             var suggestions = new List<Suggestion>();
 
-            if (!String.IsNullOrEmpty(title))
+            if (title != null)
             {
                 suggestions = await _suggestionRepository.QueryTitle(title);
             } else {
                 suggestions = await _suggestionRepository.GetSuggestions();
             }
-    
-              return View(suggestions);
+
+            
+            var mySuggestions = new List<MySuggestionsViewModel>();
+            for (var i = 0; i < suggestions.Count(); i++)
+            {
+                
+                var responsibleEmployee = employeeRepository.GetEmployeeByNumber(suggestions[i].ResponsibleEmployee.Value);
+                var suggestionMaker = employeeRepository.GetEmployeeByNumber(suggestions[i].EmployeeNumber);
+                var suggestion = new MySuggestionsViewModel
+                {
+                    SuggestionID = suggestions[i].SuggestionID,
+                    Title = suggestions[i].Title,
+                    ResponsibleEmployee = responsibleEmployee.LastName + ", " + responsibleEmployee.FirstName,
+                    Problem = suggestions[i].Problem,
+                    Solution = suggestions[i].Solution,
+                    Goal = suggestions[i].Goal,
+                    Deadline = suggestions[i].Deadline,
+                    Progress = suggestions[i].Progress,
+                    Maker = suggestionMaker.LastName + ", " + suggestionMaker.FirstName,
+                    TeamName = suggestions[i].TeamName
+                };
+                mySuggestions.Add(suggestion);
+            }
+            return View(mySuggestions);
         }
     }
 

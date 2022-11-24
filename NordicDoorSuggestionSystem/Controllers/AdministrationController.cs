@@ -195,6 +195,10 @@ namespace bacit_dotnet.MVC.Controllers
                     if (leaders[i].EmployeeNumber == teams[j].TeamLeader)
                     {
                         leaders.Remove(leaders[i]);
+                        if (i > 0)
+                        {
+                            i--;
+                        }
                     }
                 }
             }

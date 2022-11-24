@@ -1,4 +1,4 @@
-@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
+@model IEnumerable<NordicDoorSuggestionSystem.Models.MySuggestionsViewModel>
 @{
     Layout ="~/Views/Shared/_suggestionAll.cshtml";
  }
@@ -30,16 +30,19 @@
                     Tittel
                 </th>
                 <th>
-                    Progress
+                    Oppretter
+                </th>
+                <th>
+                    Status
                 </th>
                 <th>
                     Ansvarlig
                 </th>
                 <th>
-                    Deadline
+                    Tidsfrist
                 </th>
                 <th>
-                    TeamID
+                    Team
                 </th>
             </tr>
         </thead>
@@ -48,6 +51,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Maker)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Progress)
@@ -59,7 +65,7 @@
                     @Html.DisplayFor(modelItem => item.Deadline)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TeamID)
+                    @Html.DisplayFor(modelItem => item.TeamName)
                 </td>
                 <td class = "EDDrow">
                     <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
@@ -72,7 +78,7 @@
     </table>
   </div>  
   <div class="right">
-    <form asp-controller="Suggestion" asp-action="Index">
+    <form asp-controller="Suggestion" asp-action="AllSuggestions" method="get">
         <div class ="SearchField">
             <p>
                 Søk etter Tittel: <input type="text" name="title" />

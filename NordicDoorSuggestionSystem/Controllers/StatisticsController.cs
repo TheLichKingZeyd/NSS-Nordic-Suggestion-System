@@ -54,22 +54,18 @@ namespace NordicDoorSuggestionSystem.Controllers
         public List<object> GetDepartmentData()
         {
             List<object> dataset = new List<object>();
+            List<String?> labels = new List<string?>();
+            labels.Add("Lagde forslag");
+            labels.Add("Fullførte forslag");
+            dataset.Add(labels);
 
-            List<string?> labelsFor = _context.Departments.Select(p=>p.DepartmentName).ToList();
-
-            dataset.Add(labelsFor);
-
-            var DepartmentCount = _context.Team.Where(p=>p.DepartmentID == 1).Sum(p=>p.TeamSgstnCount);
-            var DepartmentCount1 = _context.Team.Where(p=>p.DepartmentID == 2).Sum(p=>p.TeamSgstnCount);
-            var DepartmentCount2 = _context.Team.Where(p=>p.DepartmentID == 3).Sum(p=>p.TeamSgstnCount);
-            var DepartmentCount3 = _context.Team.Where(p=>p.DepartmentID == 4).Sum(p=>p.TeamSgstnCount);
             List<int?> Counts = new List<int?>();
-            Counts.Add(DepartmentCount);
-            Counts.Add(DepartmentCount1);
-            Counts.Add(DepartmentCount2);
-            Counts.Add(DepartmentCount3);
+            var CreatedCount = _context.Employees.Sum(p => p.CreatedSuggestions);
+            var CompletedCount = _context.Employees.Sum(p => p.CompletedSuggestions);
+            Counts.Add(CreatedCount);
+            Counts.Add(CompletedCount);
             dataset.Add(Counts);
-            
+
             return dataset;
         }
     }

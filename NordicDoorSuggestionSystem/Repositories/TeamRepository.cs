@@ -24,15 +24,7 @@ namespace NordicDoorSuggestionSystem.Repositories
             } 
             else
             {
-                var team = _context.Team.FindAsync(teamID);
-                if (team == null)
-                {
-                    return null;
-                } 
-                else
-                {
-                    return _context.Team.FirstOrDefault(x => x.TeamID == teamID);
-                }
+                return _context.Team.FirstOrDefault(x => x.TeamID == teamID);
             }
         }
 
