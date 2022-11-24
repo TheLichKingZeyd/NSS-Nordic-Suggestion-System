@@ -15,13 +15,7 @@
 
 <br>
 <div class = "grid-container">
-    <div class="left">
-        <div class ="CreateButton">
-        <button class ="button" >
-                <a class ="Create" asp-action="Create">Nytt forslag</a>
-        </button>
-    </div>
-    </div>
+    
   <div class="middle">
     <table class="table">
         <thead>
@@ -81,19 +75,30 @@
         </div>
     </form>
   </div>
-    <div class="footer">
-            <ul>
-                <li>
-                    <button onclick="location.href='@Url.Action("MySuggestions","Suggestion")'">MINE FORSLAG</button>
-                </li>
-                <li>
-                  <button onclick="location.href='@Url.Action("MittTeam","Administration")'">MITT TEAM</button>
-                </li>
-                <li>
-                    <button onclick="location.href='@Url.Action("ShowStatisticsData","Statistics")'">STATISTIKK</button>
-                </li>
-            </ul>
-    </div>
+  <center>
+      <div class="footer">
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("Create","Suggestion")'" id="add" class="fa fa-edit" style="font-size: 40px; border: none; font-weight:bold;"></button>
+              </li>
+          </ul>
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("MySuggestions","Suggestion")'" class="fa fa-archive"></button>
+              </li>
+          </ul>
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("MittTeam","Administration")'" class="fa">&#xf0c0;</button>
+              </li>
+          </ul>
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("ShowStatisticsData","Statistics")'" class=" fa fa-bar-chart"></button>
+              </li>
+          </ul>
+      </div>
+  </center>
 </div>
 </body>
 </html>
