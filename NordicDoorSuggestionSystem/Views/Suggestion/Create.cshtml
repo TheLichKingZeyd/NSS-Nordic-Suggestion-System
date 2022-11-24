@@ -1,4 +1,4 @@
-﻿@model NordicDoorSuggestionSystem.Models.SuggestionViewModel
+﻿@model NordicDoorSuggestionSystem.Models.CreateSuggestionViewModel
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_SubmitLayout.cshtml";
@@ -16,9 +16,14 @@
         <div class="mainContent">
             <input class="SgstnTitle" id="title" type="text" maxlength="22" placeholder="Tittel.."> <br>
 
-            <input type="number" id="responible" placeholder="Ansvarlig.." maxlength="3"> <br>
+            <label asp-for="ResponsibleEmployee" class="col-md-2">Ansvarlig</label>
+            <div class="col-md-10">
+                <select asp-for="ResponsibleEmployee" asp-items="@Model.ResponsibleList" class="form-control" id="responible">
+                    <option disabled selected>- Ansvarlig -</option>
+                </select>
+            </div>
 
-            <input type="number" id="teamId" placeholder="Team- ID.." maxlength="3"> <br>
+            @*<input type="number" id="responible" placeholder="Ansvarlig.." maxlength="3"> <br>*@
             
             <select name="Progress" id="progress" placeholder="Fremgang">
                 <option value="Plan">Plan</option>
@@ -26,7 +31,6 @@
                 <option value="Study">Study</option>
                 <option value="Act">Act</option>
             </select> <br>
-
         </div>
         <div class="right">
             <button id="next1" type="button" class="next1 allbtn"><i class="fa fa-angle-right" style="font-size:50px"></i></button>
@@ -121,7 +125,7 @@
         <form asp-action="Create">
             <div id="submit5">
                 <div class="submitHeader">
-                        <input asp-for="Title" readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
+                    <input asp-for="Title" readonly id="finalTitle" type="text" class="submitSumTitle" maxlength="22">
                     
                 </div>
                 <div class="mainContent">
@@ -131,9 +135,14 @@
 
                     <textarea asp-for="Goal" readonly id="finalGoal" class="submitTarget" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
 
-                    <input asp-for="ResponsibleEmployee" id="finalResponsible" readonl type="number" placeholder="Ansvarlig.."> <br>
+                    @*<label asp-for="ResponsibleEmployee" class="col-md-2">Ansvarlig</label>
+                    <div class="col-md-10">
+                        <select asp-for="ResponsibleEmployee" asp-items="@Model.ResponsibleList" class="form-control" readonly id="finalProgress">
+                            <option disabled selected>- Ansvarlig -</option>
+                        </select>
+                    </div>*@
 
-                    <input asp-for="TeamID" readonl id="finalTeamId" type="number" placeholder="Team- ID.."> <br>
+                    <input asp-for="ResponsibleEmployee" readonly id="finalResponsible" type="number" placeholder="Ansvarlig.."> <br>
 
                     <input asp-for="Progress" readonly id="finalProgress" type="text" placeholder="Fremgang"> <br>
 

@@ -28,7 +28,8 @@ namespace NordicDoorSuggestionSystem.Repositories
                 if (team == null)
                 {
                     return null;
-                } else
+                } 
+                else
                 {
                     return _context.Team.FirstOrDefault(x => x.TeamID == teamID);
                 }

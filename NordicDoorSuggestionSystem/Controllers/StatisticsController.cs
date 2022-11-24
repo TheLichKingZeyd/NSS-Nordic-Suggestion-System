@@ -25,7 +25,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         public IActionResult ShowStatisticsData()
         {
             StatisticsViewModel vm = new StatisticsViewModel();
-            var employeeCounts = _context.Employees.OrderByDescending(x => x.SuggestionCount).ToList();
+            var employeeCounts = _context.Employees.OrderByDescending(x => x.CompletedSuggestions).ToList();
             vm.EmployeeList = employeeCounts;
             
             var teamCounts = _context.Team.OrderByDescending(x => x.TeamSgstnCount).ToList();

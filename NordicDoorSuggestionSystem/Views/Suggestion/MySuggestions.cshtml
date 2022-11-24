@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
+﻿@model IEnumerable<NordicDoorSuggestionSystem.Models.MySuggestionsViewModel>
 @{
     Layout ="~/Views/Shared/_suggestion.cshtml";
  }
@@ -27,19 +27,19 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    <i>Tittel</i>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Progress)
+                    <i>Status</i>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ResponsibleEmployee)
+                    <i>Ansvarlig</i>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Deadline)
+                    <i>Frist</i>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TeamID)
+                    <i>Team</i>
                 </th>
             </tr>
         </thead>
@@ -59,7 +59,7 @@
                     @Html.DisplayFor(modelItem => item.Deadline)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TeamID)
+                    @Html.DisplayFor(modelItem => item.TeamName)
                 </td>
                 <td class = "EDDrow">
                     <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |

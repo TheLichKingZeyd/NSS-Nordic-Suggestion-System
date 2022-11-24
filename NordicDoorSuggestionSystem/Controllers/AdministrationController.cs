@@ -124,7 +124,8 @@ namespace bacit_dotnet.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);            
+            var user = await _userManager.FindByIdAsync(id);
+            var employee = employeeRepository.GetEmployeeByNumber(Int32.Parse(id));
             if (user == null)
             {
                 return View("Denne brukeren eksisterer ikke");
@@ -134,7 +135,7 @@ namespace bacit_dotnet.MVC.Controllers
                 var result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
-                    employeeRepository.Delete(user.EmployeeNumber);
+                    employeeRepository.Delete(employee);
                     return RedirectToAction("Users");
                 }
                 else
@@ -182,11 +183,22 @@ namespace bacit_dotnet.MVC.Controllers
             }
             var leaders = _context.Employees.Where(x => x.Role.Equals("Team Leder")).ToList();
             var moreLeaders = _context.Employees.Where(x => x.Role.Equals("Administrator")).ToList();
+            var teams = _context.Team.ToList();
             for (var i = 0; i < moreLeaders.Count(); i++)
             {
                 leaders.Add(moreLeaders[i]);
             }
-                List<SelectListItem> leadersItems = new List<SelectListItem>();
+            for (var i = 0; i < leaders.Count(); i++)
+            {
+                for (var j = 0; j < teams.Count(); j++)
+                {
+                    if (leaders[i].EmployeeNumber == teams[j].TeamLeader)
+                    {
+                        leaders.Remove(leaders[i]);
+                    }
+                }
+            }
+            List<SelectListItem> leadersItems = new List<SelectListItem>();
             for (var i = 0; i < leaders.Count(); i++)
             {
 
@@ -244,6 +256,9 @@ namespace bacit_dotnet.MVC.Controllers
             {
                 var department = _departmentRepository.GetDepartmentByID(team.DepartmentID.Value);
                 department.TeamCount--;
+                if (department.TeamCount < 0){
+                    department.TeamCount = 0;
+                }
                 var leader = employeeRepository.GetEmployeeByNumber(team.TeamLeader.Value);
                 leader.TeamID = null;                
                 employeeRepository.Update(leader);
@@ -268,9 +283,20 @@ namespace bacit_dotnet.MVC.Controllers
             }
             var leaders = _context.Employees.Where(x => x.Role.Equals("Team Leder")).ToList();
             var moreLeaders = _context.Employees.Where(x => x.Role.Equals("Administrator")).ToList();
+            var teams = _context.Team.ToList();
             for (var i = 0; i < moreLeaders.Count(); i++)
             {
                 leaders.Add(moreLeaders[i]);
+            }
+            for (var i = 0; i < leaders.Count(); i++)
+            {
+                for (var j = 0; j < teams.Count(); j++)
+                {
+                    if (leaders[i].EmployeeNumber == teams[j].TeamLeader)
+                    {
+                        leaders.Remove(leaders[i]);
+                    }
+                }
             }
             List<SelectListItem> leadersItems = new List<SelectListItem>();
             for (var i = 0; i < leaders.Count(); i++)

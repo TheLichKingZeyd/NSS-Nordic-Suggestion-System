@@ -78,35 +78,58 @@
   <h2>Organiser Teams</h2>
 
 <form asp-action="EditTeamMembers" method="post">
-
-
-  <div class="nullbox">
-    <h4 style="text-align: center;">Uten Team</h4>
-    <ul id="sortable2" class="connectedSortable">
-      @for (int k = 0; k < Model.EmployeeList.Count(); k++)
-      {
-        if (Model.EmployeeList[k].TeamID == null)
+    <div class="nullbox">
+        <h4 style="text-align: center;">Uten Team</h4>
+        <ul id="sortable2" class="connectedSortable">
+        @for (int k = 0; k < Model.EmployeeList.Count(); k++)
         {
-          <li class="ui-state-default">
-              @Model.EmployeeList[k].FirstName @Model.EmployeeList[k].LastName
-              <input type="hidden" asp-for="@Model.EmployeeList[k].EmployeeNumber" />
-              <input type="hidden" asp-for="@Model.EmployeeList[k].FirstName" />
-              <input type="hidden" asp-for="@Model.EmployeeList[k].LastName" />
-              <input asp-for="@Model.EmployeeList[k].TeamID" class="form-control" id="teamX"/>
-          </li>
+            @if (Model.EmployeeList[k].TeamID == null && Model.EmployeeList[k].Role != "Team Leder")
+            {
+                <li class="ui-state-default">
+                    @Model.EmployeeList[k].FirstName @Model.EmployeeList[k].LastName
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].EmployeeNumber" />
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].FirstName" />
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].LastName" />
+                    <input asp-for="@Model.EmployeeList[k].TeamID" class="form-control" id="teamX"/>
+                </li>
+            }
+            else if (Model.EmployeeList[k].TeamID == null && Model.EmployeeList[k].Role == "Team Leder")
+            {
+                <li class="ui-state-default">
+                    <i>Team Leder</i>
+                    <br>
+                    @Model.EmployeeList[k].FirstName @Model.EmployeeList[k].LastName
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].EmployeeNumber" />
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].FirstName" />
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].LastName" />
+                    <input type="hidden" asp-for="@Model.EmployeeList[k].TeamID" class="form-control" id="teamX"/>
+                </li>
+            }
         }
-      }
-    </ul>
-  </div>
+        </ul>
+    </div>
     @for (var i = 0; i < Model.TeamList.Count(); i++)
     {
         <div class="box" id="@Model.TeamList[i].TeamID">
-            <h4 style="text-align: center;">@Model.TeamList[i].TeamName</h4>
+                <h4 style="text-align: center;">Team Navn: @Model.TeamList[i].TeamName</h4>
+                <h3 style="text-align: center;">ID: @Model.TeamList[i].TeamID</h3>
             <ul id="sortable1" class="connectedSortable">
             @*<input type="hidden" asp-for="@Model.TeamList[i].TeamID" />*@
             @for (var j = 0; j < Model.EmployeeList.Count(); j++)
             {
-                if (Model.TeamList[i].TeamID == Model.EmployeeList[j].TeamID)
+                if (Model.TeamList[i].TeamLeader == Model.EmployeeList[j].EmployeeNumber)
+                {
+                     <li class="ui-state-default">
+                        <i>Team Leder</i>
+                        <br>
+                        @Model.EmployeeList[j].FirstName @Model.EmployeeList[j].LastName
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].EmployeeNumber" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].FirstName" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].LastName" />
+                        <input type="hidden" asp-for="@Model.EmployeeList[j].TeamID" class="form-control" id="teamX"/>
+                    </li>       
+                }
+                else if (Model.TeamList[i].TeamID == Model.EmployeeList[j].TeamID && Model.EmployeeList[j].Role != "Team Leder")
                 {
                     <li class="ui-state-default">
                         @Model.EmployeeList[j].FirstName @Model.EmployeeList[j].LastName

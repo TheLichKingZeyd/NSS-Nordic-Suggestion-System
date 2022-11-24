@@ -33,7 +33,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: /<controller>/
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);            
             ProfileViewModel vm = new ProfileViewModel();
             if (currentUser == null)
             {
@@ -47,8 +47,10 @@ namespace NordicDoorSuggestionSystem.Controllers
             vm.TeamID = mittTeam;
             var teamname = _context.Team.Where(e => e.TeamID.Equals(vm.TeamID)).Select(e => e.TeamName).FirstOrDefault();
             vm.TeamName = teamname;
-            var mincount = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.SuggestionCount).FirstOrDefault();
-            vm.SuggestionCount = mincount;
+            var created = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.CreatedSuggestions).FirstOrDefault();
+            vm.CreatedSuggestions = created;
+            var completed = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.CompletedSuggestions).FirstOrDefault();
+            vm.CompletedSuggestions = completed;
             return View(vm);
         }
 

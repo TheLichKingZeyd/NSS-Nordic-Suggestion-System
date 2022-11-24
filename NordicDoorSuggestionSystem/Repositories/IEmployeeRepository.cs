@@ -8,6 +8,6 @@ namespace NordicDoorSuggestionSystem.Repositories
         void Add(Employee employee);
         Employee GetEmployeeByNumber(int employeenumber);
         List<Employee> GetEmployees();
-        void Delete(int employeenumber);
+        Task Delete(Employee employee);
     }
 }

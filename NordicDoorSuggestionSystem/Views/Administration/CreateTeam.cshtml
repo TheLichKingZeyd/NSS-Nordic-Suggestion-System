@@ -6,8 +6,8 @@
 <br>
 <div class="row">
     <h4>Lag et nytt Team!</h4>
-    <div class="col-md-4">
-        <form asp-action="CreateTeam" method="post">
+    <div class="col-md-4" >
+        <form asp-action="CreateTeam" method="post" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TeamName" class="control-label">Team Navn</label>
@@ -26,7 +26,7 @@
                 <label asp-for="DepartmentSelected" class="col-md-2">Avdeling</label>
                 <div class="col-md-10">
                     <select asp-for="DepartmentSelected" asp-items="@Model.DepartmentList" class="form-control">
-                        <option disabled selected>- Team Leder -</option>
+                        <option disabled selected>- Avdeling -</option>
                     </select>
                 </div>
             </div>
