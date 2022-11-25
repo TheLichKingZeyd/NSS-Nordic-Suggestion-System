@@ -24,21 +24,23 @@ h2{
   justify-content: center;
   align-items: center;
 }
-.fa-home{
-  font-size: 70px !important; 
-  text-decoration: none;
-  color: black;
+.fa-home {
+    font-size: 70px !important;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
 }
 .fa-home:hover{
-  color: gray;
+  color: lightgray;
 }
-.fa-arrow-circle-left{
-  font-size: 70px !important; 
-  text-decoration: none;
-  color: black;
+.fa-arrow-circle-left {
+    font-size: 70px !important;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
 }
 .fa-arrow-circle-left:hover{
-  color: gray;
+  color: lightgray;
 }
 .grid-items-center{
   text-align: center;

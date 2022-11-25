@@ -17,9 +17,18 @@
 <br>
 <div class = "grid-container">
     <div class="left">
-       
+        <div class="right">
+            <form asp-controller="Suggestion" asp-action="Index" method="get">
+                <div class="SearchField">
+                    <p>
+                        Søk etter Tittel: <input type="text" name="title" />
+                        <input type="submit" value="Søk" />
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
-    </div>
+    
   <div class="middle">
     <table class="table">
         <thead>
@@ -74,16 +83,7 @@
     </table>
     <br>
   </div>  
-  <div class="right">
-    <form asp-controller="Suggestion" asp-action="Index" method="get">
-        <div class ="SearchField">
-            <p>
-                Søk etter Tittel: <input type="text" name="title" />
-                <input type="submit" value="Søk" />
-            </p>
-        </div>
-    </form>
-  </div>
+  
   <center>
       <div class="footer">
           <ul>
