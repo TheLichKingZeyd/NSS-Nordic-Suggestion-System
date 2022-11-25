@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using NordicDoorSuggestionSystem.Models.Account;
 using Microsoft.AspNetCore.Http;
 using NordicDoorSuggestionSystem.Extensions;
+using System.Drawing;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,6 +45,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 return NotFound();
             }
             var employee = _employeeRepository.GetEmployeeByNumber(currentUser.EmployeeNumber);
+            var employeePicture = ByteArrayToImage(employee.ProfilePicture);
             vm.EmployeeNumber = currentUser.EmployeeNumber;
             vm.FirstName = currentUser.FirstName;
             vm.LastName = currentUser.LastName;
@@ -54,6 +56,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             vm.SuggestionCount = employee.SuggestionCount;
             vm.ProfilePicture = employee.ProfilePicture; 
             return View(vm);
+        }
+
+        public Image ByteArrayToImage(byte[] profilePictureToRead)
+        {
+            MemoryStream ms = new MemoryStream(profilePictureToRead);
+            Image profilePictureOut = Image.FromStream(ms);
+            return profilePictureOut;
         }
 
         // GET: /<controller>/

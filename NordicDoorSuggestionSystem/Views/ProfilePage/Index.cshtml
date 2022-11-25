@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Profil § NSS";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
-
 }
 
 
@@ -11,11 +10,15 @@
     <div id="cardContainer" class="cardContainer">
         <div class="card">
             <div class="cardPicture">
-                <i class="activeprofilepicture">@Html.DisplayFor(model => model.ProfilePicture)</i>
-                <i class="fa fa-user" style="font-size:75px; color: grey;"></i>
+                @if (Model.ProfilePicture != null)
+                {
+                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfilePicture))" />
+                }
+                else  {<i class="fa fa-user" style="font-size:75px; color: grey;"></i>}
           
             </div>
             <div class="cardHeader">
+                
                 <label>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</label>
             </div>
             <div class="cardProfileInfo">
