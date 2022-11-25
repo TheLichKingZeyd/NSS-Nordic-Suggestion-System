@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NordicDoorSuggestionSystem.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -317,11 +317,6 @@ namespace NordicDoorSuggestionSystem.Migrations
                         principalTable: "Employee",
                         principalColumn: "EmployeeNumber",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Suggestion_Team_TeamID",
-                        column: x => x.TeamID,
-                        principalTable: "Team",
-                        principalColumn: "TeamID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -453,11 +448,6 @@ namespace NordicDoorSuggestionSystem.Migrations
                 name: "IX_Suggestion_EmployeeNumber",
                 table: "Suggestion",
                 column: "EmployeeNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Suggestion_TeamID",
-                table: "Suggestion",
-                column: "TeamID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Team_DepartmentID",

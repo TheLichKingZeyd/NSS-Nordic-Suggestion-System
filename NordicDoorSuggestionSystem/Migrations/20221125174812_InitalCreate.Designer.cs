@@ -11,8 +11,8 @@ using NordicDoorSuggestionSystem.DataAccess;
 namespace NordicDoorSuggestionSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221124170501_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221125174812_InitalCreate")]
+    partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -317,8 +317,6 @@ namespace NordicDoorSuggestionSystem.Migrations
 
                     b.HasIndex("EmployeeNumber");
 
-                    b.HasIndex("TeamID");
-
                     b.ToTable("Suggestion");
                 });
 
@@ -546,13 +544,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamID");
-
                     b.Navigation("Employee");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Team", b =>

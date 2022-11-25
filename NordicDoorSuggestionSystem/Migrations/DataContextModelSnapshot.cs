@@ -315,8 +315,6 @@ namespace NordicDoorSuggestionSystem.Migrations
 
                     b.HasIndex("EmployeeNumber");
 
-                    b.HasIndex("TeamID");
-
                     b.ToTable("Suggestion");
                 });
 
@@ -544,13 +542,7 @@ namespace NordicDoorSuggestionSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NordicDoorSuggestionSystem.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamID");
-
                     b.Navigation("Employee");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("NordicDoorSuggestionSystem.Entities.Team", b =>
