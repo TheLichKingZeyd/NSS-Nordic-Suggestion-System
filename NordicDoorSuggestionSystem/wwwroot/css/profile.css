@@ -75,9 +75,14 @@
     }
 
 
-.fa {
+.fa-sign-out {
     font-size: 40px;
     color: black;
+    rotate: 180deg;
+}
+
+.fa-sign-out:hover{
+    color: lightgrey;
 }
 
 button i {
