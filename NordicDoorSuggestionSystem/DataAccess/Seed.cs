@@ -127,6 +127,61 @@ namespace NordicDoorSuggestionSystem.DataAccess
                             CreatedSuggestions = 0,
                             Role = "Standard Bruker",
                             TeamID = 4,
+                        },
+                        new Employee()
+                        {
+                            EmployeeNumber = 121212,
+                            FirstName = "Tor",
+                            LastName = "Pedersen",
+                            ProfilePicture = null,
+                            CompletedSuggestions = 0,
+                            CreatedSuggestions = 0,
+                            Role = "Team Leder",
+                            TeamID = null,
+                        },
+                        new Employee()
+                        {
+                            EmployeeNumber = 232323,
+                            FirstName = "Jan",
+                            LastName = "Roger",
+                            ProfilePicture = null,
+                            CompletedSuggestions = 0,
+                            CreatedSuggestions = 0,
+                            Role = "Team Leder",
+                            TeamID = null,
+                        },
+                        new Employee()
+                        {
+                            EmployeeNumber = 343434,
+                            FirstName = "Marie",
+                            LastName = "Johannsen",
+                            ProfilePicture = null,
+                            CompletedSuggestions = 0,
+                            CreatedSuggestions = 0,
+                            Role = "Team Leder",
+                            TeamID = null,
+                        },
+                        new Employee()
+                        {
+                            EmployeeNumber = 434343,
+                            FirstName = "Torhild",
+                            LastName = "Wenche",
+                            ProfilePicture = null,
+                            CompletedSuggestions = 0,
+                            CreatedSuggestions = 0,
+                            Role = "Standard Bruker",
+                            TeamID = null,
+                        },
+                        new Employee()
+                        {
+                            EmployeeNumber = 565656,
+                            FirstName = "Ståle",
+                            LastName = "Sven",
+                            ProfilePicture = null,
+                            CompletedSuggestions = 0,
+                            CreatedSuggestions = 0,
+                            Role = "Standard Bruker",
+                            TeamID = 4,
                         }
                     });
                 }
@@ -138,22 +193,26 @@ namespace NordicDoorSuggestionSystem.DataAccess
                         new Department()
                         {
                             DepartmentID = 1,
-                            DepartmentName = "Administrajon"
+                            DepartmentName = "Administrajon",
+                            TeamCount = 0
                         },
                         new Department()
                         {
                             DepartmentID = 2,
-                            DepartmentName = "Oljing"
+                            DepartmentName = "Oljing",
+                            TeamCount = 0
                         },
                         new Department()
                         {
                             DepartmentID = 3,
-                            DepartmentName = "Regnskap"
+                            DepartmentName = "Regnskap",
+                            TeamCount = 0
                         },
                         new Department()
                         {
                             DepartmentID = 4,
-                            DepartmentName = "Sag"
+                            DepartmentName = "Sag",
+                            TeamCount = 0
                         }
                     });
                 }

@@ -284,14 +284,11 @@ namespace bacit_dotnet.MVC.Controllers
             {
                 leaders.Add(moreLeaders[i]);
             }
-            for (var i = 0; i < leaders.Count(); i++)
+            for (var i = leaders.Count()-1; i >= 0; i--)
             {
-                for (var j = 0; j < teams.Count(); j++)
+                if (leaders[i].TeamID != null)
                 {
-                    if (leaders[i].EmployeeNumber == teams[j].TeamLeader)
-                    {
-                        leaders.Remove(leaders[i]);
-                    }
+                    leaders.Remove(leaders[i]);                    
                 }
             }
             List<SelectListItem> leadersItems = new List<SelectListItem>();
