@@ -250,6 +250,15 @@ namespace bacit_dotnet.MVC.Controllers
             }
             else
             {
+                var employees = employeeRepository.GetEmployees();
+                for (int i = 0; i < employees.Count; i++)
+                {
+                    if (employees[i].TeamID == team.TeamID)
+                    {
+                        employees[i].TeamID = null;
+                        employeeRepository.Update(employees[i]);
+                    }
+                }
                 var department = _departmentRepository.GetDepartmentByID(team.DepartmentID.Value);
                 department.TeamCount--;
                 if (department.TeamCount < 0){
