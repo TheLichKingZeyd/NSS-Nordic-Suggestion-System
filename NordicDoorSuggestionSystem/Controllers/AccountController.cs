@@ -170,7 +170,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                     _logger.LogInformation(3, "User created a new account with password.");
 
 
-                    return RedirectToAction("Register");
+                    return RedirectToAction("Users", "Administration");
                 }
                 AddErrors(result);
             }

@@ -10,6 +10,7 @@ using NordicDoorSuggestionSystem.Models.Administrate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NordicDoorSuggestionSystem.Models.Account;
+using System.Linq.Expressions;
 
 namespace bacit_dotnet.MVC.Controllers
 {
@@ -499,6 +500,11 @@ namespace bacit_dotnet.MVC.Controllers
             }
             else
             {
+                var teams = _context.Team.Where(e => e.Team.DepartmentID).Equals(e => e.department.DepartmentID).ToList();
+                for (var i = teams.Count()-1; i >= 0; i--)
+                {
+
+                }
                 await _departmentRepository.Delete(department);
                 await _departmentRepository.SaveChanges();
                 return RedirectToAction("Departments");
