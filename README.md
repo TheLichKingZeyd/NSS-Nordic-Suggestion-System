@@ -43,8 +43,13 @@ The first page you will encounter when starting the web- application is the logi
 
 User for initial user with administrative properties;
 
-    - Username: Admin
+    - Username: 123456
     - Password: Root123
     
 When you have logged in you will encounter the navigational page for the site. From this site you have the possibility to navigate to all pages, including the admin navigational menu.
+
+
+Code explanation for further development
+--
+The system is created with MVC. Every view- folder is related to its own controller and model, and is named accordingly. All of the functions code is also commented to explain how the code functions.
 
