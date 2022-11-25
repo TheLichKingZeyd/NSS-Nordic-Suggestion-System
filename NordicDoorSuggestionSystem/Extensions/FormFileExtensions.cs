@@ -11,5 +11,4 @@ namespace NordicDoorSuggestionSystem.Extensions
             return memoryStream.ToArray();
         }
     }
-
 }

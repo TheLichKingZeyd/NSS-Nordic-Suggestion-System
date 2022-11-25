@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using NordicDoorSuggestionSystem.Entities;
 using NordicDoorSuggestionSystem.Repositories;
 using System.Data;
 using NordicDoorSuggestionSystem.DataAccess;
-using NordicDoorSuggestionSystem.Models;
 using NordicDoorSuggestionSystem.Models.Employees;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using NordicDoorSuggestionSystem.Models.Account;
-using Microsoft.AspNetCore.Http;
 using NordicDoorSuggestionSystem.Extensions;
 using System.Drawing;
 
@@ -77,34 +67,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadProfilePicture(ProfileViewModel profilevm)
         {
-            //byte[] ImageToByteArray(System.Drawing.Image imageIn)
-            //{
-            //    using (var ms = new MemoryStream())
-            //    {
-            //        imageIn.Save(ms, imageIn.RawFormat);
-            //        return ms.ToArray();
-            //    }
-            //}
-
-            //var Imgtemp = new byte[16777215];
-            //Imgtemp[16777215] = ImageToByteArray(profilevm.ProfilePicture);
-
-            //foreach (var file in ICollection<IFormFIle> ProfilePicture)
-            //{
-            //    if (file.Length > 0)
-            //    {
-            //        using (var ms = new MemoryStream())
-            //        {
-            //            file.CopyTo(ms);
-            //            var fileBytes = ms.ToArray();
-            //            //string s = Convert.ToBase64String(fileBytes);
-            //            // act on the Base64 data
-            //        }
-            //    }
-            //}
-
             var formFile = FormFileExtensions.GetBytes(profilevm.NewProfilePicture);
-
 
             var employee = new Employee
             {
