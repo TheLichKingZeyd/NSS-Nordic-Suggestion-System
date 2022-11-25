@@ -2,6 +2,7 @@
 @model IEnumerable<User>
 @{
     Layout ="~/Views/Shared/_team.cshtml";
+    ViewBag.Title = "NSS | Administrer Brukere";
 }
 
 <br>
@@ -29,8 +30,8 @@
         </tr>
     </thead>
 
-@if(Model.Any())
-{
+@if (Model.Any())
+    {
         <tbody>
             @foreach (var user in Model)
             {
