@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,29 +13,29 @@
 </head>
 <body>
 
-<div class="grid-header">
-    <div class="grid-items">
-        <a asp-controller="Home" asp-action="Index" class="fa fa-arrow-circle-left" aria-hidden="true"></a>
-    </div>
-    <div class="grid-items-center">
-        <div>
-            <h1>Nordic Door</h1>
+    <div class="grid-header">
+        <div class="grid-items">
+            <a asp-controller="Home" asp-action="Index" class="fa fa-arrow-circle-left" aria-hidden="true"></a>
         </div>
-        <div>
-            <h2>Forslag Jeg Er Ansvarlig For</h2>
+        <div class="grid-items-center">
+            <div>
+                <h1>Nordic Door</h1>
+            </div>
+            <div>
+                <h2>Forslag Lagd Av Meg</h2>
+            </div>
+        </div>
+        <div class="grid-items">
+            <a asp-controller="Home" asp-action="Index" class="fa fa-home" aria-hidden="true"></a>
         </div>
     </div>
-    <div class="grid-items">
-        <a asp-controller="Home" asp-action="Index" class="fa fa-home" aria-hidden="true"></a>
-    </div>
-</div>
 
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

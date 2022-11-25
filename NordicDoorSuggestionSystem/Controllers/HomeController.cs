@@ -21,5 +21,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             return View("Index");
         }
+
+
     }
 }

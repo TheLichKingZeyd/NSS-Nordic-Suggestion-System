@@ -2,6 +2,7 @@
 
 @{
     Layout ="~/Views/Shared/_edit.cshtml";
+    ViewBag.Title = "NSS | Endre Forlsag";
 }
 
 
@@ -12,39 +13,41 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="SuggestionID" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Tittel</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Problem" class="control-label"></label>
+                <label asp-for="Problem" class="control-label">Problem</label>
                 <input asp-for="Problem" class="form-control" />
                 <span asp-validation-for="Problem" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Solution" class="control-label"></label>
+                <label asp-for="Solution" class="control-label">Løsning</label>
                 <input asp-for="Solution" class="form-control" />
                 <span asp-validation-for="Solution" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Goal" class="control-label"></label>
+                <label asp-for="Goal" class="control-label">Mål</label>
                 <input asp-for="Goal" class="form-control" />
                 <span asp-validation-for="Goal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ResponsibleEmployee" class="control-label"></label>
-                <input asp-for="ResponsibleEmployee" class="form-control" />
-                <span asp-validation-for="ResponsibleEmployee" class="text-danger"></span>
+                <label asp-for="ResponsibleEmployee" class="col-md-2">Ansvarlig</label>
+                <select asp-for="ResponsibleEmployee" asp-items="@Model.ResponsibleList" class="form-control" id="responible">
+                    <option disabled selected>- Ansvarlig -</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Deadline" class="control-label"></label>
+                <label asp-for="Progress" class="col-md-2">Status</label>
+                <select asp-for="Progress" asp-items="@Model.ProgressList" class="form-control" id="responible">
+                    <option disabled selected>- Status -</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deadline" class="control-label">Tidsfrist</label>
                 <input asp-for="Deadline" class="form-control" />
                 <span asp-validation-for="Deadline" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TeamID" class="control-label"></label>
-                <input asp-for="TeamID" class="form-control" />
-                <span asp-validation-for="TeamID" class="text-danger"></span>
             </div>
             <br>
             <div class="form-group">

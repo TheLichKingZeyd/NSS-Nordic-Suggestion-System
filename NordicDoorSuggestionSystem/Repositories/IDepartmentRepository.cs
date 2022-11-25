@@ -7,6 +7,7 @@ namespace NordicDoorSuggestionSystem.Repositories
         Department GetDepartmentByID(int departmentID);
         Task<Department> GetDepartment(int? departmentID);
         Task<List<Department>> GetDepartments();
+        public void Add(Department department);
         Task Delete(Department department);
         Task SaveChanges();
         Task Update(Department department);

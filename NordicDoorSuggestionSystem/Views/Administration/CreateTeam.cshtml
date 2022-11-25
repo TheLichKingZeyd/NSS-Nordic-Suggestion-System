@@ -1,28 +1,35 @@
-@model NordicDoorSuggestionSystem.Models.TeamViewModel
+@model NordicDoorSuggestionSystem.Models.Administrate.CreateTeamViewModel
 @{
     Layout ="~/Views/Shared/_createteam.cshtml";
+    ViewBag.Title = "NSS | Lag Team";
 }
 
 <br>
 <div class="row">
     <h4>Lag et nytt Team!</h4>
-    <div class="col-md-4">
-        <form asp-action="CreateTeam">
+    <div class="col-md-4" >
+        <form asp-action="CreateTeam" method="post" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TeamName" class="control-label"></label>
+                <label asp-for="TeamName" class="control-label">Team Navn</label>
                 <input asp-for="TeamName" class="form-control" />
                 <span asp-validation-for="TeamName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TeamLeader" class="control-label"></label>
-                <input asp-for="TeamLeader" class="form-control" />
-                <span asp-validation-for="TeamLeader" class="text-danger"></span>
+            <div class="form group">
+                <label asp-for="LeaderSelected" class="col-md-2">Team Leder</label>
+                <div class="col-md-10">
+                    <select asp-for="LeaderSelected" asp-items="@Model.LeaderList" class="form-control">
+                        <option disabled selected>- Team Leder -</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DepartmentID" class="control-label"></label>
-                <input asp-for="DepartmentID" class="form-control" />
-                <span asp-validation-for="DepartmentID" class="text-danger"></span>
+            <div class="form group">
+                <label asp-for="DepartmentSelected" class="col-md-2">Avdeling</label>
+                <div class="col-md-10">
+                    <select asp-for="DepartmentSelected" asp-items="@Model.DepartmentList" class="form-control">
+                        <option disabled selected>- Avdeling -</option>
+                    </select>
+                </div>
             </div>
             <br>
             <div class="form-group">

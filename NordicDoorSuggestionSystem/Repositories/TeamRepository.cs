@@ -16,17 +16,16 @@ namespace NordicDoorSuggestionSystem.Repositories
             this._userManager = userManager;
         }
 
-        public async Task<Team> GetTeam(int? TeamID)
+        public Team GetTeam(int? teamID)
         {
-            if (TeamID == null) 
+            if (teamID == null)
+            {
                 throw new NullReferenceException("TeamID can not be null");
-
-            var team = await _context.Team.FindAsync(TeamID);
-            
-            if (team == null) 
-                return null;
-
-            return team;
+            } 
+            else
+            {
+                return _context.Team.FirstOrDefault(x => x.TeamID == teamID);
+            }
         }
 
         public Task<List<Team>> GetTeams()
@@ -39,21 +38,25 @@ namespace NordicDoorSuggestionSystem.Repositories
             return _context.Team.Where(x => x.DepartmentID == departmentId).ToListAsync();
         }
 
+        public async Task AddTeam(Team team)
+        {            
+            _context.Team.Add(team);
+            await SaveChanges();
+        }
+
         public async Task DeleteTeam(Team team)
         {
             _context.Team.Remove(team);
+            await SaveChanges();
         }
         public async Task SaveChanges(){
             await _context.SaveChangesAsync();
         }
 
-        public async Task Update(Team team) 
+        public async Task UpdateTeam(Team team) 
         {
             _context.Team.Update(team);
+            await SaveChanges();
         }
-        /* public async Task<List<Team>> QueryTeam(int employeeNumber)
-        {
-            return await _context.Employees.Where(s => s.TeamID!.Equals()).ToListAsync();
-        }*/
     }
 }

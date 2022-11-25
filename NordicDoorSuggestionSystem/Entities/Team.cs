@@ -8,14 +8,16 @@ namespace NordicDoorSuggestionSystem.Entities
     {
         public int TeamID { get; set; }
         [MaxLength(50)]
+
         public string? TeamName { get; set; }
         [MaxLength(50)]
-        public string? TeamLeader { get; set; }
-        public int? TeamSgstnCount { get; set; }
-        
+
+        public int? TeamLeader { get; set; }
+
         public Department? Department { get; set; }
         [ForeignKey("Department")]
         public int? DepartmentID { get; set; }
 
+        public int? TeamSgstnCount { get; set; }
     }
 }

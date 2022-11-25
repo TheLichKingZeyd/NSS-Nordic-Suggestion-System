@@ -1,173 +1,252 @@
-h1{
-  font-size: 40px;
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  
-}
-h2{
-  font-size: 30px;
-  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  
-}
-.grid-header{
-display: grid;
-grid-template-columns: auto auto auto;
-background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
-background-repeat: no-repeat;
-background-position: center;
-background-attachment: fixed;
-background-size: 100% 100%;
-border-bottom: 3px solid black;
-}
-.grid-items{
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-.fa-home{
-font-size: 70px !important; 
-text-decoration: none;
-color: black;
-}
-.fa-home:hover{
-color: gray;
-}
-.fa-arrow-circle-left{
-font-size: 70px !important; 
-text-decoration: none;
-color: black;
-}
-.fa-arrow-circle-left:hover{
-color: gray;
-}
-.grid-items-center{
-text-align: center;
+
+h1 {
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
-.CreateButton{
-    font-family:'Roboto',sans-serif;
+h2 {
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
-a.Create:hover{
+.grid-header {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-image: url('https://images.unsplash.com/photo-1488998427799-e3362cec87c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHN0dWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    border-bottom: 3px solid black;
+}
+
+.grid-items {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-home {
+    font-size: 70px !important;
+    text-decoration: none;
+    color: black;
+}
+
+    .fa-home:hover {
+        color: gray;
+    }
+
+.fa-arrow-circle-left {
+    font-size: 70px !important;
+    text-decoration: none;
+    color: black;
+}
+
+    .fa-arrow-circle-left:hover {
+        color: gray;
+    }
+
+.grid-items-center {
+    text-align: center;
+}
+
+.CreateButton {
+    font-family: 'Roboto',sans-serif;
+}
+
+a.Create:hover {
     color: grey;
 }
 
-.Create{
-    display:inline-block;
+.Create {
+    display: inline-block;
     padding: 3px;
     margin: 3px;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
+    text-decoration: none;
+    font-family: 'Roboto',sans-serif;
     font-size: 20px;
     font-weight: bold;
     color: black;
-    text-align:center;
+    text-align: center;
 }
-.table{
+
+.table {
     width: auto;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     text-decoration: none;
 }
-.table, td, th{
+
+.table, td, th {
     border: thin solid black;
 }
-.EDDrow{
-  color: black;
-  text-decoration: none;
-  border: none;
-  border-bottom: thin solid black;
+
+.EDDrow {
+    color: black;
+    text-decoration: none;
+    border: none;
+    border-bottom: thin solid black;
 }
-.EDDrow a{
-  color: black;
-}
-.EDDrow a:hover{
-  color: grey;
-}
-.table th{
+
+    .EDDrow a {
+        color: black;
+    }
+
+        .EDDrow a:hover {
+            color: grey;
+        }
+
+.table th {
     background-color: lightgray;
 }
-.th, td{
+
+.th, td {
     padding: 15px;
     text-align: center;
 }
+
 .grid-container {
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, Helvetica, sans-serif;
-  }
-  .SearchField p{
+}
+
+.SearchField p {
     border: black solid 1px;
     padding: 10px;
     font-weight: bold;
-  }
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-
-li {
-    display: block;
-    margin: 4px;
-    padding: 10px;
-    float: left;
 }
-  li button{
-    display: block;
-    padding: 8px;
-    background-color: #dddddd;
-  }
-  
-  /* The grid container */
-  .grid-container {
+
+
+/* The grid container */
+.grid-container {
     display: grid;
-    grid-template-areas: 
-      'left middle middle middle middle right' 
-      'footer footer footer footer footer footer';
-    grid-column-gap: 3px;
-  } 
-  
-  .left,
-  .middle,
-  .right {
-    padding: 5px;
-  }
-  
-  /* Style the left column */
-  .left {
-    grid-area: left;
-  }
-  
-  /* Style the middle column */
-  .middle {
-    grid-area: middle;
-  }
-  
-  /* Style the right column */
-  .right {
-    grid-area: right;
-  }
-  
-  /* Style the footer */
-  .footer {
-    align-items: center;
-    grid-area: footer;
-    padding: 10px;
-    text-align: center;
-    height: 10%;
-    margin-left: 30%;
-  }
-  
-  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-  @media (max-width: 1200px) {
-    .grid-container  {
-      grid-template-areas:
-        'left left left left left left' 
-        'middle middle middle middle middle middle' 
-        'right right right right right right' 
+    grid-template-areas:
+        'left middle middle middle middle right'
         'footer footer footer footer footer footer';
+    grid-column-gap: 3px;
+}
+
+.left,
+.middle,
+.right {
+    padding: 5px;
+}
+
+/* Style the left column */
+.left {
+    grid-area: left;
+}
+
+/* Style the middle column */
+.middle {
+    grid-area: middle;
+}
+
+/* Style the right column */
+.right {
+    grid-area: right;
+}
+
+/* Style the footer */
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-size: 40px;
+    color: white;
+    border-top: solid 1px black;
+    position: fixed;
+    margin-top: auto;
+    bottom: 0;
+    margin: 0;
+    width: 100%;
+    height: 14vh;
+    margin-left: -9vh;
+}
+
+    .footer li {
+        list-style: none;
+        display: inline-flex;
+        padding: 0 50px;
+        text-align: center;
+        text-decoration: none;
     }
-  }
+
+.fa {
+    font-size: 40px;
+    color: black;
+}
+
+button i {
+    font-size: 50px;
+    color: black;
+    transition: 0.3s ease;
+}
+
+    button i:hover {
+        color: lightgrey;
+    }
+
+button {
+    background: white;
+    border: none;
+    color: black;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+    button:hover {
+        color: lightgrey;
+    }
+
+#add {
+    background: #FF7A59;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: static;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 1200px) {
+    .grid-container {
+        grid-template-areas:
+            'left left left left left left'
+            'middle middle middle middle middle middle'
+            'right right right right right right'
+            'footer footer footer footer footer footer';
+    }
+
+    .footer li {
+        list-style: none;
+        display: inline-flex;
+        padding: 0 50px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        font-size: 60px;
+        color: white;
+        border-top: solid 1px black;
+        position: fixed;
+        margin-top: auto;
+        bottom: 0;
+        margin: 0;
+        width: 100%;
+        height: 10vh;
+    }
+}

@@ -34,34 +34,10 @@ namespace NordicDoorSuggestionSystem.Controllers
             _emailSender = emailSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
 
-
-            // Set up a testuser for test purposes
-            // var user = new User
-            // {
-            //     UserName = "123456",
-            //     EmployeeNumber = 123456,
-            //     FirstName = "Test",
-            //     LastName = "Testersen",
-            //     Role = "Administrator",
-            //     LockoutEnabled = false,
-            //     LockoutEnd = null
-            // };
-            // var password = "123Asd";
-
-            // _userManager.CreateAsync(user, password);
-            // _userManager.AddToRoleAsync(user, "Administrator");
-
-            // var employee = new Employee
-            // {
-            //     EmployeeNumber = user.EmployeeNumber,
-            //     FirstName = user.FirstName,
-            //     LastName = user.LastName,
-            //     Role = user.Role,
-            //     SuggestionCount = 0
-            // };
-            // employeeRepository.Add(employee);
-            // // End of setting up testuser for test purposes
+            
         }
+
+        
 
         // GET: /Account/Login
         [HttpGet]
@@ -176,13 +152,17 @@ namespace NordicDoorSuggestionSystem.Controllers
                         }
                     }
 
-
+                    var newModel = new RegisterViewModel
+                    {
+                        RoleList = registerViewModel.RoleList
+                    };
                     var employee = new Employee {
                         EmployeeNumber = registerViewModel.EmployeeNumber,
                         FirstName = registerViewModel.FirstName,
                         LastName = registerViewModel.LastName,
                         Role = registerViewModel.RoleSelected,
-                        SuggestionCount = 0
+                        CreatedSuggestions = 0,
+                        CompletedSuggestions = 0
                     };                    
 
                     employeeRepository.Add(employee);
@@ -190,13 +170,13 @@ namespace NordicDoorSuggestionSystem.Controllers
                     _logger.LogInformation(3, "User created a new account with password.");
 
 
-                    //return RedirectToLocal();
+                    return RedirectToAction("Register");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(registerViewModel);
+            return View();
         }
 
    

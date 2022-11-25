@@ -13,7 +13,8 @@ namespace NordicDoorSuggestionSystem.Models.Employees
         public string Role { get; set; }
         public IFormFile? NewProfilePicture { get; set; }
         public int? TeamID { get; set; }
-        public int? SuggestionCount { get; set; }
+        public int? CreatedSuggestions { get; set; }
+        public int? CompletedSuggestions { get; set; }
         public string? TeamName { get; set; }
         public byte[]? ProfilePicture { get; set; }
     }

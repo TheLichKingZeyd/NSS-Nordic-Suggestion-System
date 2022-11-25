@@ -1,8 +1,10 @@
 @using NordicDoorSuggestionSystem.Entities
-@model IEnumerable<Team>
+@using NordicDoorSuggestionSystem.Models.Administrate
+@model List<TeamsViewModel>
 
 @{
     Layout ="~/Views/Shared/_team.cshtml";
+    ViewBag.Title = "NSS | Administrer Team";
 }
 
 <br>
@@ -31,8 +33,8 @@
         </tr>
     </thead>
 
-@if(Model.Any())
-{
+@if (Model.Any())
+    {
         <tbody>
             @foreach (var team in Model)
             {
@@ -47,12 +49,20 @@
                         @Html.DisplayFor(modelItem => team.TeamSgstnCount)
                     </th>
                     <th>
-                        @Html.DisplayFor(modelItem => team.DepartmentID)
+                        @Html.DisplayFor(modelItem => team.DepartmentName)
                     </th>
                     <td>
-                        <a asp-action="EditTeam" asp-route-id="@team.TeamID">Edit</a> |
-                        <a asp-action="DeleteTeam" asp-route-id="@team.TeamID">Delete</a> |
-                        <a asp-action="DetailsMembers" asp-route-id="@team.TeamID">Medlemmer</a>
+                        <div style="display:flex; flex-direction:row;">
+                            <form asp-action="EditTeam" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
+                                <button type="submit" class="btn btn-outline-primary">Endre</button>
+                            </form>
+                            <form asp-action="DetailsMembers" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
+                                <button type="submit" class="btn btn-outline-primary" style="margin-left:5px;">Medlemmer</button>
+                            </form>
+                            <form asp-action="DeleteTeam" asp-controller="Administration" asp-route-id="@team.TeamID" method="get">
+                                <button onclick="return confirm('Er du sikker du vil slette dette teamet: @team.TeamName')" type="submit" class="btn btn-outline-danger" style="margin-left:5px;">Slett</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             }

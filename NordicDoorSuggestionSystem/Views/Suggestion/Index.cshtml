@@ -1,6 +1,7 @@
-﻿@model IEnumerable<NordicDoorSuggestionSystem.Entities.Suggestion>
+﻿@model IEnumerable<NordicDoorSuggestionSystem.Models.MySuggestionsViewModel>
 @{
     Layout ="~/Views/Shared/_suggestionAll.cshtml";
+    ViewBag.Title = "NSS | Alle Forslag";
  }
 <!DOCTYPE html>
 
@@ -18,7 +19,7 @@
     <div class="left">
         <div class ="CreateButton">
         <button class ="button" >
-                <a class ="Create" asp-action="Create">Nytt forslag</a>
+            <a class ="Create" asp-action="Create">Nytt forslag</a>
         </button>
     </div>
     </div>
@@ -30,16 +31,19 @@
                     Tittel
                 </th>
                 <th>
-                    Progress
+                    Oppretter
+                </th>
+                <th>
+                    Status
                 </th>
                 <th>
                     Ansvarlig
                 </th>
                 <th>
-                    Deadline
+                    Tidsfrist
                 </th>
                 <th>
-                    TeamID
+                    Team
                 </th>
             </tr>
         </thead>
@@ -48,6 +52,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Maker)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Progress)
@@ -59,18 +66,19 @@
                     @Html.DisplayFor(modelItem => item.Deadline)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TeamID)
+                    @Html.DisplayFor(modelItem => item.TeamName)
                 </td>
                 <td class = "EDDrow">
-                    <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a>
                 </td>
             </tr>
     }
         </tbody>
     </table>
+    <br>
   </div>  
   <div class="right">
-    <form asp-controller="Suggestion" asp-action="Index">
+    <form asp-controller="Suggestion" asp-action="Index" method="get">
         <div class ="SearchField">
             <p>
                 Søk etter Tittel: <input type="text" name="title" />
@@ -79,19 +87,30 @@
         </div>
     </form>
   </div>
-    <div class="footer">
-            <ul>
-                <li>
-                    <button onclick="location.href='@Url.Action("MySuggestions","Suggestion")'">MINE FORSLAG</button>
-                </li>
-                <li>
-                  <button onclick="location.href='@Url.Action("MittTeam","Administration")'">MITT TEAM</button>
-                </li>
-                <li>
-                    <button onclick="location.href='@Url.Action("ShowStatisticsData","Statistics")'">STATISTIKK</button>
-                </li>
-            </ul>
-    </div>
+  <center>
+      <div class="footer">
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("Create","Suggestion")'" id="add" class="fa fa-edit" style="font-size: 40px; border: none; font-weight:bold;"></button>
+              </li>
+          </ul>
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("MySuggestions","Suggestion")'" class="fa fa-archive"></button>
+              </li>
+          </ul>
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("MittTeam","Administration")'" class="fa">&#xf0c0;</button>
+              </li>
+          </ul>
+          <ul>
+              <li>
+                  <button onclick="location.href='@Url.Action("ShowStatisticsData","Statistics")'" class=" fa fa-bar-chart"></button>
+              </li>
+          </ul>
+      </div>
+  </center>
 </div>
 </body>
 </html>
