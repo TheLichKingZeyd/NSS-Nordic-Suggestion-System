@@ -14,6 +14,8 @@ using NordicDoorSuggestionSystem.Models.Employees;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NordicDoorSuggestionSystem.Models.Account;
+using Microsoft.AspNetCore.Http;
+using NordicDoorSuggestionSystem.Extensions;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,7 +52,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             var teamname = _context.Team.Where(e => e.TeamID.Equals(employee.TeamID)).Select(e => e.TeamName).FirstOrDefault();
             vm.TeamName = teamname;
             vm.SuggestionCount = employee.SuggestionCount;
-            //vm.ProfilePicture = employee.ProfilePicture; 
+            vm.ProfilePicture = employee.ProfilePicture; 
             return View(vm);
         }
 
@@ -59,6 +61,8 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             return View();
         }
+
+
 
         //byte[] picture ???
         [HttpPost]
@@ -76,6 +80,21 @@ namespace NordicDoorSuggestionSystem.Controllers
             //var Imgtemp = new byte[16777215];
             //Imgtemp[16777215] = ImageToByteArray(profilevm.ProfilePicture);
 
+            //foreach (var file in ICollection<IFormFIle> ProfilePicture)
+            //{
+            //    if (file.Length > 0)
+            //    {
+            //        using (var ms = new MemoryStream())
+            //        {
+            //            file.CopyTo(ms);
+            //            var fileBytes = ms.ToArray();
+            //            //string s = Convert.ToBase64String(fileBytes);
+            //            // act on the Base64 data
+            //        }
+            //    }
+            //}
+
+            var formFile = FormFileExtensions.GetBytes(profilevm.NewProfilePicture);
 
 
             var employee = new Employee
@@ -85,7 +104,7 @@ namespace NordicDoorSuggestionSystem.Controllers
                 LastName = profilevm.LastName,
                 Role = profilevm.Role,
                 TeamID = profilevm.TeamID,
-                ProfilePicture = profilevm.ProfilePicture,
+                ProfilePicture = formFile,
                 SuggestionCount = profilevm.SuggestionCount,
             };
             _employeeRepository.Update(employee);

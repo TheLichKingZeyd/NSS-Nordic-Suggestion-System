@@ -11,11 +11,9 @@
     <div id="cardContainer" class="cardContainer">
         <div class="card">
             <div class="cardPicture">
+                <i class="activeprofilepicture">@Html.DisplayFor(model => model.ProfilePicture)</i>
                 <i class="fa fa-user" style="font-size:75px; color: grey;"></i>
-                <button class="profileUpload" type="button" name="button">Nytt bilde</button>
-                <@*form asp-controller="ProfilePage" asp-action="UploadProfilePicture" method="get">
-                    <input type="image" name="NewProfilePicture" id="NewImageData" onchange="fileCheck(this);" />
-                </form>*@
+          
             </div>
             <div class="cardHeader">
                 <label>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</label>
@@ -26,14 +24,14 @@
                 <p>Team: <label>@Html.DisplayFor(model => model.TeamName)</label> </p>
             </div>
             <div>
-                <form asp-controller="ProfilePage" asp-action="UploadProfilePicture" method="post">
+                <form asp-controller="ProfilePage" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
                     <input asp-for="EmployeeNumber" type="hidden"  />
                     <input asp-for="FirstName" type="hidden"  />
                     <input asp-for="LastName" type="hidden"  />
                     <input asp-for="TeamID" type="hidden"  />
                     <input asp-for="Role" type="hidden"  />
                     <input asp-for="SuggestionCount" type="hidden" onchange="fileCheck(this);" />
-                    <input asp-for="ProfilePicture" type="file" onchange="filecheck(this)" />
+                    <input asp-for="NewProfilePicture" type="file" onchange="filecheck(this)" />
                     <input type="Submit" value="Submit" />
                 </form>
  
