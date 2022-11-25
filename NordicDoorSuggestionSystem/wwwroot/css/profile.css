@@ -81,7 +81,7 @@
     rotate: 180deg;
 }
 
-.fa-sign-out a:hover{
+.fa-sign-out:hover{
     color: lightgrey;
 }
 
