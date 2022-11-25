@@ -12,7 +12,7 @@
             <div class="cardPicture">
                 @if (Model.ProfilePicture != null)
                 {
-                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfilePicture))" />
+                     <img style="width:125px; height: 125px;"src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfilePicture))" />
                 }
                 else  {<i class="fa fa-user" style="font-size:75px; color: grey;"></i>}
           
