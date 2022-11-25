@@ -29,12 +29,12 @@
 
 .childHeader a {
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
     .childHeader a:hover {
         text-decoration: none;
-        color: white;
+        color: lightgray;
     }
 
 .childHeader button {
@@ -42,7 +42,7 @@
     background: none;
     border: none;
     color: white;
-    transition: all 0.3s ease 0s;
+    transition: 0.3s;
 }
 
     .childHeader button:hover {
