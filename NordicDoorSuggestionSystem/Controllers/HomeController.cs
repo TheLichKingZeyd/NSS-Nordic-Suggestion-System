@@ -16,6 +16,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles ="Administrator,Team Leder,Standard Bruker")]
         [HttpGet]
         public IActionResult Index()
         {

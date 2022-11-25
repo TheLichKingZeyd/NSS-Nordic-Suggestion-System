@@ -36,20 +36,20 @@ namespace NordicDoorSuggestionSystem.Controllers
             _teamRepository = teamRepository;
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult Index()
         {
             var teams = _context.Team;
             return View(teams);
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult MyTeam()
         {
             return View();
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> MyTeam(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User); 

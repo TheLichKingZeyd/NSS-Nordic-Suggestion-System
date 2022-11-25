@@ -53,7 +53,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // Then checks if the string(with the listed items) is Null or Empty.
         // Then it calls the QuerySuggestions() from the SR, with the parameter (searchString).
 
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpGet]
         public async Task<IActionResult> Index(string title)
         {
@@ -96,7 +96,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: MySuggestions/Henter brukerens suggestions.
         // This function gets the suggestion view and shows the users suggestions.
         // Will test when it is possible to LogIn
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpGet]
         public async Task<IActionResult> MySuggestions(string title)
         {
@@ -135,6 +135,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View(mySuggestions);
         }
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpGet]
         public async Task<IActionResult> CreatedSuggestions(string title)
         {
@@ -177,6 +178,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // Then gets the id of the selected suggestion and show the fields of the selected Suggestion.
 
         [HttpGet]
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -211,6 +213,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: Suggestion/Create
 
         [HttpGet]
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult Create()
         {
             var employees = _context.Employees.ToList();
@@ -237,6 +240,7 @@ namespace NordicDoorSuggestionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> Create(CreateSuggestionViewModel createSuggestionViewModel)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -315,6 +319,7 @@ namespace NordicDoorSuggestionSystem.Controllers
 
         // GET: Suggestion/Edit/5
         [HttpGet]
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -387,6 +392,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> Edit(int id, [Bind("Title, ResponsibleEmployee, Problem, Solution, Goal, Progress, Deadline, TeamID")] EditSuggestionViewModel editSuggestionViewModel)
         {
             var suggestion = await _suggestionRepository.GetSuggestion(id);
@@ -489,6 +495,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // This function called Delete with the parameter (int? id)
         // First checks if id = null. If null, return NotFound()
         // Then it calls the GetSuggestion() from SR
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -513,6 +520,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // Then update the database with the SaveChanges() from SR.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (await _suggestionRepository.GetSuggestions() == null)
@@ -530,6 +538,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         private bool SuggestionEntityExists(int id)
         {
           var suggestion = _suggestionRepository.GetSuggestion(id);
@@ -538,8 +547,10 @@ namespace NordicDoorSuggestionSystem.Controllers
           return true;
         }
 
+
         public Task<List<Comment>> GetComments() => _context.Comment.ToListAsync();
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> AddComment(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -559,6 +570,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View(addSuggestionComment);
         }
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddComment([Bind("CommentID, EmployeeNumber,SuggestionID, Content, CommentTime")] AddSuggestionComment comment)
@@ -583,11 +595,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult TeamSuggestions()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult Feed()
         {
             return View();
@@ -614,6 +628,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return command.ExecuteReader();
         }
 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpGet]
         public async Task<IActionResult> AllSuggestions(string title)
         {

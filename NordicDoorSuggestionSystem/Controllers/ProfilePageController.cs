@@ -27,7 +27,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: /<controller>/
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);            
@@ -55,14 +55,14 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: /<controller>/
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult Statistic()
         {
             return View();
         }
 
         //byte[] picture ???
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpPost]
         public async Task<IActionResult> UploadProfilePicture(ProfileViewModel profilevm)
         {

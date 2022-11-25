@@ -19,13 +19,13 @@ namespace NordicDoorSuggestionSystem.Controllers
             _context = context;
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult Index()
         {
             return View();
         }
 
- 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         public IActionResult ShowStatisticsData()
         {
             StatisticsViewModel vm = new StatisticsViewModel();
@@ -38,7 +38,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View(vm);
         }
 
- 
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpPost]
         public List<object> GetStatisticsData()
         {
@@ -55,7 +55,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return data;
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder,Standard Bruker")]
         [HttpPost]
         public List<object> GetDepartmentData()
         {

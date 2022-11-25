@@ -42,7 +42,7 @@ namespace bacit_dotnet.MVC.Controllers
             this._departmentRepository = departmentRepository;
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         public IActionResult Index()
         {
             return View();
@@ -152,6 +152,7 @@ namespace bacit_dotnet.MVC.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpGet]
         public IActionResult Teams()
         {
@@ -174,6 +175,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(teamsToShow);
         }
 
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpGet]
         public IActionResult CreateTeam()
         {
@@ -219,7 +221,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(createTeam);
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateTeam(CreateTeamViewModel createTeamViewModel)
@@ -244,6 +246,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpGet]
         public async Task<IActionResult> DeleteTeam(int? id)
         {
@@ -282,7 +285,7 @@ namespace bacit_dotnet.MVC.Controllers
             return RedirectToAction(nameof(Teams));
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpGet]
         public async Task<IActionResult> EditTeam(int? id)
         {
@@ -328,7 +331,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(editTeam);
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTeam(EditTeamViewModel editTeamViewModel)
@@ -360,7 +363,7 @@ namespace bacit_dotnet.MVC.Controllers
         }
 
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpGet]
         public IActionResult EditTeamMembers()
         {
@@ -372,7 +375,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(vm);
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTeamMembers(DetailMemberViewModel detailMemberViewModel)
@@ -391,7 +394,7 @@ namespace bacit_dotnet.MVC.Controllers
             return RedirectToAction("EditTeamMembers");
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         [HttpGet]
         public async Task<IActionResult> DetailsMembers(int id)
         {
@@ -411,7 +414,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(vm);
         }
 
-
+        [Authorize(Roles = "Administrator,Team Leder")]
         public async Task<IActionResult> MittTeam()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
