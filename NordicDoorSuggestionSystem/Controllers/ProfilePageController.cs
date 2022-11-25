@@ -35,7 +35,6 @@ namespace NordicDoorSuggestionSystem.Controllers
                 return NotFound();
             }
             var employee = _employeeRepository.GetEmployeeByNumber(currentUser.EmployeeNumber);
-            var employeePicture = ByteArrayToImage(employee.ProfilePicture);
             vm.EmployeeNumber = currentUser.EmployeeNumber;
             vm.FirstName = currentUser.FirstName;
             vm.LastName = currentUser.LastName;
@@ -43,7 +42,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             vm.TeamID = employee.TeamID;
             var teamname = _context.Team.Where(e => e.TeamID.Equals(employee.TeamID)).Select(e => e.TeamName).FirstOrDefault();
             vm.TeamName = teamname;
-            vm.SuggestionCount = employee.SuggestionCount;
+            vm.CreatedSuggestions = employee.CreatedSuggestions;
             vm.ProfilePicture = employee.ProfilePicture; 
             var created = _context.Employees.Where(e => e.EmployeeNumber.Equals(vm.EmployeeNumber)).Select(e => e.CreatedSuggestions).FirstOrDefault();
             vm.CreatedSuggestions = created;
@@ -53,20 +52,11 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View(vm);
         }
 
-        public Image ByteArrayToImage(byte[] profilePictureToRead)
-        {
-            MemoryStream ms = new MemoryStream(profilePictureToRead);
-            Image profilePictureOut = Image.FromStream(ms);
-            return profilePictureOut;
-        }
-
         // GET: /<controller>/
         public IActionResult Statistic()
         {
             return View();
         }
-
-
 
         //byte[] picture ???
         [HttpPost]
@@ -82,7 +72,6 @@ namespace NordicDoorSuggestionSystem.Controllers
                 Role = profilevm.Role,
                 TeamID = profilevm.TeamID,
                 ProfilePicture = formFile,
-                SuggestionCount = profilevm.SuggestionCount,
             };
             _employeeRepository.Update(employee);
 
