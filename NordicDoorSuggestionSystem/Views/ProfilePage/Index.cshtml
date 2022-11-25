@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "NSS | Profil";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
-
 }
 
 
@@ -11,16 +10,34 @@
     <div id="cardContainer" class="cardContainer">
         <div class="card">
             <div class="cardPicture">
-                <i class="fa fa-user" style="font-size:75px; color: grey;"></i>
-                <button class="profileUpload" type="button" name="button">Nytt bilde</button>
+                @if (Model.ProfilePicture != null)
+                {
+                     <img style="width: 75px; height: 75px;" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ProfilePicture))" />
+                }
+                else  {<i class="fa fa-user" style="font-size:75px; color: grey;"></i>}
+          
             </div>
             <div class="cardHeader">
+                
                 <label>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</label>
             </div>
             <div class="cardProfileInfo">
                 <p>Ansatt nr: <label>@Html.DisplayFor(model => model.EmployeeNumber)</label> </p>
                 <p>Rolle: <label>@Html.DisplayFor(model => model.Role)</label> </p>
                 <p>Team: <label>@Html.DisplayFor(model => model.TeamName)</label> </p>
+            </div>
+            <div>
+                <form asp-controller="ProfilePage" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+                    <input asp-for="EmployeeNumber" type="hidden"  />
+                    <input asp-for="FirstName" type="hidden"  />
+                    <input asp-for="LastName" type="hidden"  />
+                    <input asp-for="TeamID" type="hidden"  />
+                    <input asp-for="Role" type="hidden"  />
+                    <input asp-for="SuggestionCount" type="hidden" onchange="fileCheck(this);" />
+                    <input asp-for="NewProfilePicture" type="file" onchange="filecheck(this)" />
+                    <input type="Submit" value="Submit" />
+                </form>
+ 
             </div>
             <div class="showMyStats">
                 <center>
