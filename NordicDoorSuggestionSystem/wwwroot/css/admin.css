@@ -13,6 +13,9 @@ h1{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+
 .NavContainer0{
     display: block;
     align-items: center;
@@ -158,8 +161,8 @@ i{
 .fa-home:hover{
     color: grey;
 }
-.fa-user-circle{
-    font-size: 50px !important; 
+.fa-arrow-circle-left {
+    font-size: 50px !important;
     position: fixed;
     top: 6%;
     left: 15%;

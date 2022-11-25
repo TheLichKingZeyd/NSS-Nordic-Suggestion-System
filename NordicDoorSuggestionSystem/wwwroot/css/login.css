@@ -71,7 +71,7 @@ input {
 
 .btn-default {
     align-items: center;
-    background-color: #FF7A59;
+    background-color: #0E6DFD;
     border-radius: 8px;
     border-style: none;
     color: #fff;
@@ -91,7 +91,7 @@ input {
 }
 
     .btn-default:hover {
-        background-color: #FF7A59;
+        background-color: #0E6DFD;
         opacity: 100%;
     }
 

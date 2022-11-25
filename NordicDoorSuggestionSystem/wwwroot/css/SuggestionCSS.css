@@ -108,6 +108,7 @@ a.Create:hover {
 
 .grid-container {
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 body {

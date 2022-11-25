@@ -134,13 +134,16 @@
                     <textarea asp-for="Goal" readonly id="finalGoal" class="submitTarget" rows="6" cols="40" type="text" placeholder="Mål med forbedring.."></textarea> <br>
 
                     @*<label asp-for="ResponsibleEmployee" class="col-md-2">Ansvarlig</label>
-                    <div class="col-md-10">
-                        <select asp-for="ResponsibleEmployee" asp-items="@Model.ResponsibleList" class="form-control" readonly id="finalProgress">
+        <div class="col-md-10">
+            <select asp-for="ResponsibleEmployee" asp-items="@Model.ResponsibleList" class="form-control" readonly id="finalProgress">
+                <option disabled selected>- Ansvarlig -</option>
+            </select>
+        </div>*@
+                   
+                        <select asp-for="ResponsibleEmployee" asp-items="@Model.ResponsibleList" class="form-control" id="finalResponsible">
                             <option disabled selected>- Ansvarlig -</option>
                         </select>
-                    </div>*@
-
-                    <input asp-for="ResponsibleEmployee" readonly id="finalResponsible" type="number" placeholder="Ansvarlig.."> <br>
+                    <br>
 
                     <input asp-for="Progress" readonly id="finalProgress" type="text" placeholder="Fremgang"> <br>
 

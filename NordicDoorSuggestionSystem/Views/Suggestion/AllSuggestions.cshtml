@@ -16,58 +16,10 @@
 
 <br>
 <div class="grid-container">
-   
-    <div class="middle">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Tittel
-                    </th>
-                    <th>
-                        Progress
-                    </th>
-                    <th>
-                        Ansvarlig
-                    </th>
-                    <th>
-                        Deadline
-                    </th>
-                    <th>
-                        TeamID
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Progress)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ResponsibleEmployee)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Deadline)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TeamName)
-                        </td>
-                        <td class="EDDrow">
-                            <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.SuggestionID">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <br>
-    </div>
+   <div class="left">
+
+   </div>
+  
     <div class="right">
         <form asp-controller="Suggestion" asp-action="Index">
             <div class="SearchField">
