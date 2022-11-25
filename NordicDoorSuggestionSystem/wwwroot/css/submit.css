@@ -1,6 +1,4 @@
 ﻿
-
-
 * {
     background-color: white;
     margin: 0;
@@ -28,7 +26,7 @@ p {
     background-color: white;
 }
 
-.btnBackNav {
+#btnBackNav {
     display: flex;
     justify-content: center;
     margin-bottom: 10vh;
@@ -38,18 +36,19 @@ p {
     border-radius: 5px;
     height: 40px;
     width: 100px;
-    background-color: white;
-    opacity: 60%;
-    color: black;
-    font-weight: bold;
+    background-color: #DD5353;
+    opacity: 40%;
+    color: white;
+    font-weight:;
     transition: 0.3s ease;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
     .buttonBack:hover {
-        color: lightgrey;
+        color: white;
         opacity: 100%;
-        background-color: red;
+        background-color: #FF5D5D;
     }
 
 .wrapper {
@@ -129,7 +128,6 @@ p {
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    margin-bottom: 15vh;
 }
 
 #submit2 {
@@ -144,7 +142,6 @@ p {
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    margin-bottom: 15vh;
 }
 
 #submit3 {
@@ -159,7 +156,6 @@ p {
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    margin-bottom: 15vh;
 }
 
 #submit4 {
@@ -174,7 +170,6 @@ p {
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    margin-bottom: 15vh;
 }
 
 
@@ -190,52 +185,7 @@ p {
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    margin-bottom: 15vh;
 }
-
-.submitHeaderSumary {
-    grid-area: 1 / 1 / 2 / 7;
-    justify-items: center;
-    align-items: center;
-    display: inline-grid;
-    border-radius: 10px;
-    background-color: white;
-}
-
-.mainContentSumary {
-    grid-area: 2 / 2 / 8 / 6;
-    justify-items: center;
-    align-items: center;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: scroll;
-    background-color: white;
-}
-
-.rightSumary {
-    grid-area: 2 / 6 / 8 / 7;
-    background-color: white;
-}
-
-.leftSummry {
-    grid-area: 2 / 1 / 8 / 2;
-    background-color: white;
-}
-
-.footerBtnSumary {
-    display: grid;
-    grid-area: 8 / 1 / 9 / 7;
-    justify-items: center;
-    align-items: center;
-    border-radius: 10px;
-    margin-bottom: 5vh;
-    background-color: white;
-}
-
-
 
 .circleNav {
     height: 40px;
@@ -280,7 +230,7 @@ i {
     border-top-style: hidden;
     border-right-style: hidden;
     border-left-style: hidden;
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
 }
 

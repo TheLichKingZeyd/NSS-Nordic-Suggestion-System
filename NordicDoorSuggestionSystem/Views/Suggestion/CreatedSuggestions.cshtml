@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<NordicDoorSuggestionSystem.Models.MySuggestionsViewModel>
 @{
-    Layout ="~/Views/Shared/_suggestion.cshtml";
-    ViewBag.Title = "NSS | Mine Forslag";
- }
+    Layout = "~/Views/Shared/_createdSuggestions.cshtml";
+    ViewBag.Title = "NSS | Lagde Forslag";
+}
 <!DOCTYPE html>
 
 <html>
@@ -18,14 +18,13 @@
 <div class = "grid-container">
     <div class="left">
         <div class ="CreateButton">
-            <button class ="button" >
-                    <a class="Create" asp-controller="Suggestion" asp-action="CreatedSuggestions">Lagde Forslag</a>
-            </button>        
-    </div>
+            <button class ="button">
+                <a class ="Create" asp-controller="Suggestion" asp-action="MySuggestions">Mine Forslag</a>
+            </button>
+        </div>
 </div>
 <div class="middle">
     <table class="table" id="createdTable">
-
         <thead>
             <tr>
                 <th>
@@ -48,42 +47,42 @@
                 </th>
             </tr>
         </thead>
-        @foreach (var item in Model) {
-            <tbody class="showableTable" id="createdTable">
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Maker)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Progress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ResponsibleEmployee)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Deadline)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TeamName)
-                    </td>
-                    <td class="EDDrow">
-                        <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.SuggestionID">Delete</a>
-                    </td>
-                </tr>
-            </tbody>              
+                @foreach (var item in Model)
+                {
+                <tbody class="showableTable" id="createdTable">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Maker)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Progress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResponsibleEmployee)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Deadline)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TeamName)
+                        </td>
+                        <td class="EDDrow">
+                            <a asp-action="Edit" asp-route-id="@item.SuggestionID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.SuggestionID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.SuggestionID">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>              
 
-        }            
+                }            
     </table>
 
 </div>  
     <div class="right">
-        <form asp-controller="Suggestion" asp-action="MySuggestions" method="get">
-
+        <form asp-controller="Suggestion" asp-action="CreatedSuggestions" method="get">
         <div class ="SearchField">
             <p>
                 Søk etter Tittel: <input type="text" name="title" />

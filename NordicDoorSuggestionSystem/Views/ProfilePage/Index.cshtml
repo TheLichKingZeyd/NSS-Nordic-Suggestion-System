@@ -1,7 +1,7 @@
 ﻿@model NordicDoorSuggestionSystem.Models.Employees.ProfileViewModel
 
 @{
-    ViewBag.Title = "Profil § NSS";
+    ViewBag.Title = "NSS | Profil";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
 }
 
@@ -48,7 +48,7 @@
                             </div>
                         <div class="promo">
                             <p>DU HAR</p>
-                            <h2>@Html.DisplayFor(model => model.SuggestionCount) Forslag!</h2>
+                            <h2>@Html.DisplayFor(model => model.CreatedSuggestions) Forslag!</h2>
                         </div>
                         <div class="box">
                             <span></span>

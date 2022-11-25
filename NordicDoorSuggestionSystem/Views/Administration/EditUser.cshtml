@@ -1,7 +1,8 @@
 ﻿@using NordicDoorSuggestionSystem.Models.Administrate
 @model UserEditViewModel
 @{
-    Layout ="~/Views/Shared/_editteam.cshtml";
+    Layout ="~/Views/Shared/_users.cshtml";
+    ViewBag.Title = "NSS | Endre Bruker";
 }
 <br>
 <h2>Ansatt under endring [ @Html.DisplayFor(modelItem => Model.FirstName) @Html.DisplayFor(modelItem => Model.LastName) ]</h2>

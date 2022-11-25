@@ -3,6 +3,7 @@
 
 @{
     Layout = "~/Views/Shared/_team.cshtml";
+    ViewBag.Title = "NSS | Avdeling";
 }
 
 <br>
@@ -37,15 +38,15 @@
                         @Html.DisplayFor(modelItem => department.TeamCount)
                     </th>                    
                     <td>
-                        <div style="display:flex; flex-direction:row; padding: 4px;">
+                        <div style="display:flex; flex-direction:row;">
                             <form asp-action="EditDepartment" asp-controller="Administration" asp-route-id="@department.DepartmentID" method="get">
-                                <button type="submit" class="btn btn-primary">Endre</button>
+                                <button type="submit" class="btn btn-outline-primary">Endre</button>
                             </form>
                             <form asp-action="DetailDepartment" asp-controller="Administration" asp-route-id="@department.DepartmentID" method="get">
-                                <button type="submit" class="btn btn-primary">Detaljer</button>
+                                <button type="submit" class="btn btn-outline-primary" style="margin-left:5px;">Detaljer</button>
                             </form>
                             <form asp-action="DeleteDepartment" asp-controller="Administration" asp-route-id="@department.DepartmentID" method="get">
-                                <button onclick="return confirm('Er du sikker du vil slette denne avdelingen: @department.DepartmentName')" type="submit" class="btn btn-danger btn-sm">Slett</button>
+                                <button onclick="return confirm('Er du sikker du vil slette denne avdelingen: @department.DepartmentName')" type="submit" class="btn btn-outline-danger" style="margin-left:5px;">Slett</button>
                             </form>
                         </div>
                     </td>

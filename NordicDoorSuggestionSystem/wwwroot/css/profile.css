@@ -5,10 +5,6 @@
     font-family: sans-serif;
 }
 
-.content {
-    flex-grow: 1;
-}
-
 .childHeader {
     display: flex;
     align-items: center;
@@ -19,7 +15,7 @@
     color: white;
     background-image: image();
     border-bottom: solid 1px black;
-    margin-left: 5vh;
+  
 }
 
     .childHeader li {
@@ -30,12 +26,6 @@
         text-decoration: none;
         color: black;
     }
-
-@media only screen and (max-width: 1000px) {
-    .childHeader li {
-        padding: 0 60px;
-    }
-}
 
 .childHeader a {
     text-decoration: none;
@@ -84,19 +74,6 @@
         text-decoration: none;
     }
 
-
-@media only screen and (max-width: 1000px) {
-    .childFooter li {
-        list-style: none;
-        display: inline-flex;
-        padding: 0 50px;
-        text-align: center;
-        text-decoration: none;
-    }
-
-    .header li {
-    }
-}
 
 .fa {
     font-size: 40px;
@@ -301,3 +278,18 @@ h1 {
       .present:hover .promo {
         top: -40px;
       }
+
+
+@media only screen and (max-width: 1000px) {
+    .childFooter li {
+        list-style: none;
+        display: inline-flex;
+        padding: 0 50px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .childHeader li {
+        padding: 0 60px;
+    }
+}
