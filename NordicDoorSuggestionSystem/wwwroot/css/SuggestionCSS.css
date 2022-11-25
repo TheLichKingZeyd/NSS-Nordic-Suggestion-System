@@ -31,20 +31,22 @@ h2 {
     font-size: 70px !important;
     text-decoration: none;
     color: black;
+    transition: 0.3s;
 }
 
     .fa-home:hover {
-        color: gray;
+        color: lightgray;
     }
 
 .fa-arrow-circle-left {
     font-size: 70px !important;
     text-decoration: none;
     color: black;
+    transition: 0.3s;
 }
 
     .fa-arrow-circle-left:hover {
-        color: gray;
+        color: lightgray;
     }
 
 .grid-items-center {
@@ -108,6 +110,7 @@ a.Create:hover {
 
 .grid-container {
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 body {
@@ -249,4 +252,14 @@ button {
         width: 100%;
         height: 10vh;
     }
+}
+
+.Create {
+    border: solid 1px black;
+    background-color: lightgray;
+    transition: 0.3s;
+}
+
+.Create:hover {
+    background-color: white;  
 }

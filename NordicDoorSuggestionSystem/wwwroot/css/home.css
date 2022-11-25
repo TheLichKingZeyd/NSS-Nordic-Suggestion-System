@@ -129,42 +129,46 @@ h1{
     margin: 5px;
     color: black;
 }
-a{
+a {
     text-decoration: none;
     color: black;
     font-weight: bold;
+    transition: 0.3s;
 }
 a:hover{
-    color: grey;
+    color: lightgray;
 }
 i{
     float: right;
     padding-right: 28px;
 }
-.HomeButton{
+.HomeButton {
     background-color: white;
     position: fixed;
     top: 6%;
     left: 67%;
     transform: translate(-50%, -50%);
+    transition: 0.3s;
 }
-.fa-home{
-    font-size: 50px !important; 
+.fa-home {
+    font-size: 70px !important;
     position: fixed;
     top: 6%;
     left: 85%;
     transform: translate(-50%, -50%);
+    transition: 0.3s;
 }
 .fa-home:hover{
-    color: grey;
+    color: lightgray;
 }
-.fa-user-circle{
-    font-size: 50px !important; 
+.fa-user-circle {
+    font-size: 70px !important;
     position: fixed;
     top: 6%;
     left: 15%;
     transform: translate(-50%, -50%);
+    transition: 0.3s;
 }
 .fa-user-circle:hover{
-    color: grey;
+    color: lightgray;
 }

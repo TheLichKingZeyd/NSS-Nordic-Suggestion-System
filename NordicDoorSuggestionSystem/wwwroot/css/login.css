@@ -71,7 +71,7 @@ input {
 
 .btn-default {
     align-items: center;
-    background-color: #FF7A59;
+    background-color: #0E6DFD;
     border-radius: 8px;
     border-style: none;
     color: #fff;
@@ -88,10 +88,11 @@ input {
     width: 25vh;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     opacity: 80%;
+    transition: 0.3s;
 }
 
     .btn-default:hover {
-        background-color: #FF7A59;
+        background-color: #0E6DFD;
         opacity: 100%;
     }
 
