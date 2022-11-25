@@ -103,8 +103,9 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
-        
+        app.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}");
+        Seed.SeedData(app);
+        //Seed.SeedUsersAsync(app);
         app.MapControllers();
 
 
