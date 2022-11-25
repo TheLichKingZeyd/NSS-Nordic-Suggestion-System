@@ -7,6 +7,7 @@ using NordicDoorSuggestionSystem.DataAccess;
 using NordicDoorSuggestionSystem.Models.Employees;
 using NordicDoorSuggestionSystem.Extensions;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,6 +27,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: /<controller>/
+
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);            
@@ -53,12 +55,14 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: /<controller>/
+
         public IActionResult Statistic()
         {
             return View();
         }
 
         //byte[] picture ???
+
         [HttpPost]
         public async Task<IActionResult> UploadProfilePicture(ProfileViewModel profilevm)
         {
@@ -72,6 +76,8 @@ namespace NordicDoorSuggestionSystem.Controllers
                 Role = profilevm.Role,
                 TeamID = profilevm.TeamID,
                 ProfilePicture = formFile,
+                CompletedSuggestions = profilevm.CompletedSuggestions,
+                CreatedSuggestions = profilevm.CreatedSuggestions
             };
             _employeeRepository.Update(employee);
 

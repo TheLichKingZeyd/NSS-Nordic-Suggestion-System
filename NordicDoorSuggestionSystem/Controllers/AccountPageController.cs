@@ -23,10 +23,6 @@ namespace NordicDoorSuggestionSystem.Controllers
             _employeeRepository = employeeRepository;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [HttpPost]
         public void UploadProfilePicture(FormCollection form)

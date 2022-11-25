@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NordicDoorSuggestionSystem.Controllers
 {
@@ -17,11 +18,14 @@ namespace NordicDoorSuggestionSystem.Controllers
         {
             _context = context;
         }
+
+
         public IActionResult Index()
         {
             return View();
         }
 
+ 
         public IActionResult ShowStatisticsData()
         {
             StatisticsViewModel vm = new StatisticsViewModel();
@@ -34,6 +38,7 @@ namespace NordicDoorSuggestionSystem.Controllers
             return View(vm);
         }
 
+ 
         [HttpPost]
         public List<object> GetStatisticsData()
         {
@@ -49,6 +54,7 @@ namespace NordicDoorSuggestionSystem.Controllers
 
             return data;
         }
+
 
         [HttpPost]
         public List<object> GetDepartmentData()

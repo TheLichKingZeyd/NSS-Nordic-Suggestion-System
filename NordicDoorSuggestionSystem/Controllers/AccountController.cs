@@ -86,7 +86,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         //
         // GET: /Account/Register
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "Administrator")]
         public async Task<IActionResult> Register(string? returnUrl = null)
         {
             if (!await _roleManager.RoleExistsAsync("Administrator"))
@@ -120,6 +120,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
+        [Authorize(Policy = "Administrator")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
@@ -186,53 +187,6 @@ namespace NordicDoorSuggestionSystem.Controllers
             _logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(Login));
         }
-
-        //
-        // GET: /Account/ResetPassword
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPassword(string? code = null)
-        {
-            return code == null ? View("Error") : View();
-        }
-
-        //
-        // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-            }
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-            }
-            AddErrors(result);
-            return View();
-        }
-
-        //
-        // GET: /Account/ResetPasswordConfirmation
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
-
-
 
         private void AddErrors(IdentityResult result)
         {

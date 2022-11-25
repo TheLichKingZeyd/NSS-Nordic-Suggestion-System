@@ -152,6 +152,13 @@ h1 {
     border-radius: 50%;
     height: 15vh;
     width: 15vh;
+    overflow:hidden;
+}
+
+.cardPicture img{
+    flex-shrink:0;
+    min-width:100%;
+    min-height:100%;
 }
 
 .cardHeader {

@@ -53,6 +53,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // Then checks if the string(with the listed items) is Null or Empty.
         // Then it calls the QuerySuggestions() from the SR, with the parameter (searchString).
 
+
         [HttpGet]
         public async Task<IActionResult> Index(string title)
         {
@@ -95,6 +96,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: MySuggestions/Henter brukerens suggestions.
         // This function gets the suggestion view and shows the users suggestions.
         // Will test when it is possible to LogIn
+
         [HttpGet]
         public async Task<IActionResult> MySuggestions(string title)
         {
@@ -173,6 +175,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // GET: Suggestion/Details/Henter detaljer på et Forbedringsforslag
         // The function first checks if the ID = Null in the database.
         // Then gets the id of the selected suggestion and show the fields of the selected Suggestion.
+
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
@@ -206,6 +209,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         }
 
         // GET: Suggestion/Create
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -230,6 +234,7 @@ namespace NordicDoorSuggestionSystem.Controllers
         // The function creates a new Suggestion.
         // The function maps the Suggestion.cs to the SuggestionViewModel and calls the Add() function from SuggestionRepository.
         // Then it calls the SaveChanges() from SR and returns to the index view.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateSuggestionViewModel createSuggestionViewModel)
@@ -323,6 +328,13 @@ namespace NordicDoorSuggestionSystem.Controllers
                 return NotFound();
             }
             var employees = _context.Employees.ToList();
+            for (var i = employees.Count()-1; i >= 0; i--)
+            {
+                if (employees[i].TeamID == null)
+                {
+                    employees.Remove(employees[i]);
+                }
+            }
             List<SelectListItem> responsibleItems = new List<SelectListItem>();
             for (var i = 0; i < employees.Count(); i++)
             {
@@ -378,45 +390,98 @@ namespace NordicDoorSuggestionSystem.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Title, ResponsibleEmployee, Problem, Solution, Goal, Progress, Deadline, TeamID")] EditSuggestionViewModel editSuggestionViewModel)
         {
             var suggestion = await _suggestionRepository.GetSuggestion(id);
-            var responsibleEmployee = employeeRepository.GetEmployeeByNumber(Int32.Parse(editSuggestionViewModel.ResponsibleEmployee));
-            var team = _teamRepository.GetTeam(responsibleEmployee.TeamID);
-            var employee = employeeRepository.GetEmployeeByNumber(suggestion.ResponsibleEmployee.Value);
-            if ( suggestion == null)
+            if (suggestion == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (editSuggestionViewModel.TeamID == null)
             {
-                try
-                {
-                    suggestion.Title = editSuggestionViewModel.Title;
-                    suggestion.ResponsibleEmployee = Int32.Parse(editSuggestionViewModel.ResponsibleEmployee);
-                    suggestion.Problem = editSuggestionViewModel.Problem;
-                    suggestion.Solution = editSuggestionViewModel.Solution;
-                    suggestion.Goal = editSuggestionViewModel.Goal;
-                    suggestion.Progress = editSuggestionViewModel.Progress;
-                    suggestion.Deadline = editSuggestionViewModel.Deadline;
-                    suggestion.TeamID = responsibleEmployee.TeamID;
-                    suggestion.TeamName = team.TeamName;
-
-                    await _suggestionRepository.Update(suggestion);
-                    await _suggestionRepository.SaveChanges();
-                    if (suggestion.Progress == "Act")
-                    {
-                        employee.CompletedSuggestions++;
-                        team.TeamSgstnCount++;
-                        employeeRepository.Update(employee);
-                        await _teamRepository.UpdateTeam(team);
-                    }
-                    
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    throw;
-                }
-                return RedirectToAction(nameof(Index));
+                editSuggestionViewModel.TeamID = 1; // just to make it work
             }
+            if (editSuggestionViewModel.ResponsibleEmployee != null)
+            {
+                var responsibleEmployee = employeeRepository.GetEmployeeByNumber(Int32.Parse(editSuggestionViewModel.ResponsibleEmployee));
+                var team = _teamRepository.GetTeam(responsibleEmployee.TeamID);
+                var employee = employeeRepository.GetEmployeeByNumber(suggestion.ResponsibleEmployee.Value);
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        if (editSuggestionViewModel.TeamID == null)
+                        {
+                            editSuggestionViewModel.TeamID = 1; //just to stop the crash, not enough time to actually fix
+                        }
+                        suggestion.Title = editSuggestionViewModel.Title;
+                        suggestion.ResponsibleEmployee = Int32.Parse(editSuggestionViewModel.ResponsibleEmployee);
+                        suggestion.Problem = editSuggestionViewModel.Problem;
+                        suggestion.Solution = editSuggestionViewModel.Solution;
+                        suggestion.Goal = editSuggestionViewModel.Goal;
+                        suggestion.Progress = editSuggestionViewModel.Progress;
+                        suggestion.Deadline = editSuggestionViewModel.Deadline;
+                        suggestion.TeamID = responsibleEmployee.TeamID;
+                        suggestion.TeamName = team.TeamName;
+
+                        await _suggestionRepository.Update(suggestion);
+                        await _suggestionRepository.SaveChanges();
+                        if (suggestion.Progress == "Act")
+                        {
+                            employee.CompletedSuggestions++;
+                            team.TeamSgstnCount++;
+                            employeeRepository.Update(employee);
+                            await _teamRepository.UpdateTeam(team);
+                        }
+
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        throw;
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else
+            {
+                var responsibleEmployee = employeeRepository.GetEmployeeByNumber(suggestion.ResponsibleEmployee.Value);
+                var team = _teamRepository.GetTeam(responsibleEmployee.TeamID);
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        if (editSuggestionViewModel.TeamID == null)
+                        {
+                            editSuggestionViewModel.TeamID = 1; //just to stop the crash, not enough time to actually fix
+                        }
+                        suggestion.Title = editSuggestionViewModel.Title;
+                        suggestion.ResponsibleEmployee = Int32.Parse(editSuggestionViewModel.ResponsibleEmployee);
+                        suggestion.Problem = editSuggestionViewModel.Problem;
+                        suggestion.Solution = editSuggestionViewModel.Solution;
+                        suggestion.Goal = editSuggestionViewModel.Goal;
+                        suggestion.Progress = editSuggestionViewModel.Progress;
+                        suggestion.Deadline = editSuggestionViewModel.Deadline;
+                        suggestion.TeamID = responsibleEmployee.TeamID;
+                        suggestion.TeamName = team.TeamName;
+
+                        await _suggestionRepository.Update(suggestion);
+                        await _suggestionRepository.SaveChanges();
+                        if (suggestion.Progress == "Act")
+                        {
+                            responsibleEmployee.CompletedSuggestions++;
+                            team.TeamSgstnCount++;
+                            employeeRepository.Update(responsibleEmployee);
+                            await _teamRepository.UpdateTeam(team);
+                        }
+
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        throw;
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            
+
+            
             return View(suggestion);
         }
 
@@ -424,7 +489,6 @@ namespace NordicDoorSuggestionSystem.Controllers
         // This function called Delete with the parameter (int? id)
         // First checks if id = null. If null, return NotFound()
         // Then it calls the GetSuggestion() from SR
-        //
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || await _suggestionRepository.GetSuggestions() == null)
@@ -497,14 +561,13 @@ namespace NordicDoorSuggestionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddComment([Bind("CommentID, EmployeeNumber,SuggestionID, Content, CommentTime")] Comment comment)
+        public async Task<IActionResult> AddComment([Bind("CommentID, EmployeeNumber,SuggestionID, Content, CommentTime")] AddSuggestionComment comment)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             
             {
                 var newComment = new Comment {
-                    CommentID = comment.CommentID,
                     EmployeeNumber = user.EmployeeNumber,
                     FirstName = user.FirstName,
                     LastName = user.LastName,

@@ -35,19 +35,21 @@ namespace NordicDoorSuggestionSystem.Controllers
             this.sqlConnector = sqlConnector;
             _teamRepository = teamRepository;
         }
-    
+
 
         public IActionResult Index()
         {
             var teams = _context.Team;
             return View(teams);
         }
-      
+
+
         public IActionResult MyTeam()
         {
             return View();
         }
-      
+
+
         public async Task<IActionResult> MyTeam(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User); 

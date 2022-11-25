@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 
 namespace bacit_dotnet.MVC.Controllers
 {
-    //[Authorize(Roles ="Administrator")]
+
     public class AdministrationController : Controller
     {
 
@@ -42,11 +42,13 @@ namespace bacit_dotnet.MVC.Controllers
             this._departmentRepository = departmentRepository;
         }
 
+
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public IActionResult Users()
         {
@@ -54,7 +56,8 @@ namespace bacit_dotnet.MVC.Controllers
             return View(users);
         }
 
-        [HttpGet]
+        [Authorize(Policy = "Administrator")]
+        [HttpGet]        
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -87,7 +90,8 @@ namespace bacit_dotnet.MVC.Controllers
             return View(toEdit);
         }
 
-        [HttpPost]
+        [Authorize(Policy = "Administrator")]
+        [HttpPost]        
         public async Task<IActionResult> EditUser(UserEditViewModel model)
         {
             var user = await _userManager.FindByIdAsync(model.Id);
@@ -97,24 +101,25 @@ namespace bacit_dotnet.MVC.Controllers
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                Employee employee = new Employee
+                var employee = employeeRepository.GetEmployeeByNumber(user.EmployeeNumber);
+                Employee updatedEmployee = new Employee
                 {
                     EmployeeNumber = user.EmployeeNumber,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Role = model.RoleSelected
+                    Role = model.RoleSelected,
+                    ProfilePicture = employee.ProfilePicture,
+                    CreatedSuggestions = employee.CreatedSuggestions,
+                    CompletedSuggestions = employee.CompletedSuggestions
                 };
-                employeeRepository.Update(employee);
-                
+                employeeRepository.Update(updatedEmployee);
+                if (model.PreviousRole != model.RoleSelected)
+                {
+                    await _userManager.AddToRoleAsync(user, model.RoleSelected);
+                    await _userManager.RemoveFromRoleAsync(user, model.PreviousRole);
+                }
                 return RedirectToAction("Users");
             }
-            if (model.PreviousRole != model.RoleSelected)
-            {
-                await _userManager.AddToRoleAsync(user, model.RoleSelected);
-                await _userManager.RemoveFromRoleAsync(user, model.PreviousRole);
-            }
-           
-
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error.Description);
@@ -122,6 +127,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -213,6 +219,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(createTeam);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateTeam(CreateTeamViewModel createTeamViewModel)
@@ -275,6 +282,7 @@ namespace bacit_dotnet.MVC.Controllers
             return RedirectToAction(nameof(Teams));
         }
 
+
         [HttpGet]
         public async Task<IActionResult> EditTeam(int? id)
         {
@@ -320,6 +328,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(editTeam);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTeam(EditTeamViewModel editTeamViewModel)
@@ -350,7 +359,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View();
         }
 
-        
+
 
         [HttpGet]
         public IActionResult EditTeamMembers()
@@ -362,6 +371,7 @@ namespace bacit_dotnet.MVC.Controllers
             vm.TeamList = teams;
             return View(vm);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -380,6 +390,7 @@ namespace bacit_dotnet.MVC.Controllers
             }
             return RedirectToAction("EditTeamMembers");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> DetailsMembers(int id)
@@ -400,6 +411,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(vm);
         }
 
+
         public async Task<IActionResult> MittTeam()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -418,6 +430,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(vm);
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public IActionResult Departments()
         {
@@ -425,12 +438,14 @@ namespace bacit_dotnet.MVC.Controllers
             return View(departments);
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public IActionResult CreateDepartment()
         {
             return View();
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> CreateDepartment(CreateDepartmentViewModel createDepViewModel)
         {
@@ -449,6 +464,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View();
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public IActionResult EditDepartment(int id)
         {
@@ -462,6 +478,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(departmentToChange);
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> EditDepartment(EditDepartmentViewModel editedDepartment)
         {
@@ -476,6 +493,7 @@ namespace bacit_dotnet.MVC.Controllers
             return RedirectToAction("Departments");
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public IActionResult DetailDepartment(int id)
         {
@@ -490,6 +508,7 @@ namespace bacit_dotnet.MVC.Controllers
             return View(departmentToShow);
         }
 
+        [Authorize(Policy = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
@@ -500,11 +519,6 @@ namespace bacit_dotnet.MVC.Controllers
             }
             else
             {
-                var teams = _context.Team.Where(e => e.Team.DepartmentID).Equals(e => e.department.DepartmentID).ToList();
-                for (var i = teams.Count()-1; i >= 0; i--)
-                {
-
-                }
                 await _departmentRepository.Delete(department);
                 await _departmentRepository.SaveChanges();
                 return RedirectToAction("Departments");
